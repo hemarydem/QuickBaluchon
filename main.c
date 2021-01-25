@@ -30,17 +30,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include "qrcodegen.h"
-
-
+#include <SDL.h>
+#define WINDOW_WIDTH (600)
+#define WINDOW_HEIGHT (600)
 // Function prototypes
 static void doVarietyDemo(void);
-
 static void printQr(const uint8_t qrcode[]);
-
-
 // The main application program.
-int main(void) {
+int main(int argc, char  ** argv) {
+	SDL_Window * win = NULL;
+    SDL_Renderer * renderer = NULL;
+	SDL_Init(SDL_INIT_VIDEO); // TODO error function
+	win  = SDL_CreateWindow("QRcode generator",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH, WINDOW_HEIGHT,0);//TODO error function
+	renderer = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED);
 	doVarietyDemo();
+	SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(win);
+	SDL_Quit();
 	return EXIT_SUCCESS;
 }
 /*---- Demo suite ----*/
@@ -55,9 +61,7 @@ static void doVarietyDemo(void) {
 			printQr(qrcode);
 	}
 }
-
 /*---- Utilities ----*/
-
 // Prints the given QR Code to the console.
 static void printQr(const uint8_t qrcode[]) {
 	int size = qrcodegen_getSize(qrcode);
