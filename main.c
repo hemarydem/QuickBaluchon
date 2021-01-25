@@ -40,14 +40,24 @@ static void printQr(const uint8_t qrcode[]);
 int main(int argc, char  ** argv) {
 	SDL_Window * win = NULL;
     SDL_Renderer * renderer = NULL;
+	SDL_Rect rect;
 	int finish  = 0;
 	SDL_Init(SDL_INIT_VIDEO); // TODO error function
 	win  = SDL_CreateWindow("QRcode generator",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH, WINDOW_HEIGHT,0);//TODO error function
 	renderer = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(renderer);
+	rect.h = 100;
+	rect.w = 100;
+	rect.x = 0;
+	rect.y = 0;
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderFillRect(renderer,&rect);
+	//SDL_RenderClear(renderer);
+	rect.x = 100;
+	rect.y = 0;
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderFillRect(renderer,&rect);
+	//SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
-
 	while (!finish) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -61,14 +71,16 @@ int main(int argc, char  ** argv) {
                     }
                 break;
             }
-			uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
-			uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
-			bool ok = qrcodegen_encodeText("314159265358979323846264338327950288419716939937510", tempBuffer, qrcode,
-				qrcodegen_Ecc_MEDIUM, qrcodegen_VERSION_MIN, qrcodegen_VERSION_MAX, qrcodegen_Mask_AUTO, true);
-			if (ok)
-				printQr(qrcode);
-        }
-        //SDL_RenderClear(renderer);
+		/*
+		uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
+		uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
+		bool ok = qrcodegen_encodeText("314159265358979323846264338327950288419716939937510", tempBuffer, qrcode,
+		qrcodegen_Ecc_MEDIUM, qrcodegen_VERSION_MIN, qrcodegen_VERSION_MAX, qrcodegen_Mask_AUTO, true);
+		if (ok)
+		printQr(qrcode);
+		*/
+		
+		}
 	}
 	doVarietyDemo();
 	SDL_DestroyRenderer(renderer);
@@ -114,6 +126,6 @@ static void printQrSDL(const uint8_t qrcode[]) {
 	fputs("\n", stdout);
 }
 
-void printDarkRect() {
-	
+void printDarkRect(int r,int g, int b) {
+//	SDL_SetRenderDrawColor(renderer, r, g, b, SDL_ALPHA_OPAQUE);
 }
