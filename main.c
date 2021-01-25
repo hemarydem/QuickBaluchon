@@ -124,7 +124,7 @@ int main(int argc, char  ** argv) {
 			printf("ok");
 		}
 		printf("ok");
-	while (!finish) {
+
 		SDL_RenderClear(renderer);						// NOTE ne faite pas attention
         SDL_Event event;								// au switch et a la boucle elle
         while (SDL_PollEvent(&event)) {					// est là car je suis obligé de l'integrer
@@ -165,7 +165,7 @@ int main(int argc, char  ** argv) {
     	SDL_QueryTexture(texture, NULL, NULL, &dst.w, &dst.h);
     	SDL_RenderCopy(renderer, texture, NULL, &dst);
         SDL_RenderPresent(renderer);
-	}
+	
 	printf("\n");
 	for(int i = 0; i < 60; i ++) {
 		for(int j = 0; j < 60; j ++) {
