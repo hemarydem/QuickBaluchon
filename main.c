@@ -1,4 +1,5 @@
 //gcc src/main.c -o bin/uPikachu.exe -I include -L lib -lmingw32 -lSDL2main -lSDL2
+//gcc *.c -o test.app $(sdl2-config --cflags --libs) -lSDL2_image
 /* 
  * QR Code generator demo (C)
  * 
@@ -30,7 +31,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "qrcodegen.h"
-//#include "SDL.h"
 #include <SDL.h>
 #include "myQrCodeFunction.h"
 #include <SDL_image.h>
@@ -60,7 +60,6 @@ int main(int argc, char  ** argv) {
 	int h = 0;
 	int w = 0;
 	SDL_Rect rect[60][60];
-
 	for(int i = 0; i < 60; i ++) {
 		for(int j = 0; j < 60; j ++) {
 			rect[i][j].h  = 10;
@@ -111,16 +110,6 @@ int main(int argc, char  ** argv) {
 						w++;
 						array[h][w] = 1;
 						w++;
-						/*for(int i = 0; i < 2; i++) {
-							rect[count].x = xPosition;
-							rect[count].y = yPosition;
-							SDL_SetRenderDrawColor(renderer, noir.r, noir.g, noir.b, SDL_ALPHA_OPAQUE);
-							SDL_RenderFillRect(renderer,&rect[count]);
-							count ++;
-							xPosition += 20;
-							printf("%d\n", xPosition);
-							printf("#");
-						}*/
 					} else {
 						printf("  ");
 						calcu++;
@@ -128,14 +117,11 @@ int main(int argc, char  ** argv) {
 						w++;
 						array[h][w] = 0;
 						w++;
-						//xPosition += 40;
 					}
 				}
 				printf("\n");
 				h++;
 				w = 0;
-				//yPosition += 20;
-				//xPosition = 0;
 			}
 		}
 		SDL_RenderClear(renderer);				
@@ -166,13 +152,13 @@ int main(int argc, char  ** argv) {
     	SDL_QueryTexture(texture, NULL, NULL, &dst.w, &dst.h);
     	SDL_RenderCopy(renderer, texture, NULL, &dst);
 		SDL_Surface *sreenShot = SDL_CreateRGBSurface(0,WINDOW_WIDTH,WINDOW_HEIGHT,32,rmask,gmask,bmask,amask); 
-        SDL_RenderPresent(renderer);
+        //SDL_RenderPresent(renderer);
 		//SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sreenShot->pixels, sreenShot->pitch);
 		SDL_LockSurface(sreenShot);
 		SDL_RenderReadPixels(renderer,NULL,sreenShot->format->format,sreenShot->pixels,sreenShot->pitch);
-		SDL_SaveBMP(sreenShot,"AAAAA.bmp");
+		SDL_SaveBMP(sreenShot,"xxxjjxx.bmp");
 		//IMG_SavePNG(sreenShot, "out.png");
-	SDL_Delay(50000);
+	//SDL_Delay(5000);
 	printf("\n");
 	for(int i = 0; i < 60; i ++) {
 		for(int j = 0; j < 60; j ++) {
@@ -180,7 +166,6 @@ int main(int argc, char  ** argv) {
 		}
 		printf("\n");
     }
-	//doVarietyDemo();
 	SDL_UnlockSurface(sreenShot);
 	SDL_FreeSurface(sreenShot);
 	SDL_DestroyRenderer(renderer);
