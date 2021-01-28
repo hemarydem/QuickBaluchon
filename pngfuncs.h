@@ -22,7 +22,7 @@
 */
 
 #include <png.h>
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 
 static int png_colortype_from_surface(SDL_Surface *surface);

@@ -164,12 +164,14 @@ int main(int argc, char  ** argv) {
 		SDL_QueryTexture(texture, NULL, NULL, &dst.w, &dst.h);
 		SDL_RenderCopy(renderer, texture, NULL, &dst);
 		sreenShot = SDL_CreateRGBSurface(0,WINDOW_WIDTH,WINDOW_HEIGHT,32,rmask,gmask,bmask,amask); 
-		SDL_RenderPresent(renderer);
+		//SDL_RenderPresent(renderer);
 		//SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sreenShot->pixels, sreenShot->pitch);
 		SDL_LockSurface(sreenShot);
 		SDL_RenderReadPixels(renderer,NULL,sreenShot->format->format,sreenShot->pixels,sreenShot->pitch);
-		SDL_SaveBMP(sreenShot,"BBB.bmp");
-		IMG_SavePNG(sreenShot, "iiii.png");
+		png_save_surface("testimage.png", sreenShot);
+		/*SDL_SaveBMP(sreenShot,"BBB.bmp");
+		IMG_SavePNG(sreenShot, "iiii.png");*/
+
 	}
 	printf("\n");
 	for(int i = 0; i < 60; i ++) {
