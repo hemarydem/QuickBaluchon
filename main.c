@@ -35,7 +35,9 @@
 #include "myQrCodeFunction.h"
 #include <SDL_image.h>
 #include <string.h>
+#include <stdint.h>
 #include "pngfuncs.h"
+#include "pixel.h"
 #define WINDOW_WIDTH (600)
 #define WINDOW_HEIGHT (600)
 
@@ -52,48 +54,47 @@
 #endif
 
 int main(int argc, char  ** argv) {
-	//////////////////////////////
-	//			SDL_Variable	//
-	//////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////			SDL_Variable	//////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 	SDL_Window * win = NULL;
 	SDL_Renderer * renderer = NULL;
-	SDL_Texture * texture = NULL;
+	SDL_Surface * drawingSheet;
+	Uint32 *pixels;
+	size_t i, j;
 	int array [60][60]= {{0}};
 	int h = 0;
 	int w = 0;
-	SDL_Rect rect[60][60];
-	for(int i = 0; i < 60; i ++) {
-		for(int j = 0; j < 60; j ++) {
-			rect[i][j].h  = 10;
-			rect[i][j].w  = 10;
-			rect[i][j].x  = 0;
-			rect[i][j].y  = 0;
-		}
-	}
-	SDL_Rect dst = {0, 0, 0, 0};
-	SDL_Color blanc = {255, 255, 255, 255};
-	SDL_Color noir = {0, 0, 0, 0};
-	SDL_Surface *sreenShot = NULL;
+	int m;
+	int n;
 	int count = 0;
-	int finish  = 0;
+	int gotoline = 0;
+	size_t xIndixePixel = 0;
+	size_t yIndixePixel = 0;
+	drawingSheet = SDL_CreateRGBSurfaceWithFormat(0, 600, 600, 32, SDL_PIXELFORMAT_RGBA8888); 
 	int border = 4;
-	int xPosition = 0;
-	int yPosition = 0;
-	int calcu = 1;
-	//////////////////////////////
-	//			init SDL		//
-	//////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////			init SDL		//////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	SDL_Init(SDL_INIT_VIDEO); // TODO error function
 	win  = SDL_CreateWindow("QRcode generator",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,WINDOW_WIDTH, WINDOW_HEIGHT,0);//TODO error function
 	renderer = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED);
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,SDL_TEXTUREACCESS_TARGET, 600, 600);
-	//////////////////////////////
-	//	generate qr code		//
-	//////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////	generate qr code		//////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
 	uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
 	bool ok = qrcodegen_encodeText(
-	"https://www.google.com/", 
+	"remyHamed", 
 	tempBuffer, 
 	qrcode,
 	qrcodegen_Ecc_MEDIUM, 
@@ -108,81 +109,76 @@ int main(int argc, char  ** argv) {
 			for (int x = -border; x < size + border; x++) {
 				if(qrcodegen_getModule(qrcode, x, y)) {
 					printf("##");
-					calcu++;
 					array[h][w] = 1;
 					w++;
 					array[h][w] = 1;
 					w++;
+					gotoline++;
 				} else {
 					printf("  ");
-					calcu++;
 					array[h][w] = 0;
 					w++;
 					array[h][w] = 0;
 					w++;
+					gotoline++;
 				}
 			}
+			printf("gotoline = %d\n", gotoline);
 			printf("\n");
 			h++;
 			w = 0;
 		}
 	}
-	while (!finish) {
-		xPosition = 0;
-		yPosition = 0;											// NOTE ne faite pas attention
-		SDL_Event event;								// au switch et a la boucle elle
-		while (SDL_PollEvent(&event)) {					// est là car je suis obligé de l'integrer
-			if(event.type == SDL_QUIT) {				// dans mon code sur mac
-				finish = 1;								// sinon la fenêtre ne souvre pas
-			}											// un pb exclusif a mac
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////	
+	
+	SDL_LockSurface(drawingSheet);
+	pixels = drawingSheet->pixels;
+	for(i = 0; i < 600; i++) {								// all the surface is in 
+        for(j = 0; j < 600; j++) {							//white
+            setPixel(drawingSheet, 0xFF, 0xFF, 0xFF,0xFF, i, j);
 		}
-		SDL_RenderClear(renderer);				
-		SDL_SetRenderTarget(renderer, texture);
-		SDL_RenderClear(renderer);
-		for(int i = 0; i < 60; i ++) {
-			for(int j = 0; j < 60; j ++) {
-				if(array[i][j]) {
-					rect[i][j].x = xPosition;
-					rect[i][j].y = yPosition;
-					SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);//noir
-					SDL_RenderFillRect(renderer, &rect[i][j]);
-					xPosition += 10;
-				} else {
-					rect[i][j].x = xPosition;
-					rect[i][j].y = yPosition;
-					SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);//noir
-					SDL_RenderFillRect(renderer, &rect[i][j]);
-					xPosition += 10;
+    }
+	for (m = 0; m < 60; m++) {
+		for(n = 0; n < 60; n++) {
+			if(array[m][n]) {
+				for(size_t q = yIndixePixel; q < 10 + yIndixePixel; q ++) {
+					for(size_t k = xIndixePixel; k < 10 + xIndixePixel; k ++) {
+						setPixel(drawingSheet, 0x0, 0x0, 0x0, 0xFF, k, q);
+					}
 				}
+				xIndixePixel += 10;
+				count++;
+			} else {
+				xIndixePixel += 10;
+				count++;
 			}
-			xPosition = 0;
-			yPosition +=10 ;
-			printf("\n");
+			if(count == 60) {
+				yIndixePixel += 10;
+				count  = 0;
+			}
 		}
-		SDL_SetRenderDrawColor(renderer, blanc.r, blanc.g, blanc.b, blanc.a);
-		SDL_SetRenderTarget(renderer, NULL);
-		SDL_QueryTexture(texture, NULL, NULL, &dst.w, &dst.h);
-		SDL_RenderCopy(renderer, texture, NULL, &dst);
-		sreenShot = SDL_CreateRGBSurface(0,WINDOW_WIDTH,WINDOW_HEIGHT,32,rmask,gmask,bmask,amask); 
-		//SDL_RenderPresent(renderer);
-		//SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sreenShot->pixels, sreenShot->pitch);
-		SDL_LockSurface(sreenShot);
-		SDL_RenderReadPixels(renderer,NULL,sreenShot->format->format,sreenShot->pixels,sreenShot->pitch);
-		png_save_surface("testimage.png", sreenShot);
-		/*SDL_SaveBMP(sreenShot,"BBB.bmp");
-		IMG_SavePNG(sreenShot, "iiii.png");*/
-
+		xIndixePixel = 0;
 	}
-	printf("\n");
-	for(int i = 0; i < 60; i ++) {
-		for(int j = 0; j < 60; j ++) {
+	
+	//png_save_surface("testimage.png", sreenShot);
+	//SDL_SaveBMP(sreenShot,"BBB.bmp");
+	IMG_SavePNG(drawingSheet, "tr.png");
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////	check array		//////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+	for(i = 0; i < 60; i ++) {
+		for(j = 0; j < 60; j ++) {
 			printf("%d ", array[i][j]);
 		}
 		printf("\n");
 	}
-	//doVarietyDemo();
-	SDL_UnlockSurface(sreenShot);
-	SDL_FreeSurface(sreenShot);
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+	SDL_UnlockSurface(drawingSheet);
+	SDL_FreeSurface(drawingSheet);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
