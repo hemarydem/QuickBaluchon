@@ -30,28 +30,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "qrcodegen.h"
-//#include "SDL.h"
 #include <SDL.h>
 #include "myQrCodeFunction.h"
 #include <SDL_image.h>
-#include <string.h>
 #include <stdint.h>
-#include "pngfuncs.h"
 #include "pixel.h"
-#define WINDOW_WIDTH (600)
-#define WINDOW_HEIGHT (600)
-
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	Uint32 rmask = 0xff000000;
-	Uint32 gmask = 0x00ff0000;
-	Uint32 bmask = 0x0000ff00;
-	Uint32 amask = 0x000000ff;  
-#else
-	Uint32 rmask = 0x000000ff;
-	Uint32 gmask = 0x0000ff00;
-	Uint32 bmask = 0x00ff0000;
-	Uint32 amask = 0xff000000;
-#endif
 
 int main(int argc, char  ** argv) {
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +144,6 @@ int main(int argc, char  ** argv) {
 		}
 		xIndixePixel = 0;
 	}
-	
 	//png_save_surface("testimage.png", sreenShot);
 	//SDL_SaveBMP(sreenShot,"BBB.bmp");
 	IMG_SavePNG(drawingSheet, "tr.png");
