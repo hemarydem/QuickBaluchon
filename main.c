@@ -36,22 +36,10 @@
 #include <SDL_image.h>
 #include <string.h>
 #include <stdint.h>
-#include "pngfuncs.h"
+//#include "pngfuncs.h"
 #include "pixel.h"
 #define WINDOW_WIDTH (600)
 #define WINDOW_HEIGHT (600)
-
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	Uint32 rmask = 0xff000000;
-	Uint32 gmask = 0x00ff0000;
-	Uint32 bmask = 0x0000ff00;
-	Uint32 amask = 0x000000ff;  
-#else
-	Uint32 rmask = 0x000000ff;
-	Uint32 gmask = 0x0000ff00;
-	Uint32 bmask = 0x00ff0000;
-	Uint32 amask = 0xff000000;
-#endif
 
 int main(int argc, char  ** argv) {
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +82,7 @@ int main(int argc, char  ** argv) {
 	uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
 	uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
 	bool ok = qrcodegen_encodeText(
-	"remyHamed", 
+	"https://www.google.com/", 
 	tempBuffer, 
 	qrcode,
 	qrcodegen_Ecc_MEDIUM, 
@@ -123,7 +111,7 @@ int main(int argc, char  ** argv) {
 					gotoline++;
 				}
 			}
-			printf("gotoline = %d\n", gotoline);
+			//printf("gotoline = %d\n", gotoline);
 			printf("\n");
 			h++;
 			w = 0;
