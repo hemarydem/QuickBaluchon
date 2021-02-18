@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include "pixel.h"
 #include "crypt.h"
+#include "key.h"
 #include "signInF.h"
 //gcc *.c -o logIn.exe -I include -L lib -lmingw32 -lSDL2main -lSDL2
 //gcc *.c -o logIn.app $(sdl2-config --cflags --libs) -lsdl2_image -lcurl
@@ -85,11 +86,14 @@ int main(int argc, char ** argv) {
     printf("\n strID = %s", strID);
     printf("\n strPwd = %s", strPwd);
 
-    strID = ceasarCrypt(strID); //hifrage de id et du mot de passe
-    strPwd = ceasarCrypt(strPwd);
+    key = callKey();
+    validKey = decryptKey(key);
 
-    printf("\n strID = %s", strID);
-    printf("\n strPwd = %s", strPwd);
+    strID = encryptage(strID, validKey); //hifrage de id et du mot de passe
+    strPwd = encryptage(strPwd, validKey);
+
+    printf("\n encrypt strID = %s", strID);
+    printf("\n encrypt strPwd = %s", strPwd);
 
     strcpy(jsonObj, "{\"id\":\"");
     strcat(jsonObj, strID);
@@ -107,7 +111,7 @@ int main(int argc, char ** argv) {
     headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "charset: utf-8");
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost/put/put.php");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:81/Projet%20Annuel%202/hellospot/put/put.php");
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonObj);
