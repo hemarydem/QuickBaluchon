@@ -7,15 +7,16 @@
 #include "qrcodegen.h"
 #include <SDL.h>
 #include <SDL_image.h>
-#include <string.h>
 #include <stdint.h>
 #include "pixel.h"
+#include "crypt.h"
+#include "signInF.h"
 //gcc *.c -o logIn.exe -I include -L lib -lmingw32 -lSDL2main -lSDL2
 //gcc *.c -o logIn.app $(sdl2-config --cflags --libs) -lsdl2_image -lcurl
 size_t got_data(char * buffer, size_t itemsize, size_t nitems, void * ignorthis) {
     size_t bytes =  itemsize * nitems;
     int linenumber = 1;
-    FILE * f = fopen("docTest.txt", "wb");
+    FILE * f = fopen("connect.txt", "wb");
     printf("new chunk (%zu bytes)\n", bytes);
     printf("%d:\t", linenumber);
     for (int i = 0; i < bytes; i++) {
@@ -44,52 +45,87 @@ int main(int argc, char ** argv) {
     int m;
     int n;
     int count = 0;
-    size_t xIndixePixel = 0;
-    size_t yIndixePixel = 0;
 
-    drawingSheet = SDL_CreateRGBSurfaceWithFormat(0, 600, 600, 32, SDL_PIXELFORMAT_RGBA8888); 
-    int border = 4;
+    int border = 4; // qrcode value
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////      CURL_Variable    //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     CURL *curl;
     struct curl_slist *headers = NULL;
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////            init librarys       //////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    char * strID = malloc(sizeof(char) * 255);
+    char * strPwd = malloc(sizeof(char) * 255);
+    char * jsonObj = malloc(sizeof(char) * 255);
+    int key = 0;
+    int validKey = 0;
+    int k;
+    char input[500];
+
+    size_t xIndixePixel = 0;
+    size_t yIndixePixel = 0;
+    drawingSheet = SDL_CreateRGBSurfaceWithFormat(0, 600, 600, 32, SDL_PIXELFORMAT_RGBA8888);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////            init librarys       /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     SDL_Init(SDL_INIT_VIDEO); // TODO error function
 
-    char* jsonObj = "{ \"id\" : \"alexandre\" , \"pwd\" : \"23\" }"; //TODO this variable must ne init by user
     curl_global_init(CURL_GLOBAL_ALL);// init lib curl
-    curl = curl_easy_init(); 
+    curl = curl_easy_init();
     if (curl == NULL) {
         return 128;
     }
+
+    printf("Taper votre pseudo\n");                 // get id and pass word
+    fgets(strID,255,stdin);
+    strID[strlen(strID)-1]='\0';
+    printf("Taper votre mot de passe\n");
+    fgets(strPwd,255,stdin);
+    strPwd[strlen(strPwd)-1]='\0';
+
+    printf("\n strID = %s", strID);
+    printf("\n strPwd = %s", strPwd);
+
+    strID = ceasarCrypt(strID); //hifrage de id et du mot de passe
+    strPwd = ceasarCrypt(strPwd);
+
+    printf("\n strID = %s", strID);
+    printf("\n strPwd = %s", strPwd);
+
+    strcpy(jsonObj, "{\"id\":\"");
+    strcat(jsonObj, strID);
+    strcat(jsonObj, "\",\"pwd\":\"");
+    strcat(jsonObj, strPwd);
+    strcat(jsonObj, "\"}");
+    printf("\n jsonObj = %s", jsonObj);
+    free(strID);
+    free(strPwd);
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////      Send data by json    //////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "charset: utf-8");
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8888/put/put.php");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost/put/put.php");
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonObj);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcrp/0.1");
-    //curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, got_data);
-    // perform out action
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, got_data);
+    //perform out action
     CURLcode result = curl_easy_perform(curl);
     if(result != CURLE_OK) {
         fprintf(stderr, "download problem: %s\n", curl_easy_strerror(result));
     }
-
+    if(signIn()) printf("Vous etes connecté\n");
     //////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////    generate qr code        //////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
     uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
     bool ok = qrcodegen_encodeText(
-    "https://www.google.com/", 
+    "https://www.google.com/", // here string to convert in qrcode
     tempBuffer, 
     qrcode,
     qrcodegen_Ecc_MEDIUM, 
@@ -153,7 +189,7 @@ int main(int argc, char ** argv) {
         }
         xIndixePixel = 0;
     }
-    IMG_SavePNG(drawingSheet, "tr.png");
+    IMG_SavePNG(drawingSheet, "bob.png");
     SDL_UnlockSurface(drawingSheet);
     SDL_FreeSurface(drawingSheet);
     SDL_Quit();
@@ -162,4 +198,3 @@ int main(int argc, char ** argv) {
     curl_global_cleanup();
     return EXIT_SUCCESS;
 }
-//gcc *.c -o logIn.app $(sdl2-config --cflags --libs) -lsdl2_image -lcurl
