@@ -1,6 +1,7 @@
 #ifndef key_h
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 #include <curl/curl.h>
-int callKey ();
+//int callKey (int a);
 #endif
+

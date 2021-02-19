@@ -3,7 +3,7 @@ project(quisTst C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(quisTst main.c pixel.c qrcodegen.c crypt.c signInF.c signInF.h)
+add_executable(quisTst main.c pixel.c qrcodegen.c crypt.c signInF.c signInF.h curlfun.c curlfun.h)
 find_package(PkgConfig REQUIRED)
 
 #######################################################################################################################

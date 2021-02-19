@@ -24,9 +24,6 @@ int decryptKey(int key)
 {
     int result;
 
-    printf("\nPlease enter a key: ");
-    scanf("%d", &key);
-
     result = log10(key)+1;
 
     if (result == 9){

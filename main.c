@@ -12,6 +12,7 @@
 #include "crypt.h"
 #include "key.h"
 #include "signInF.h"
+//#include "curlfun.h"
 //gcc *.c -o logIn.exe -I include -L lib -lmingw32 -lSDL2main -lSDL2
 //gcc *.c -o logIn.app $(sdl2-config --cflags --libs) -lsdl2_image -lcurl
 size_t got_data(char * buffer, size_t itemsize, size_t nitems, void * ignorthis) {
@@ -31,6 +32,11 @@ size_t got_data(char * buffer, size_t itemsize, size_t nitems, void * ignorthis)
     printf("\n\n");
     fclose(f);
     return bytes;
+}
+
+size_t dataToDownload(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+    size_t data = fwrite(ptr, size, nmemb, stream);
+    return data;
 }
 
 int main(int argc, char ** argv) {
@@ -86,10 +92,43 @@ int main(int argc, char ** argv) {
     printf("\n strID = %s", strID);
     printf("\n strPwd = %s", strPwd);
 
-    key = callKey();
-    validKey = decryptKey(key);
+    /////////TEST RECUP OBJ.TXT////////
 
-    strID = encryptage(strID, validKey); //hifrage de id et du mot de passe
+    CURL * curlObj;
+    FILE * fpObj;
+    CURLcode resultObj;
+    char * urlObj = "http://localhost:81/Projet%20Annuel%202/hellospot/put/obj.txt";
+    char * fileObj = "obj.txt";
+    char * bufferObj = malloc(sizeof(char) * 9);
+
+    curlObj = curl_easy_init();
+
+    if (curlObj) {
+        fpObj = fopen(fileObj,"wb");
+
+        curl_easy_setopt(curlObj, CURLOPT_URL, urlObj);
+        curl_easy_setopt(curlObj, CURLOPT_WRITEFUNCTION, dataToDownload);
+        curl_easy_setopt(curlObj, CURLOPT_WRITEDATA, fpObj);
+
+        resultObj = curl_easy_perform(curlObj);
+
+        curl_easy_cleanup(curlObj);
+        fclose(fpObj);
+
+        fpObj = fopen(fileObj,"rt");
+
+        fread(bufferObj,sizeof(bufferObj),1,fpObj);
+        resultObj = atoi(bufferObj);
+
+        fclose(fpObj);
+    }else {
+        return 0;
+    }
+    ////////////////////
+    //key = callKey(1);
+    validKey = decryptKey(resultObj);
+
+    strID = encryptage(strID, validKey); //chiffrage de id et du mot de passe
     strPwd = encryptage(strPwd, validKey);
 
     printf("\n encrypt strID = %s", strID);
