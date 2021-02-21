@@ -50,6 +50,8 @@ char * decryptage(char * str, int key)
         }
     }
 
+
+
     printf("\ndecrypted str: %s\n", str);
     return str;
 }
