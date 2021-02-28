@@ -1,0 +1,3 @@
+C:/Users/hamed/Desktop/laboQuid/QuickBaluchon/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/hamed/Desktop/laboQuid/QuickBaluchon/cmake-build-debug/CMakeFiles/TestExcel.dir
+C:/Users/hamed/Desktop/laboQuid/QuickBaluchon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
