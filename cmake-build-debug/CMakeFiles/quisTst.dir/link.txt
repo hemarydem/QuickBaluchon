@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.3.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\quisTst.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe cr CMakeFiles\quisTst.dir/objects.a @CMakeFiles\quisTst.dir\objects1.rsp
+C:\msys64\mingw64\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\quisTst.dir/objects.a -Wl,--no-whole-archive  -o quisTst.exe -Wl,--out-implib,libquisTst.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\quisTst.dir\linklibs.rsp
