@@ -1,5 +1,5 @@
 #include "curlprocess.h"
-
+#include <curl/curl.h>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////           CURL DATA               /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,12 +129,10 @@ void sendData (char * jsonObj, CURL * curl) {
 ////////////////////////////////      CURL VARIABLE    //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int curlFunction()
+int curlFunction(char * strID, char * strPwd)
 {
     CURLcode resultObj;
     CURL *curl;
-    char * strID = malloc(sizeof(char) * 255);
-    char * strPwd = malloc(sizeof(char) * 255);
     char * jsonObj = malloc(sizeof(char) * 255);
     int key = 0;
     int k;
@@ -146,22 +144,12 @@ int curlFunction()
     return 128;
     }
 
-    printf("Taper votre pseudo\n");
-    fgets(strID,255,stdin);
-    strID[strlen(strID)-1]='\0';
-    printf("Taper votre mot de passe\n");
-    fgets(strPwd,255,stdin);
-    strPwd[strlen(strPwd)-1]='\0';
-
-    printf("\n strID = %s", strID);
-    printf("\n strPwd = %s", strPwd);
-
     resultObj = getKey();
     jsonObj = jsonData(resultObj, strID, strPwd);
     sendData(jsonObj, curl);
 
     curl_easy_cleanup(curl);
     curl_global_cleanup();
-    return EXIT_SUCCESS;
+    return 1;
 
 };

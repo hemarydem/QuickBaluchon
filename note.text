@@ -1,0 +1,5 @@
+por le qrcode si vou vouler voi comman l'apppeler regade sur ala branch qrcodelinux
+
+la fontion et lasuitvante
+
+    qrCodePrintPNG(str, title);

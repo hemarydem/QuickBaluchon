@@ -3,7 +3,7 @@ project(TestExcel C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(TestExcel main.c pixel.c qrcodegen.c crypt.c signInF.c signInF.h curlprocess.c curlprocess.h qrcodeprocess.c qrcodeprocess.h)
+add_executable(TestExcel main.c  crypt.c signInF.c signInF.h curlprocess.c curlprocess.h)
 find_package(PkgConfig REQUIRED)
 
 #######################################################################################################################

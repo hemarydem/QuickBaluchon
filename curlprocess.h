@@ -1,7 +1,6 @@
 #ifndef curlprocess_h
 #include <stdio.h>
 #include <stdlib.h>
-#include <curl/curl.h>
 #include "crypt.h"
 #include "signInF.h"
 #include <stddef.h>

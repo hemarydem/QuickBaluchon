@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "curlprocess.h": "c",
+        "crypt.h": "c"
+    }
+}
