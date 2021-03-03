@@ -8,17 +8,17 @@ size_t got_data(char * buffer, size_t itemsize, size_t nitems, void * ignorthis)
     size_t bytes =  itemsize * nitems;
     int linenumber = 1;
     FILE * f = fopen("connect.txt", "wb");
-    printf("new chunk (%zu bytes)\n", bytes);
-    printf("%d:\t", linenumber);
+    //printf("new chunk (%zu bytes)\n", bytes);
+    //printf("%d:\t", linenumber);
     for (int i = 0; i < bytes; i++) {
-        printf("%c", buffer[i]);
+        //printf("%c", buffer[i]);
         fprintf(f,"%c",buffer[i]);
         if (buffer[i] == '\n') {
             linenumber++;
-            printf("%d:\t", linenumber);
+           // printf("%d:\t", linenumber);
         }
     }
-    printf("\n\n");
+    //printf("\n\n");
     fclose(f);
     return bytes;
 }
@@ -36,7 +36,7 @@ CURLcode getKey() {
     CURL *curlObj;
     FILE *fpObj;
     CURLcode resultObj;
-    char *urlObj = "http://localhost:81/Projet%20Annuel%202/hellospot/put/obj.bin";
+    char *urlObj = "http://localhost:8888/put/obj.bin";
     char *fileObj = "obj.bin";
     char *bufferObj = malloc(sizeof(char) * 9);
 
@@ -58,8 +58,8 @@ CURLcode getKey() {
 
         fread(bufferObj, sizeof(char) * 9, 1, fpObj);
         resultObj = atoi(bufferObj);
-        printf("\nresultObj = %d", resultObj);
-        printf("\nbufferObj = %s", bufferObj);
+       // printf("\nresultObj = %d", resultObj); // "" ''   
+       // printf("\nbufferObj = %s", bufferObj);
 
         fclose(fpObj);
         remove(fileObj);
@@ -82,15 +82,15 @@ char * jsonData(CURLcode resultObj, char * strID, char * strPwd) {
     strID = encryptage(strID, validKey);
     strPwd = encryptage(strPwd, validKey);
 
-    printf("\n encrypt strID = %s", strID);
-    printf("\n encrypt strPwd = %s", strPwd);
+    //printf("\n encrypt strID = %s", strID);
+    //printf("\n encrypt strPwd = %s", strPwd);
 
     strcpy(jsonObj, "{\"id\":\"");
     strcat(jsonObj, strID);
     strcat(jsonObj, "\",\"pwd\":\"");
     strcat(jsonObj, strPwd);
     strcat(jsonObj, "\"}");
-    printf("\n jsonObj = %s", jsonObj);
+    //printf("\n jsonObj = %s", jsonObj);
     free(strID);
     free(strPwd);
     return jsonObj;
@@ -100,12 +100,12 @@ char * jsonData(CURLcode resultObj, char * strID, char * strPwd) {
 ////////////////////////////////      CURL SEND DATA BY JSON    /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void sendData (char * jsonObj, CURL * curl) {
+int sendData (char * jsonObj, CURL * curl) {
     struct curl_slist * headers = NULL;
     headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "charset: utf-8");
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:81/Projet%20Annuel%202/hellospot/put/put.php");
+    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8888/put/put.php");
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonObj);
@@ -120,8 +120,10 @@ void sendData (char * jsonObj, CURL * curl) {
 
     if (signIn()) {
         printf("Vous etes connecte !\n");
+        return 1;
     } else {
         printf("Identifiants ou mots de passe incorrects\n");
+        return 0;
     }
 }
 
@@ -129,13 +131,20 @@ void sendData (char * jsonObj, CURL * curl) {
 ////////////////////////////////      CURL VARIABLE    //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int curlFunction(char * strID, char * strPwd) {
+int curlFunction(const gchar *strIDb, const gchar *strPwdb) {
+    char *strID = (char *)strIDb;
+    char *strPwd = (char *)strPwdb;
     CURLcode resultObj;
     CURL *curl;
     char * jsonObj = malloc(sizeof(char) * 255);
     int key = 0;
     int k;
     char input[500];
+    int resultData;
+
+    strID[strlen(strID)]='\0';
+    strPwd[strlen(strPwd)]='\0';
+    printf("\n%s\n%s\n", strID, strPwd);
 
     curl_global_init(CURL_GLOBAL_ALL);// init lib curl
     curl = curl_easy_init();
@@ -145,10 +154,12 @@ int curlFunction(char * strID, char * strPwd) {
 
     resultObj = getKey();
     jsonObj = jsonData(resultObj, strID, strPwd);
-    sendData(jsonObj, curl);
-
+    resultData = sendData(jsonObj, curl);
+    printf("curl fonction");
+    printf("resultData = %d",resultData);
     curl_easy_cleanup(curl);
     curl_global_cleanup();
-    return 1;
+    printf("curl fonction2");
+    return resultData;
 
 };

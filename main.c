@@ -22,16 +22,19 @@ const gchar *entry_mail;
 const gchar *entry_password;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////           FUNCTION maine               /////////////////////////////////////////////////////
+////////////////////////////////           FUNCTION main              /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void getEntryMail( GtkWidget *widget, GtkWidget *entry ) {
   entry_mail = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Entry contents: %s\n", entry_mail);
 }
 
 static void getEntryPassword( GtkWidget *widget, GtkWidget *entry ) {
   entry_password = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Entry contents: %s\n", entry_mail);
+}
+
+void GoConnexion(GtkWidget *widget, gpointer data){
+  int i = curlFunction(entry_mail,entry_password);
+  printf("k = %d",i);
 }
 
 void connexion_window(){
@@ -39,6 +42,7 @@ void connexion_window(){
     GtkWidget       *window;
     GtkWidget       *mailid;
     GtkWidget       *pwdid;
+    GtkWidget       *button;
 
     builder = gtk_builder_new();
     gtk_builder_add_from_file (builder, "ui.glade", NULL);
@@ -54,8 +58,9 @@ void connexion_window(){
     gtk_builder_connect_signals(builder, NULL);
     g_signal_connect(pwdid, "changed", G_CALLBACK(getEntryPassword), pwdid);
 
-    int i = curlFunction((char *)entry_mail, (char *)entry_password);
-    printf("\n i = %d", i);
+    button = GTK_WIDGET(gtk_builder_get_object(builder,"Connexion"));
+    gtk_builder_connect_signals(builder,NULL);
+    g_signal_connect(G_OBJECT(button),"clicked",G_CALLBACK(GoConnexion),NULL);
 
     //ORDINATEUR S'IL E PLAI TOI TOUT BEAU ET TOUT GENTIL MAiS LES StRING DANS pwdid et dans mailid
     g_object_unref(builder);
