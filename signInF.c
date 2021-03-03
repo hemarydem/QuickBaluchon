@@ -14,6 +14,7 @@ int signIn() {
     //printf("%d", serverAnswer);
     fclose(f);
     remove ("connect.txt");
+    free(letter);
     if(serverAnswer) return 1;
     return 0;
 }

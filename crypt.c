@@ -1,7 +1,6 @@
 #include "crypt.h"
 
-char * encryptage(char * str, int key)
-{
+char * encryptage(char * str, int key) {
     int i, j, x, y;
     char test[185] = {"fRSTU#$%&mnLMq[\\]^{45tuva9rbcYZ1de78s()*+,./:;wxyzABCDghijklQEFPNOopGVWX23\"HIJK<=>@0-_!?'|}~fRSTU#$%&mnLMq[\\]^{45tuva9rbcYZ1de78s()*+,./:;wxyzABCDghijklQEFPNOopGVWX23\"HIJK<=>@0-_!?'|}~\0"};
 
@@ -24,13 +23,11 @@ char * encryptage(char * str, int key)
             }
         }
     }
-
     printf("\nencrypt str: %s\n", str);
     return str;
 }
 
-char * decryptage(char * str, int key)
-{
+char * decryptage(char * str, int key) {
     int i, j, x, y;
     char test[185] = {"fRSTU#$%&mnLMq[\\]^{45tuva9rbcYZ1de78s()*+,./:;wxyzABCDghijklQEFPNOopGVWX23\"HIJK<=>@0-_!?'|}~fRSTU#$%&mnLMq[\\]^{45tuva9rbcYZ1de78s()*+,./:;wxyzABCDghijklQEFPNOopGVWX23\"HIJK<=>@0-_!?'|}~\0"};
 
@@ -49,20 +46,14 @@ char * decryptage(char * str, int key)
             }
         }
     }
-
-
-
     printf("\ndecrypted str: %s\n", str);
     return str;
 }
 
-int decryptKey(int key)
-{
+int decryptKey(int key) {
     int result;
-
     result = log10(key)+1;
-
-    if (result == 9){
+    if (result == 9) {
         result = (sqrt(key))/100;
         printf("\nkey decrypt : %d\n", result);
         return result;
