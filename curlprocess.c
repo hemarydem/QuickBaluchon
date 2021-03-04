@@ -117,12 +117,11 @@ int sendData (char * jsonObj, CURL * curl) {
         fprintf(stderr, "download problem: %s\n", curl_easy_strerror(result));
     }
 
-
     if (signIn()) {
-        printf("Vous etes connecte !\n");
+        //printf("Vous etes connecte !\n");
         return 1;
     } else {
-        printf("Identifiants ou mots de passe incorrects\n");
+        //printf("Identifiants ou mots de passe incorrects\n");
         return 0;
     }
 }
@@ -131,9 +130,7 @@ int sendData (char * jsonObj, CURL * curl) {
 ////////////////////////////////      CURL VARIABLE    //////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int curlFunction(const gchar *strIDb, const gchar *strPwdb) {
-    char *strID = (char *)strIDb;
-    char *strPwd = (char *)strPwdb;
+int curlFunction(char *strID, char *strPwd) {
     CURLcode resultObj;
     CURL *curl;
     char * jsonObj = malloc(sizeof(char) * 255);
@@ -149,17 +146,19 @@ int curlFunction(const gchar *strIDb, const gchar *strPwdb) {
     curl_global_init(CURL_GLOBAL_ALL);// init lib curl
     curl = curl_easy_init();
     if (curl == NULL) {
-    return 128;
+        return 128;
     }
 
     resultObj = getKey();
     jsonObj = jsonData(resultObj, strID, strPwd);
-    resultData = sendData(jsonObj, curl);
-    printf("curl fonction");
-    printf("resultData = %d",resultData);
+    if(sendData(jsonObj, curl)){
+        resultData = 1;
+        //printf("1");
+    }else {
+        resultData = 0;
+        //printf("0");
+    }
     curl_easy_cleanup(curl);
     curl_global_cleanup();
-    printf("curl fonction2");
     return resultData;
-
 };

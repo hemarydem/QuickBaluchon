@@ -16,5 +16,5 @@ size_t dataToDownload(void *ptr, size_t size, size_t nmemb, FILE *stream);
 CURLcode getKey();
 char * jsonData(CURLcode resultObj, char * strID, char * strPwd);
 int sendData (char * jsonObj, CURL * curl);
-int curlFunction(const gchar * strID, const gchar * strPwd);
+int curlFunction(char *strIDb, char *strPwdb);
 #endif

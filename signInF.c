@@ -15,6 +15,9 @@ int signIn() {
     fclose(f);
     remove ("connect.txt");
     free(letter);
-    if(serverAnswer) return 1;
-    return 0;
+    if(serverAnswer){
+        return 1;
+    } else {
+        return 0;
+    }
 }

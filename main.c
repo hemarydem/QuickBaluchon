@@ -4,6 +4,8 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include "curlprocess.h"
+#include <glib.h>
+#include <glib/gprintf.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////           prototype              /////////////////////////////////////////////////////
@@ -18,23 +20,34 @@ void on_window_main_destroy();
 ////////////////////////////////           variable general              ///////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const gchar *entry_mail;
-const gchar *entry_password;
+const char *entry_mail;
+const char *entry_password;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////           FUNCTION main              /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void getEntryMail( GtkWidget *widget, GtkWidget *entry ) {
-  entry_mail = gtk_entry_get_text (GTK_ENTRY (entry));
+  
+  entry_mail = gtk_entry_get_text(GTK_ENTRY (entry));
 }
 
 static void getEntryPassword( GtkWidget *widget, GtkWidget *entry ) {
-  entry_password = gtk_entry_get_text (GTK_ENTRY (entry));
+  entry_password = gtk_entry_get_text(GTK_ENTRY (entry));
 }
 
 void GoConnexion(GtkWidget *widget, gpointer data){
-  int i = curlFunction(entry_mail,entry_password);
-  printf("k = %d",i);
+  
+    char *ID; 
+    char *Pwd;
+
+    ID = malloc(sizeof(char) * 255);
+    Pwd = malloc(sizeof(char) * 255);
+    strcpy(ID,entry_mail);
+    strcpy(Pwd,entry_password);
+    int i = curlFunction(ID,Pwd);
+    if(i){
+      g_printf("Hello world!\n");
+    }
 }
 
 void connexion_window(){
@@ -79,8 +92,6 @@ int main(int argc, char ** argv) {
     gtk_init(&argc, &argv);
     connexion_window();
     gtk_main();
-
-    //qrCodePrintPNG(char * str, char * fileName);
-
+    qrCodePrintPNG(char * str, char * fileName);
     return 0;
 }
