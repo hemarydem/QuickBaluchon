@@ -6,6 +6,7 @@
 #include "curlprocess.h"
 #include <glib.h>
 #include <glib/gprintf.h>
+#include "qrSurface.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////           prototype              /////////////////////////////////////////////////////
@@ -36,7 +37,6 @@ static void getEntryPassword( GtkWidget *widget, GtkWidget *entry ) {
 }
 
 void GoConnexion(GtkWidget *widget, gpointer data){
-  
     char *ID; 
     char *Pwd;
 
@@ -92,6 +92,6 @@ int main(int argc, char ** argv) {
     gtk_init(&argc, &argv);
     connexion_window();
     gtk_main();
-    qrCodePrintPNG(char * str, char * fileName);
+    //qrCodePrintPNG(char * str, char * fileName);
     return 0;
 }
