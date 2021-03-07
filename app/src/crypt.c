@@ -1,4 +1,4 @@
-#include "crypt.h"
+#include "../inc/crypt.h"
 
 char * encryptage(char * str, int key) {
     int i, j, x, y;

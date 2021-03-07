@@ -1,4 +1,4 @@
-#include "curlprocess.h"
+#include "../inc/curlprocess.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////           CURL DATA               /////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ CURLcode getKey() {
     CURL *curlObj;
     FILE *fpObj;
     CURLcode resultObj;
-    char *urlObj = "http://localhost:8888/put/obj.bin";
+    char *urlObj = "http://localhost/put/obj.bin";
     char *fileObj = "obj.bin";
     char *bufferObj = malloc(sizeof(char) * 9);
 
@@ -100,12 +100,12 @@ char * jsonData(CURLcode resultObj, char * strID, char * strPwd) {
 ////////////////////////////////      CURL SEND DATA BY JSON    /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int sendData (char * jsonObj, CURL * curl) {
+int sendData (char * jsonObj, CURL * curl, char * url) {
     struct curl_slist * headers = NULL;
     headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json");
     headers = curl_slist_append(headers, "charset: utf-8");
-    curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8888/put/put.php");
+    curl_easy_setopt(curl, CURLOPT_URL, url);
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonObj);
@@ -118,10 +118,8 @@ int sendData (char * jsonObj, CURL * curl) {
     }
 
     if (signIn()) {
-        //printf("Vous etes connecte !\n");
         return 1;
     } else {
-        //printf("Identifiants ou mots de passe incorrects\n");
         return 0;
     }
 }
@@ -131,6 +129,7 @@ int sendData (char * jsonObj, CURL * curl) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int curlFunction(char *strID, char *strPwd) {
+    char * url = "http://localhost/put/put.php";
     CURLcode resultObj;
     CURL *curl;
     char * jsonObj = malloc(sizeof(char) * 255);
@@ -151,7 +150,7 @@ int curlFunction(char *strID, char *strPwd) {
 
     resultObj = getKey();
     jsonObj = jsonData(resultObj, strID, strPwd);
-    if(sendData(jsonObj, curl)){
+    if(sendData(jsonObj, curl, url)){
         resultData = 1;
         //printf("1");
     }else {

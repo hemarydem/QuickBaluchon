@@ -2,7 +2,7 @@
 // Created by hamed on 17/02/2021.
 //
 
-#include "signInF.h"
+#include "../inc/signInF.h"
 
 int signIn() {
     char * letter = malloc(sizeof(char) * 1);
@@ -10,8 +10,8 @@ int signIn() {
     FILE * f = fopen("connect.txt", "r+");
     fread(letter,sizeof(char) * 1,1,f);
     serverAnswer = atoi(letter);
-    //printf("%s", letter);
-    //printf("%d", serverAnswer);
+    //printf("%s\n", letter);
+    //printf("%ld\n", serverAnswer);
     fclose(f);
     remove ("connect.txt");
     free(letter);

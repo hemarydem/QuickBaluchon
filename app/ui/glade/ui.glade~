@@ -38,7 +38,7 @@
               <placeholder/>
             </child>
             <child>
-              <object class="GtkEntry" id="Filename">
+              <object class="GtkEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
               </object>
