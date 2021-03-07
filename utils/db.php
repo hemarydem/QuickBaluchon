@@ -13,6 +13,60 @@ function getDataBaseConnection(): PDO {
         echo 'Connection failed: ' . $e->getMessage();
     }
 }
+
+function dataBaseInsert(PDO $connect, string $sql, array $params) {
+    $statement = $connect->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return $connect->lastInsertId();
+        }
+    }
+    return NULL;
+}
+
+function dataBaseFindOne(PDO $connect, string $sql, array $params) :?array {
+    $statement = $connect->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute(params);
+        if($success) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+    }
+    return NULL;
+}
+
+function dataBaseFindAll(PDO $connect, string $sql, array $params) :?array {
+    $statement = $connect->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute(params);
+        if($success) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    return NULL;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
 function dataBaseInsert(PDO $connect, string $sql, array $params): ?string
