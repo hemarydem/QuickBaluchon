@@ -5,6 +5,7 @@
  */
 function countJsonObjElem($jsonObj, $numOfElements) {
     if(count((array)$jsonObj) != $numOfElements) {// check all data are init
+        //echo "countJsonObjElem";
         http_response_code(400);
         exit(1);
     }
@@ -16,6 +17,7 @@ function countJsonObjElem($jsonObj, $numOfElements) {
 function areSetJsonObjElem($jsonObj) { //NOTE CALL  countJsonObjElem
     foreach ($jsonObj as $key => $value) {                     //Before areSetJsonObjElem()
         if(strlen($value) <= 0) {
+            //echo "areSetJsonObjElem";
             http_response_code(400);
             exit(1);
         }
