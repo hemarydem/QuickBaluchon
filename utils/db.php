@@ -3,7 +3,7 @@
 //'mysql:host=localhost;dbname=sananair;port=8889;charset=utf8', 'jo','r626wst100'
 function getDataBaseConnection(): PDO {
     //sConnect to a MySQL database using driver invocation
-    $dsn = 'mysql:dbname=qb;host=127.0.0.1';
+    $dsn = 'mysql:dbname=qb;host=localhost';
     $user = 'remy';
     $password = 'azerty';
 
