@@ -15,6 +15,8 @@ $where = $wAndp[0];
 $params = $wAndp[1];
 //print_r($where);
 //print_r($params);
+//TODO TEST TO ADAPT THE CODE WITH THE FUNCTION BELOW TO MAke the request dynamique
+// $sql = buildsSelectAndattributs($_GET, "user");//listfnctns.php
 $sql = 'SELECT nom, prenom, mail, adresse, numSiret, password, tel, driverLicence, statut, busy, zoneMaxDef FROM user';
 if (count($where) > 0) {
     $whereClause = join(" AND ", $where);

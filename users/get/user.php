@@ -2,38 +2,32 @@
 include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
-$offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
-if($_GET['offset'] >= $_GET['limit']) {
-    http_response_code(400);
-    exit(1);
+if(isset($_GET)) {
+    $id = $_GET['id'];
+    unset($_GET['id']);
+    $sql = buildsSelectAndattributs($_GET, "user");//listfnctns.php
+    $sql .= " WHERE id = ?";
+    $rows = dataBaseFindOne($sql,(int)$id); //db.php
+    $json = json_encode($rows);
+    header("Content-Type: application/json");
+    print_r($json);
+} else {
+    http_response_code(500);
 }
-$where = [];
-$params = [];
-$wAndp = buildsLIkes($where,$params, $_GET);
-$where = $wAndp[0];
-$params = $wAndp[1];
-//print_r($where);
-//print_r($params);
-$sql = 'SELECT nom, prenom, mail, adresse, numSiret, password, tel, driverLicence, statut, busy, zoneMaxDef FROM user';
-if (count($where) > 0) {
-    $whereClause = join(" AND ", $where);
-    $sql .= " WHERE " . $whereClause;
-}
-//echo $sql."\n\n";
-$sql .= " LIMIT $offset, $limit";
-//echo $sql;
-$db = getDataBaseConnection();
-$statement = $db->prepare($sql);
-if ($statement !== false) {
-    $success = $statement->execute($params);
-    if ($success) {
-        $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $json = json_encode($rows);
-        header("Content-Type: application/json");
-        print_r($json);
-    } else {
+
+//
+//$sql ='SELECT '. $_GET['attributs'] ." FROM user ";
+//unset($_GET['attributs']);
+
+//if ($statement !== false) {
+//    $success = $statement->execute($params);
+//    if ($success) {
+//        $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+//        $json = json_encode($rows);
+//        header("Content-Type: application/json");
+//        print_r($json);
+//    } else {
         //echo "error";
-        http_response_code(500);
-    }
-}
+//        http_response_code(500);
+//    }
+//}

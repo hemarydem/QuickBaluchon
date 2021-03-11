@@ -15,5 +15,16 @@ function buildsLIkes(array $where,array $params, array $listAttribut) :array {
     $res [1] = $params;
     return  $res;
 }
-//TODO fuction to build the r sql request by attribut params
-//function buildAttribs(string )
+
+function buildsSelectAndattributs(array $tab,string $tabNameInDb) :string {
+    $str = "SELECT ";
+    foreach ($tab as $key => $value) {
+        if(strcmp($value,"1") == 0) {
+            $str .= " " . $key . ",";
+        }
+    }
+    $str = substr($str, 0, -1);
+    $str .= " FROM " . $tabNameInDb;
+    //echo $str;
+    return  $str;
+}

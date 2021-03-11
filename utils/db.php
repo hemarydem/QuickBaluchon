@@ -25,12 +25,17 @@ function dataBaseInsert(PDO $connect, string $sql, array $params) {
     return NULL;
 }
 
-function dataBaseFindOne(PDO $connect, string $sql, array $params) :?array {
-    $statement = $connect->prepare($sql);
+function dataBaseFindOne(string $sql, int $id) :?array {
+    $db = getDataBaseConnection();
+    //echo   $sql;
+    $statement = $db->prepare($sql);
     if($statement !== false) {
-        $success = $statement->execute(params);
+        $success = $statement->execute([$id]);
         if($success) {
             return $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            //echo "error";
+            http_response_code(500);
         }
     }
     return NULL;
