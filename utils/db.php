@@ -26,7 +26,7 @@ function dataBaseInsert(PDO $connect, string $sql, array $params) {
     return NULL;
 }
 
-function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) {
+function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) :?string {
     if(isset($attributsToset['id'])) {
         $id = intval($attributsToset['id']);
         unset($attributsToset['id']);
@@ -35,22 +35,34 @@ function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) {
         return null;
     }
     $str = "UPDATE " . $tabNameInDb . " SET";
-    foreach ($tab as $key => $value) {
+    foreach ($attributsToset as $key => $value) {
         $str .= " " . $key . " = ?,";
     }
     $str = substr($str, 0, -1);
     $str .= " WHERE id =" . $id;
-    echo $str;
+    //echo $str;
     return  $str;
 }
 
-function execRequest(string $sql, array $params) {
+function execRequest(string $sql, array $params):?array {
     $db = getDataBaseConnection();
     $statement = $db->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
-            return $db->lastInsertId();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+    }
+    return NULL;
+}
+
+function execRequestUpdate(string $sql, array $params) {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return 1;
         }
     }
     return NULL;
@@ -95,7 +107,15 @@ function dataBaseFindAll(PDO $connect, string $sql, array $params) :?array {
     return NULL;
 }
 
-
+function buildParams(array $arr):?array {
+    if(count($arr) == 0)
+        return null;
+    $params = [];
+    foreach ($arr as $item) {
+        array_push($params, $item);
+    }
+    return $params;
+}
 
 
 
