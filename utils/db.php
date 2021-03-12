@@ -14,12 +14,55 @@ function getDataBaseConnection(): PDO {
     }
 }
 
+
 function dataBaseInsert(PDO $connect, string $sql, array $params) {
     $statement = $connect->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
             return $connect->lastInsertId();
+        }
+    }
+    return NULL;
+}
+
+function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) {
+    if(isset($attributsToset['id'])) {
+        $id = intval($attributsToset['id']);
+        unset($attributsToset['id']);
+    } else {
+        http_response_code(500);
+        return null;
+    }
+    $str = "UPDATE " . $tabNameInDb . " SET";
+    foreach ($tab as $key => $value) {
+        $str .= " " . $key . " = ?,";
+    }
+    $str = substr($str, 0, -1);
+    $str .= " WHERE id =" . $id;
+    echo $str;
+    return  $str;
+}
+
+function execRequest(string $sql, array $params) {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return $db->lastInsertId();
+        }
+    }
+    return NULL;
+}
+
+function execRequestDelete(string $sql, array $params) :?int {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return $success;
         }
     }
     return NULL;

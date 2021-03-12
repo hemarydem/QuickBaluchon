@@ -28,3 +28,5 @@ function buildsSelectAndattributs(array $tab,string $tabNameInDb) :string {
     //echo $str;
     return  $str;
 }
+
+

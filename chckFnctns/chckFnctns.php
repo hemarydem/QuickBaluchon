@@ -45,6 +45,17 @@ function initArrayForSqlReq($jsonObj):array {
     }
     return $array;
 }
+
+function strToIntAssiArrayElem($arr,$arrayIntKeys) {
+    foreach ($arrayIntKeys as $key => $value) {
+        if(isset($arr[$value]))
+            $arr[$value] = intval($arr[$value]);
+    }
+}
+
+
+
+
 /*
  * function to notice until where the code is running
  */
