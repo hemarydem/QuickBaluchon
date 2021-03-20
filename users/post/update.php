@@ -11,29 +11,14 @@ $intKey = [
     "zoneMaxDef",
     "id"
 ];
-//countJsonObjElem($data, 12);   // must have 11 elements
-//areSetJsonObjElem($data);                   // elements are init
-strToIntAssiArrayElem($data,$intKey);         // cast elements
+strToIntAssiArrayElem($data,$intKey); //TODO must return array currently the function has no effects
 $sql = buildsUpdateAndattributs("user",$data);
 unset($data['id']);
 $params = buildParams($data);
 if(execRequestUpdate($sql, $params)) {
-    print_r(execRequest("SELECT * FROM USER WHERE ID =?", [$idCheck]));
+    header('Content-type: Application/json');
+    echo json_encode(execRequest("SELECT * FROM USER WHERE ID =?", [$idCheck]));
 } else {
     http_response_code(400);
 }
- /*
- execRequestUpdate($sql,[
-     $data->{"nom"},
-     $data->{"prenom"},
-     $data->{"mail"},
-     $data->{"adresse"},
-     $data->{"numSiret"},
-     $data->{"password"},
-     $data->{"tel"},
-     $data->{"driverLicence"},
-     $data->{"statut"},
-     $data->{"busy"},
-     $data->{"zoneMaxDef"},
-     $data->{"id"}]);
-*/
+

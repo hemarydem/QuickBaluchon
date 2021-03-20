@@ -12,7 +12,7 @@ $intKey = [
 countJsonObjElem($data, 11);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data,$intKey);         // cast elements
- insertUser(
+insertUser(
     $data->{"nom"},
     $data->{"prenom"},
     $data->{"mail"},
@@ -24,3 +24,4 @@ strToIntJsonObjElem($data,$intKey);         // cast elements
     $data->{"statut"},
     $data->{"busy"},
     $data->{"zoneMaxDef"});
+

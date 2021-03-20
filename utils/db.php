@@ -20,7 +20,10 @@ function dataBaseInsert(PDO $connect, string $sql, array $params) {
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
-            return $connect->lastInsertId();
+            $id  = $connect->lastInsertId();
+            header('Content-type: Application/json');
+            echo json_encode(execRequest("SELECT * FROM USER WHERE ID =?", [$id]));
+            return $id;
         }
     }
     return NULL;
@@ -42,6 +45,34 @@ function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) :?
     $str .= " WHERE id =" . $id;
     //echo $str;
     return  $str;
+}
+/*
+function buildsSelectAndattributs(string $tabNameInDb, array $attributsToset) :?string {
+    if(isset($attributsToset['id'])) {
+        $id = intval($attributsToset['id']);
+        unset($attributsToset['id']);
+    } else {
+        http_response_code(500);
+        return null;
+    }
+    $str = "SELECT " . $tabNameInDb . " FROM";
+    foreach ($attributsToset as $key => $value) {
+        $str .= " " . $key . " = ?,";
+    }
+    $str = substr($str, 0, -1);
+    //$str .= " WHERE id =" . $id;
+    echo $str;
+    return  $str;
+}*/
+
+function buildsDelete(string $tabNameInDb, int $id) :?string {
+    if(is_int($id) ) {
+        $sql = "DELETE FROM ".$tabNameInDb." WHERE id = ?";
+    } else {
+        http_response_code(500);
+        return null;
+    }
+    return  $sql;
 }
 
 function execRequest(string $sql, array $params):?array {
@@ -74,7 +105,7 @@ function execRequestDelete(string $sql, array $params) :?int {
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
-            return $success;
+            return true;
         }
     }
     return NULL;
