@@ -4,8 +4,8 @@
 function getDataBaseConnection(): PDO {
     //sConnect to a MySQL database using driver invocation
     $dsn = 'mysql:dbname=qb;host=localhost';
-    $user = 'remy';
-    $password = 'azerty';
+    $user = 'root';
+    $password = 'root';
 
     try {
        return $dbh = new PDO($dsn, $user, $password);

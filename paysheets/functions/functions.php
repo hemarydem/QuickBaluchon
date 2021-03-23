@@ -6,3 +6,10 @@ function insertPaysheet( int $total, int  $km, string $month, int $nbColis, int 
     $params = [ $total,  $km,   $month, $nbColis, $idUser];
     return dataBaseInsert($db,  $sql, $params);
 }
+
+function updatePaysheet( int $total, int  $km, string $month, int $nbColis, int $idUser, int $id ) {
+    $db = getDataBaseConnection();
+    $sql = "UPDATE paysheet SET total = ?, km = ?, month = ?, nbColis = ?, idUser = ? WHERE id=?";
+    $params = [$total,  $km,   $month, $nbColis, $idUser, $id];
+    return dataBaseInsert($db,  $sql, $params);
+}
