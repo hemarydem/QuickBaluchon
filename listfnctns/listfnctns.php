@@ -17,16 +17,38 @@ function buildsLIkes(array $where,array $params, array $listAttribut) :array {
 }
 
 function buildsSelectAndattributs(array $tab,string $tabNameInDb) :string {
-    $str = "SELECT ";
-    foreach ($tab as $key => $value) {
-        if(strcmp($value,"1") == 0) {
-            $str .= " " . $key . ",";
+    $str = "SELECT";
+    if(!empty($tab)) {
+        //echo "n'est pas vide " ;
+        foreach ($tab as $key => $value) {
+            if(strcmp($value,"1") == 0) {
+                $str .= " " . $key . ",";
+            }
         }
+        //echo "avant le substr " . $str. "\n";
+        $str = substr($str, 0, -1);
+        $str .= " FROM " . $tabNameInDb;
+        //echo $str;
+        return  $str;
+
+    } else {
+        $str .= "* FROM " . $tabNameInDb;
+        return  $str;
     }
-    $str = substr($str, 0, -1);
-    $str .= " FROM " . $tabNameInDb;
-    //echo $str;
-    return  $str;
 }
 
-
+function buildsSelectAndattributByParam(array $tab,string $tabNameInDb) :string {
+    $str = "SELECT ";
+    if (!empty($tab)) {
+        foreach ($tab as $key => $value) {
+            $str .= " " . $key . ",";
+        }
+        $str = substr($str, 0, -1);
+        $str .= " FROM " . $tabNameInDb;
+        //echo $str;
+        return $str;
+    } else {
+        $str .= " * FROM " . $tabNameInDb;
+        return $str;
+    }
+}

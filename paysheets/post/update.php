@@ -5,6 +5,8 @@ include("./../functions/functions.php");
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 $idCheck = intval($data['id']);
+$tab = "paysheet";
+//echo $idCheck; // id of the paysheet
 $intKey = [
     "total",
     "km",
@@ -12,12 +14,14 @@ $intKey = [
     "idUser"
 ];
 strToIntAssiArrayElem($data, $intKey); //TODO must return array currently the function has no effects
-$sql = buildsUpdateAndattributs("paysheet", $data);
+$sql = buildsUpdateAndattributs($tab, $data);
+//echo $sql;
 unset($data['id']);
 $params = buildParams($data);
+//print_r($params);
 if (execRequestUpdate($sql, $params)) {
     header('Content-type: Application/json');
-    echo json_encode(execRequest("SELECT * FROM recipient WHERE ID =?", [$idCheck]));
+    echo json_encode(execRequest("SELECT * FROM ".$tab." WHERE ID =?", [$idCheck]));
 } else {
     http_response_code(400);
 }

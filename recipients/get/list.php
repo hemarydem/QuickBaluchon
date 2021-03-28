@@ -13,22 +13,36 @@ $params = [];
 $wAndp = buildsLIkes($where, $params, $_GET);
 $where = $wAndp[0];
 $params = $wAndp[1];
+$tab = "recipient";
 //print_r($where);
+//echo "params ";
 //print_r($params);
-$sql = buildsSelectAndattributs($_GET, "recipient");
+//echo "\n\n";
+//print_r($_GET);
+unset($_GET['offset']);
+unset($_GET['limit']);
+print_r($_GET);
+$sql = buildsSelectAndattributByParam($_GET, $tab);
+//echo "\n1 " . $sql . "\n\n";
 if (count($where) > 0) {
     $whereClause = join(" AND ", $where);
     $sql .= " WHERE " . $whereClause;
 }
 //echo $sql."\n\n";
-$sql .= " LIMIT $offset, $limit";
+$sql .= " LIMIT $offset,$limit";
+//$sql = substr($sql, 0, -1);
 echo $sql;
 $db = getDataBaseConnection();
 $statement = $db->prepare($sql);
+//echo "\n";
+//flagation(1);
 if ($statement !== false) {
+    //flagation(2);
     $success = $statement->execute($params);
+    //flagation(3);
     if ($success) {
         $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //flagation(4);
         $json = json_encode($rows);
         header("Content-Type: application/json");
         print_r($json);

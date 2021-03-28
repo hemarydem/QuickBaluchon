@@ -3,10 +3,12 @@ include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
 if(isset($_GET)) {
-    $id = $_GET['id'];
+    $id = intval($_GET['id']);
+    echo $id;
     unset($_GET['id']);
     $sql = buildsSelectAndattributs($_GET, "user");//listfnctns.php
     $sql .= " WHERE id = ?";
+    echo $sql;
     $rows = dataBaseFindOne($sql,(int)$id); //db.php
     $json = json_encode($rows);
     header("Content-Type: application/json");

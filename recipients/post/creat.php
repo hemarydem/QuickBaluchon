@@ -6,6 +6,7 @@ $data = json_decode($content);
 countJsonObjElem($data, 3);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 echo insertRecipient(
+    "recipient",
     $data->{"mail"},
     $data->{"nom"},
     $data->{"prenom"});

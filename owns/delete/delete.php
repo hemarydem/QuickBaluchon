@@ -1,9 +1,11 @@
 <?php
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
-$idCheck = intval($_GET['id']);
-$sql = buildsDelete("paysheet", $idCheck);
-$params = array($idCheck);
+checkStringsArray($_GET,1);
+$idCheck = buildParams($_GET);
+$sql = buildsDeleteForMixPRymariKeyTab("own", $_GET);
+//echo $sql;
+$params = ArrayOfstrToIntJsonObjElem($idCheck);
 if (execRequestDelete($sql, $params)) {
     header('Content-type: Application/json');
     echo json_encode(["success"=>1]);

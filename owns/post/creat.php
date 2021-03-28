@@ -10,6 +10,11 @@ $intKey = [
 countJsonObjElem($data, 2);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
- echo insertOwn(
+insertOwn(
+     "own",
     $data->{"idVehicule"},
-    $data->{"idUser"});
+    $data->{"idUser"},
+    [
+        "idVehicule" => $data->{"idVehicule"},
+        "idUser" => $data->{"idUser"}
+    ]);

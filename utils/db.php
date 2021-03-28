@@ -1,12 +1,10 @@
 <?php
-
 //'mysql:host=localhost;dbname=sananair;port=8889;charset=utf8', 'jo','r626wst100'
 function getDataBaseConnection(): PDO {
     //sConnect to a MySQL database using driver invocation
     $dsn = 'mysql:dbname=qb;host=localhost';
     $user = 'root';
     $password = 'root';
-
     try {
        return $dbh = new PDO($dsn, $user, $password);
     } catch (PDOException $e) {
@@ -15,15 +13,42 @@ function getDataBaseConnection(): PDO {
 }
 
 
-function dataBaseInsert(PDO $connect, string $sql, array $params) {
+function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabName) {
     $statement = $connect->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
             $id  = $connect->lastInsertId();
             header('Content-type: Application/json');
-            echo json_encode(execRequest("SELECT * FROM USER WHERE ID =?", [$id]));
+            echo json_encode(execRequest("SELECT * FROM ".$tabName." WHERE ID =?", [$id]));
             return $id;
+        }
+    }
+    return NULL;
+}
+
+function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $params, string $tabName,array $keyValues):?int {
+    $statement = $connect->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $str = " WHERE ";
+            $trigger = false;
+            foreach ($keyValues as $key => $prymaryKey) {
+                if($trigger)
+                    $str .= " AND ";
+                $str .= $key . "=?";
+                if(!$trigger)
+                    $trigger = true;
+            }
+            //echo "str = " .$str;
+            $keys = buildParams($keyValues);
+            //print_r($keys);
+            header('Content-type: Application/json');
+            $str = "SELECT * FROM ".$tabName.$str;
+            ///echo $str;
+            echo json_encode(execRequest($str,$keys));
+            return 0;
         }
     }
     return NULL;
@@ -75,7 +100,26 @@ function buildsDelete(string $tabNameInDb, int $id) :?string {
     return  $sql;
 }
 
+function buildsDeleteForMixPRymariKeyTab(string $tabNameInDb, array $id) :?string {
+
+    foreach ($id as $item)
+        $item = intval($item);
+    $str = " WHERE ";//TODO build a fucntion from this code is repeat also in dataBaseInsertForMixePrimaryKey()
+    $trigger = false;
+    foreach ($id as $key => $prymaryKey) {
+        if($trigger)
+            $str .= " AND ";
+        $str .= $key . "=?";
+        if(!$trigger)
+            $trigger = true;
+    }
+        $sql = "DELETE FROM ".$tabNameInDb.$str;
+    return  $sql;
+}
+
 function execRequest(string $sql, array $params):?array {
+    //echo $sql. "\n";
+    //print_r($params);
     $db = getDataBaseConnection();
     $statement = $db->prepare($sql);
     if($statement !== false) {
@@ -88,6 +132,8 @@ function execRequest(string $sql, array $params):?array {
 }
 
 function execRequestUpdate(string $sql, array $params) {
+    //echo $sql. "\n";
+    //print_r($params);
     $db = getDataBaseConnection();
     $statement = $db->prepare($sql);
     if($statement !== false) {
@@ -149,9 +195,13 @@ function buildParams(array $arr):?array {
 }
 
 
+function flagation(int $num) {
+    echo $num . " --------- " . "flag\n";
+}
 
 
-
+$word = "fox";
+$mystring = "The quick brown fox jumps over the lazy dog";
 
 
 

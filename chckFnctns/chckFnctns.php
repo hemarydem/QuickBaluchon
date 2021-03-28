@@ -33,6 +33,12 @@ function strToIntJsonObjElem($jsonObj,$arrayIntKeys) {
     }
 }
 
+function ArrayOfstrToIntJsonObjElem($arrayIntKeys) {
+    foreach ($arrayIntKeys as $items)
+        $items = intval($items);
+    return $arrayIntKeys;
+}
+
 function initArrayForSqlReq($jsonObj):array {
     $array = [];
     $i = 0;
@@ -51,6 +57,33 @@ function strToIntAssiArrayElem($arr,$arrayIntKeys) {
         if(isset($arr[$value]))
             $arr[$value] = intval($arr[$value]);
     }
+}
+
+function isInString(string $str, array $arr):bool {
+    foreach ($arr as $item)
+        if(strpos($str, $item) !== false) {
+            return true; //word found
+        } else {
+            return false;
+        }
+}
+
+function checkStringsArray(array $arr, int $option):bool { // option 0 if keys are integer
+    $ref = ["SELECT", "select","UPDATE", "update", "DROP", "drop", "INSERT", "insert", "DELETE","delete"];
+    foreach ($arr as $key => $value) {                     //or one if keys are strings
+        if(isInString($value,$ref)) {
+            http_response_code(400);
+            exit(1);
+        }
+    }
+    if ($option == 1) {
+        foreach ($arr as $key => $value)
+            if(isInString($key,$ref)) {
+                http_response_code(400);
+                exit(1);
+            }
+    }
+    return true;
 }
 
 
