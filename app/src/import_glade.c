@@ -29,7 +29,9 @@ static void getEntryMail( GtkWidget *widget, GtkWidget *entry ) {
 }
 
 static void getEntryPassword( GtkWidget *widget, GtkWidget *entry ) {
+  
   entry_password = gtk_entry_get_text(GTK_ENTRY (entry));
+  
 }
 
 static void getEntryFileName( GtkWidget *widget, GtkWidget *entry ) {
@@ -143,7 +145,6 @@ void open_menu_window(GtkWidget *widget,gpointer builder){
 }
 
 void CheckAndCreateCSV(GtkWidget *widget,GtkWidget *window){
-  strcat((char *)entry_filename,".csv");
   FILE * f = fopen(entry_filename, "w");
   fprintf(f,"%s", "nom,prénom,adresse,codePostale,recipientMail,poid,taille");
   fclose(f);
@@ -151,8 +152,12 @@ void CheckAndCreateCSV(GtkWidget *widget,GtkWidget *window){
 
 void sendCSV(GtkWidget *widget,GtkWidget *window){
   int returnfunction;
-  strcat((char*)entry_filename,".csv");
-  returnfunction = sendcsv((char *)entry_filename);
+  if(strchr(entry_filename,'.')){
+    returnfunction = sendcsv((char *)entry_filename);
+  }else {
+      strcat((char*)entry_filename,".csv");
+      returnfunction = sendcsv((char *)entry_filename);
+  }
 }
 
 
