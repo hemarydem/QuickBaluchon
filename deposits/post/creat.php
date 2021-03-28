@@ -2,14 +2,19 @@
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $content = file_get_contents('php://input');
-$data = json_decode($content);
+$data = json_decode($content, true);
 $intKey = [
     "idDepot",
     "idUser"
 ];
-countJsonObjElem($data, 2);   // must have 11 elements
-areSetJsonObjElem($data);                   // elements are init
-strToIntJsonObjElem($data, $intKey);         // cast elements
-echo insertDeposit(
-    $data->{"idDepot"},
-    $data->{"idUser"});
+countArrElem($data, 2);   // must have 11 elements
+//areSetJsonObjElem($data);                   //TODO function check elements are init
+$data = strToIntJsonArray($data, $intKey);  // cast elements
+insertDeposit(
+    "deposit",
+    $data["idDepot"],
+    $data["idUser"],
+    [
+        "idDepot" =>  $data["idDepot"],
+        "idUser" => $data["idUser"]
+    ]);

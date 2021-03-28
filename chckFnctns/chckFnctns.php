@@ -10,6 +10,13 @@ function countJsonObjElem($jsonObj, $numOfElements) {
         exit(1);
     }
 }
+function countArrElem(array $arr, $numOfElements) {
+    if(count($arr) != $numOfElements) {// check all data are init
+        //echo "countJsonObjElem";
+        http_response_code(400);
+        exit(1);
+    }
+}
 /*
  *  areSetJsonObjElem
  * check there is all propertis are init
@@ -32,8 +39,14 @@ function strToIntJsonObjElem($jsonObj,$arrayIntKeys) {
         $jsonObj->{$value} = (int)$jsonObj->{$value};
     }
 }
+function strToIntJsonArray(array $arr, $arrayIntKeys) {
+    foreach ($arrayIntKeys as $key => $value) {
+        $arr[$value] = (int)$arr[$value];
+    }
+    return $arr;
+}
 
-function ArrayOfstrToIntJsonObjElem($arrayIntKeys) {
+function ArrayOfstrToIntJsonObjElem($arrayIntKeys) { //all elements in integer
     foreach ($arrayIntKeys as $items)
         $items = intval($items);
     return $arrayIntKeys;

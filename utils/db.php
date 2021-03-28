@@ -46,7 +46,8 @@ function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $param
             //print_r($keys);
             header('Content-type: Application/json');
             $str = "SELECT * FROM ".$tabName.$str;
-            ///echo $str;
+            echo $str;
+            exit(1);
             echo json_encode(execRequest($str,$keys));
             return 0;
         }

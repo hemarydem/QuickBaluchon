@@ -2,6 +2,7 @@
 include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
+checkStringsArray($_GET,1);
 $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
 if ($_GET['offset'] >= $_GET['limit']) {
@@ -21,7 +22,7 @@ $tab = "recipient";
 //print_r($_GET);
 unset($_GET['offset']);
 unset($_GET['limit']);
-print_r($_GET);
+//print_r($_GET);
 $sql = buildsSelectAndattributByParam($_GET, $tab);
 //echo "\n1 " . $sql . "\n\n";
 if (count($where) > 0) {
@@ -31,7 +32,7 @@ if (count($where) > 0) {
 //echo $sql."\n\n";
 $sql .= " LIMIT $offset,$limit";
 //$sql = substr($sql, 0, -1);
-echo $sql;
+//cho $sql;
 $db = getDataBaseConnection();
 $statement = $db->prepare($sql);
 //echo "\n";

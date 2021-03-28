@@ -1,10 +1,11 @@
 <?php
 include ("./../../utils/db.php");
-function insertDeposit(int $idDepot, int $idUser) {
+function insertDeposit(string $tab,int $idDepot, int $idUser, array $keyValues) {
+    //flagation(1);
     $db = getDataBaseConnection();
     $sql = "INSERT INTO deposit(idDepot, idUser) VALUES (?,?)";
     $params = [ $idDepot,  $idUser];
-    return dataBaseInsert($db,  $sql, $params);
+    return dataBaseInsertForMixePrimaryKey($db,  $sql, $params, $tab, $keyValues);
 }
 
 function updateUser( string $nom, string $prenom, string  $mail, string  $adresse, string $numSiret, string $password, string $tel, int $driverLicence, int $statut, int $busy, int $zoneMaxDef, int $id ) {

@@ -2,7 +2,7 @@
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $idCheck = intval($_GET['id']);
-$sql = buildsDelete("user", $idCheck);
+$sql = buildsDelete("depot", $idCheck);
 $params = array($idCheck);
 if (execRequestDelete($sql, $params)) {
     header('Content-type: Application/json');

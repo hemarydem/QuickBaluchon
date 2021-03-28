@@ -5,7 +5,6 @@ function insertOwn(string $tab, int $idVehicule, int $idUser,array $keyValues) {
     $db = getDataBaseConnection();
     $sql = "INSERT INTO own( idVehicule, idUser) VALUES (?,?)";
     $params = [$idVehicule, $idUser];
-    //echo "ok";
     return dataBaseInsertForMixePrimaryKey($db, $sql, $params, $tab, $keyValues);
 }
 
