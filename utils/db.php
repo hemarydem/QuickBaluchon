@@ -20,6 +20,7 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
         if($success) {
             $id  = $connect->lastInsertId();
             header('Content-type: Application/json');
+            //echo $id;
             echo json_encode(execRequest("SELECT * FROM ".$tabName." WHERE ID =?", [$id]));
             return $id;
         }
@@ -203,7 +204,6 @@ function flagation(int $num) {
 
 $word = "fox";
 $mystring = "The quick brown fox jumps over the lazy dog";
-
 
 
 

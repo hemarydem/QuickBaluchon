@@ -1,4 +1,4 @@
-<?php
+<?php//TODO set the delete
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $idCheck = intval($_GET['id']);
