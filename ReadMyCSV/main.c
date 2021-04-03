@@ -53,7 +53,7 @@ FILE *deleteLine(FILE *content,FILE *newFile){
     int count = 1;
     char line[255];
     while(fgets(line, sizeof line, content) != NULL){
-        if(count != 1){
+        if(count != 2){
             fputs(line,newFile);
         }
         count++;
@@ -63,17 +63,16 @@ FILE *deleteLine(FILE *content,FILE *newFile){
 
 int readCSV(char **array){
     char c,nf;
-    int j = 0;
     char *filePath = malloc(sizeof(char) * 13);
     char *newFilePath = malloc(sizeof(char) * 13);
-
+   
     for(int i = 0;i < numberFile;i++){
-        char *value = malloc(sizeof(char) * 1000);
+        int j = 0;
         strcpy(filePath,"untreatedCsv/");
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
-        //printf("mon dossier contient: %s\n", newFilePath);
+        char *value = malloc(sizeof(char*) * 1000);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
 
@@ -82,11 +81,12 @@ int readCSV(char **array){
                 deleteLine(file,newfile);
             }
             fclose(file);
+            fclose(newfile);
         }
-        while((nf=fgetc(newfile))!=EOF){
-            if(nf != ','){
+        FILE *newfiletreatment = newfiletreatment = fopen(newFilePath,"r");
+        while((nf=fgetc(newfiletreatment))!=EOF){
+            if(nf != ','){  
                 value[j] = nf;
-                //printf("%c",nf);
                 j++;
             }
             else{
@@ -94,6 +94,7 @@ int readCSV(char **array){
                 j++;
             }
         }
+        value[j] = '\0';
         printf("%s\n", value);
         free(value);
     }
