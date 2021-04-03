@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+//#include <MYSQL/mysql.h>
+#include <mysql/mysql.h>
 
 int numberFile;
 
@@ -61,18 +63,39 @@ FILE *deleteLine(FILE *content,FILE *newFile){
     return newFile;
 }
 
+void insertBDD(char *str){
+    MYSQL *con = mysql_init(NULL);
+    //mysql_options(&mysql,MYSQL_READ_DEFAULT_GROUP,"option");
+    //mysql_real_connect(MYSQL *mysql, const char *host, const char *user, const char *passwd, const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
+    if(mysql_real_connect(con,"http://127.0.0.1","root",NULL,"qb",0,NULL,0)){
+        printf("Connexion avec la BDD réussie\n");
+        printf("%s\n", str);
+        //On déclare un tableau de char pour y stocker la requete
+        //char requete[150] = "";
+        //On stock la requete dans notre tableau de char
+        //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
+        //On execute la requete
+        //mysql_query(&mysql, requete);
+        //Fermeture de MySQL
+        mysql_close(con);
+    }else
+    {
+        printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
+        fprintf(stderr, "%s\n", mysql_error(con));
+    }
+}
+
 int readCSV(char **array){
     char c,nf;
     char *filePath = malloc(sizeof(char) * 13);
     char *newFilePath = malloc(sizeof(char) * 13);
-   
     for(int i = 0;i < numberFile;i++){
         int j = 0;
         strcpy(filePath,"untreatedCsv/");
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
-        char *value = malloc(sizeof(char*) * 1000);
+        char *value = malloc(sizeof(char) * 1000);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
 
@@ -95,7 +118,7 @@ int readCSV(char **array){
             }
         }
         value[j] = '\0';
-        printf("%s\n", value);
+        insertBDD(value);
         free(value);
     }
     return 0;
