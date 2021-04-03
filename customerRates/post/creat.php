@@ -12,8 +12,15 @@ $intKey = [
 countJsonObjElem($data, 4);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
-echo insertCustomerrate(
+insertCustomerrate(
+    "customerRate",
     $data->{"weight"},
     $data->{"cost"},
     $data->{"expressCost"},
-    $data->{"mode"});
+    $data->{"mode"},
+    [
+        "cost"=>$data->{"cost"},
+        "expressCost"=>$data->{"expressCost"}
+    ]);
+
+

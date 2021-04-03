@@ -47,8 +47,7 @@ function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $param
             //print_r($keys);
             header('Content-type: Application/json');
             $str = "SELECT * FROM ".$tabName.$str;
-            echo $str;
-            exit(1);
+            //echo $str;
             echo json_encode(execRequest($str,$keys));
             return 0;
         }
@@ -73,24 +72,9 @@ function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) :?
     //echo $str;
     return  $str;
 }
-/*
-function buildsSelectAndattributs(string $tabNameInDb, array $attributsToset) :?string {
-    if(isset($attributsToset['id'])) {
-        $id = intval($attributsToset['id']);
-        unset($attributsToset['id']);
-    } else {
-        http_response_code(500);
-        return null;
-    }
-    $str = "SELECT " . $tabNameInDb . " FROM";
-    foreach ($attributsToset as $key => $value) {
-        $str .= " " . $key . " = ?,";
-    }
-    $str = substr($str, 0, -1);
-    //$str .= " WHERE id =" . $id;
-    echo $str;
-    return  $str;
-}*/
+
+
+
 
 function buildsDelete(string $tabNameInDb, int $id) :?string {
     if(is_int($id) ) {
@@ -196,11 +180,82 @@ function buildParams(array $arr):?array {
     return $params;
 }
 
+function addIdForMixePrimaryKey( string $sql, array $arr) :string {
+    if(count($arr) <= 1)
+        return $sql;
+    for($i = 0; $i < count($arr) - 1; $i++) {
+        $sql .= " " . $arr[$i]." = ? AND ";
+    }
+    $sql .= " " . $arr[$i]." = ?";
+    return $sql;
+}
+
+function buildParamsForMixePrimaryKey(array $arr):?array {
+    if(count($arr) == 0)
+        return null;
+    $params = [];
+    foreach ($arr as $item) {
+        array_push($params, intval($item));
+    }
+    return $params;
+}
+
+function dataBaseFindOneForMixePrimaryKey(string $sql, array $arrIds) :?array {
+    $db = getDataBaseConnection();
+    //echo   $sql;
+    //print_r($arrIds);
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($arrIds);
+        if($success) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } else {
+            //echo "error";
+            http_response_code(500);
+        }
+    }
+    return NULL;
+}
+
 
 function flagation(int $num) {
     echo $num . " --------- " . "flag\n";
 }
 
+
+function buildsUpdateAndattributsForMixPRymariKeyTab(string $tabNameInDb, array $attributsToset, array $primKeys) :?string {
+    $str = "UPDATE " . $tabNameInDb . " SET";
+    foreach ($attributsToset as $item) {
+        $str .= " " . $item . " = ?,";
+    }
+    $str = substr($str, 0, -1);
+    $str .= " WHERE ";
+    $i = 0;
+    $size = count($primKeys);
+    foreach ($primKeys as $item) {
+        if($i == $size - 1) {
+            $str .= $item . " = ?";
+        } else {
+            $str .= $item . " = ? AND ";
+        }
+        $i++;
+    }
+    //echo $str;
+    return  $str;
+}
+function buildAttributArrayFromData(array $data,array $keysToSelect):?array {
+    $attributToSet = [];
+    if(count($data) <= 0 || count($keysToSelect) <= 0)
+        return null;
+    foreach ($data as $keyA => $valueA) {
+        foreach ($keysToSelect as $item){
+            if(strcmp($keyA,$item) == 0) {
+                array_push($attributToSet, $item);
+            }
+        }
+    }
+    return $attributToSet;
+}
 
 $word = "fox";
 $mystring = "The quick brown fox jumps over the lazy dog";

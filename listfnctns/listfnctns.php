@@ -30,7 +30,6 @@ function buildsSelectAndattributs(array $tab,string $tabNameInDb) :string {
         $str .= " FROM " . $tabNameInDb;
         //echo $str;
         return  $str;
-
     } else {
         $str .= "* FROM " . $tabNameInDb;
         return  $str;
@@ -50,5 +49,26 @@ function buildsSelectAndattributByParam(array $tab,string $tabNameInDb) :string 
     } else {
         $str .= " * FROM " . $tabNameInDb;
         return $str;
+    }
+}
+
+function buildsSelectAndattributsForMixePrimaryKey(array $tab, string $tabNameInDb):string {
+    $str = "SELECT ";
+    $nbKeys = count($tab);
+    $i = 0;
+    if ($nbKeys) {
+        $str .= " * FROM " . $tabNameInDb . " WHERE ";
+        foreach ($tab as $key => $value) {
+            if($i == $nbKeys - 1) {
+                $str .= $key. "= ?";
+            } else {
+                $str .= $key. "= ? AND ";
+            }
+            $i++;
+        }
+        return $str;
+    } else {
+        http_response_code(400);
+        exit(1);
     }
 }
