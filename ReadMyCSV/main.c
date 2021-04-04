@@ -64,13 +64,30 @@ FILE *deleteLine(FILE *content,FILE *newFile){
     return newFile;
 }
 
-void insertBDD(char *str){
+int ConnexionToBDD(){
     MYSQL *con = mysql_init(NULL);
+
+    if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
+        printf("you are connected\n");
+        return 0;
+    }
+    else
+    {
+        printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
+        fprintf(stderr, "%s\n", mysql_error(con));
+        return 1;
+    }
+
+}
+
+void insertBDD(char *str){
+    printf("coucou\n");
+    //MYSQL *con = mysql_init(NULL);
 
     //mysql_real_connect(MYSQL *mysql, const char *host, const char *user, const char *passwd, const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
     
-    if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
-        printf("Connexion avec la BDD réussie\n");
+    //if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
+        //printf("%s\n",str);
         //On déclare un tableau de char pour y stocker la requete
         //char requete[150] = "";
         //On stock la requete dans notre tableau de char
@@ -78,15 +95,15 @@ void insertBDD(char *str){
         //On execute la requete
         //mysql_query(&mysql, requete);
         //Fermeture de MySQL
-        mysql_close(con);
-    }else
-    {
-        printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
-        fprintf(stderr, "%s\n", mysql_error(con));
-    }
+        //mysql_close(con);
+    //}else
+    //{
+        //printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
+        //fprintf(stderr, "%s\n", mysql_error(con));
+    //}
 }
 
-int readCSV(char **array){
+int readCSV(char **array, int bdd){
     char c,nf;
     char *filePath = malloc(sizeof(char) * 13);
     char *newFilePath = malloc(sizeof(char) * 13);
@@ -119,14 +136,19 @@ int readCSV(char **array){
             }
         }
         value[j] = '\0';
-        insertBDD(value);
+        if(bdd == 0){
+            insertBDD(value);
+        }else{
+            printf("error\n");
+        }
         free(value);
     }
     return 0;
 }
 
 int main(){
+    int returnValue = ConnexionToBDD();
     char **myCsvArray = getCSV();
-    readCSV(myCsvArray);
+    readCSV(myCsvArray,returnValue);
     return 0;
 }
