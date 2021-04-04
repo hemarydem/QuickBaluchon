@@ -68,20 +68,19 @@ int ConnexionToBDD(MYSQL *con){
 
     if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
         printf("you are connected\n");
-        return 0;
+        return 1;
     }
     else
     {
         printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
         fprintf(stderr, "%s\n", mysql_error(con));
-        return 1;
+        return -1;
     }
 
 }
 
 void insertBDD(char *str){
-    printf("coucou\n");
-    //printf("%s\n",str);
+    printf("%s\n",str);
     //On déclare un tableau de char pour y stocker la requete
     //char requete[150] = "";
     //On stock la requete dans notre tableau de char
@@ -92,7 +91,7 @@ void insertBDD(char *str){
     //mysql_close(con);
 }
 
-int readCSV(char **array, int bdd){
+int readCSV(char **array){
     char c,nf;
     char *filePath = malloc(sizeof(char) * 13);
     char *newFilePath = malloc(sizeof(char) * 13);
@@ -125,11 +124,7 @@ int readCSV(char **array, int bdd){
             }
         }
         value[j] = '\0';
-        if(bdd == 0){
-            insertBDD(value);
-        }else{
-            printf("error\n");
-        }
+        insertBDD(value);
         free(value);
     }
     return 0;
@@ -138,8 +133,10 @@ int readCSV(char **array, int bdd){
 int main(){
     MYSQL *con = mysql_init(NULL);
     int returnValue = ConnexionToBDD(con);
-    char **myCsvArray = getCSV();
-    readCSV(myCsvArray,returnValue);
+    if(returnValue){
+        char **myCsvArray = getCSV();
+        readCSV(myCsvArray);
+    }
     mysql_close(con);
     return 0;
 }
