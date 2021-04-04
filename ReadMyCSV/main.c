@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-//#include <MYSQL/mysql.h>
 #include <mysql/mysql.h>
+
+//gcc main.c -l mysqlclient
 
 int numberFile;
 
@@ -65,11 +66,11 @@ FILE *deleteLine(FILE *content,FILE *newFile){
 
 void insertBDD(char *str){
     MYSQL *con = mysql_init(NULL);
-    //mysql_options(&mysql,MYSQL_READ_DEFAULT_GROUP,"option");
+
     //mysql_real_connect(MYSQL *mysql, const char *host, const char *user, const char *passwd, const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
-    if(mysql_real_connect(con,"http://127.0.0.1","root",NULL,"qb",0,NULL,0)){
+    
+    if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
         printf("Connexion avec la BDD réussie\n");
-        printf("%s\n", str);
         //On déclare un tableau de char pour y stocker la requete
         //char requete[150] = "";
         //On stock la requete dans notre tableau de char
