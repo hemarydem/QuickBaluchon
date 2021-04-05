@@ -26,13 +26,10 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
 }
 
 function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $params, string $tabName,array $keyValues):?int {
-    flagation(1);
     $statement = $connect->prepare($sql);
     if($statement !== false) {
-    flagation(2);
         $success = $statement->execute($params);
         if($success) {
-            flagation(2);
             $str = " WHERE ";
             $trigger = false;
             foreach ($keyValues as $key => $prymaryKey) {
