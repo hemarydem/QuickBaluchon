@@ -98,10 +98,6 @@ function checkStringsArray(array $arr, int $option):bool { // option 0 if keys a
     }
     return true;
 }
-
-
-
-
 /*
  * function to notice until where the code is running
  */

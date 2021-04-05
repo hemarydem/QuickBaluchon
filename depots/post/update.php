@@ -8,10 +8,8 @@ $idCheck = intval($data['id']);
 $tab = "depot";
 //strToIntAssiArrayElem($data, $intKey); //TODO must return array currently the function has no effects
 $sql = buildsUpdateAndattributs($tab, $data);
-//echo $sql;
 unset($data['id']);
 $params = buildParams($data);
-//print_r($params);
 if (execRequestUpdate($sql, $params)) {
     header('Content-type: Application/json');
     echo json_encode(execRequest("SELECT * FROM ".$tab." WHERE ID =?", [$idCheck]));

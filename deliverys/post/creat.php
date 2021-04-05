@@ -11,7 +11,8 @@ $intKey = [
 countJsonObjElem($data, 3);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
-echo insertDelivery(
+insertDelivery(
+    "delivery",
     $data->{"volume"},
     $data->{"weight"},
     $data->{"distance"});
