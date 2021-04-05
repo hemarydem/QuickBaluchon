@@ -79,27 +79,14 @@ int ConnexionToBDD(MYSQL con){
 }
 
 void insertBDD(char *str){
-    printf("coucou\n");
     printf("%s\n",str);
-    //MYSQL *con = mysql_init(NULL);
 
-    //mysql_real_connect(MYSQL *mysql, const char *host, const char *user, const char *passwd, const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
-    
-    //if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
-        //printf("%s\n",str);
-        //On dÃ©clare un tableau de char pour y stocker la requete
-        //char requete[150] = "";
-        //On stock la requete dans notre tableau de char
-        //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
-        //On execute la requete
-        //mysql_query(&mysql, requete);
-        //Fermeture de MySQL
-        //mysql_close(con);
-    //}else
-    //{
-        //printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
-        //fprintf(stderr, "%s\n", mysql_error(con));
-    //}
+    //On dÃ©clare un tableau de char pour y stocker la requete
+    //char requete[255] = "";
+    //On stock la requete dans notre tableau de char
+    //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
+    //On execute la requete
+    //mysql_query(&mysql, requete);
 }
 
 int readCSV(char **array, int bdd){
