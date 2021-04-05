@@ -64,13 +64,15 @@ FILE *deleteLine(FILE *content,FILE *newFile){
     return newFile;
 }
 
-int ConnexionToBDD(MYSQL *con){
+int ConnexionToBDD(MYSQL con){
 
-    if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
+    if(mysql_real_connect(&con,"localhost","admin","admin","qb",0,NULL,0)){
+        printf("You are connected\n");
         return 0;
     }
     else
     {
+        printf("Error: verify your connection data\n");
         return 1;
     }
 
@@ -85,7 +87,7 @@ void insertBDD(char *str){
     
     //if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
         //printf("%s\n",str);
-        //On déclare un tableau de char pour y stocker la requete
+        //On dÃ©clare un tableau de char pour y stocker la requete
         //char requete[150] = "";
         //On stock la requete dans notre tableau de char
         //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
@@ -144,10 +146,12 @@ int readCSV(char **array, int bdd){
 }
 
 int main(){
-    //MYSQL *con = mysql_init(NULL);
-    //int returnValue = ConnexionToBDD(con);
+    MYSQL con;
+    mysql_init(&con);
+    mysql_options(&con,MYSQL_READ_DEFAULT_GROUP,"option");
+    int returnValue = ConnexionToBDD(con);
     char **myCsvArray = getCSV();
     readCSV(myCsvArray,0);
-    //mysql_close(con);
+    mysql_close(&con);
     return 0;
 }
