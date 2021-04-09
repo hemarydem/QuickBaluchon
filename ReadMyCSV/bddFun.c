@@ -1,8 +1,8 @@
 #include "bddFun.h"
 
 int ConnexionToBDD(MYSQL * con) {
-    flagWaring(74, "bddFun");//TODO DELETE
-    if(mysql_real_connect(con,"localhost","root","root","qb",0,NULL,0)){
+    flagWaring(4, "bddFun ConnexionToBDD(MYSQL * con)");//TODO DELETE
+    if(mysql_real_connect(con,"127.0.0.1","root","root","qb",8889,NULL,0)){
         printf("You are connected\n");
         return 0;
     } else {
@@ -12,7 +12,7 @@ int ConnexionToBDD(MYSQL * con) {
 }
 
 void insertBDD(FILE *myfilebro, MYSQL * con) {
-    flagWaring(112, "bddFun");//TODO DELETE
+    flagWaring(15, "bddFun insertBDD(FILE *myfilebro, MYSQL * con)");//TODO DELETE
     char nf,nr;
     char *id = malloc(sizeof(char)*100);
     int i = 0;
@@ -38,6 +38,7 @@ void insertBDD(FILE *myfilebro, MYSQL * con) {
         if(nr != ',') {
             tabValue[i][j] = nr;
             j++;
+            printf("tabValue[%d][%d] = %c \n",i,j,tabValue[i][j]);
         } else {
             i++;
             j = 0;

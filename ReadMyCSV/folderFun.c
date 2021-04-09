@@ -2,7 +2,7 @@
 int numberFile;
 
 char ** buildCharArray(int numOfLine) {
-    flagWaring(84, "folderFun");//TODO DELETE
+    flagWaring(5, "folderFun buildCharArray");//TODO DELETE
     char ** array = NULL;
     int i;
     array = malloc(sizeof(char*) * numOfLine);
@@ -30,7 +30,7 @@ char ** buildCharArray(int numOfLine) {
 }
 
 int number_size() {
-    flagWaring(18, "number_size()\nfolderFun");//TODO DELETE
+    flagWaring(33, "number_size()\nfolderFun");//TODO DELETE
     int count = 0;
     struct dirent *dir;
     // opendir() renvoie un pointeur de type DIR. 
@@ -50,7 +50,7 @@ int number_size() {
 }
 
 char **getCSV() {
-    flagWaring(39, "folderFun");//TODO DELETE
+    flagWaring(39, "folderFun **getCSV()");//TODO DELETE
     struct dirent *dir;
     //opendir() renvoie un pointeur de type DIR. 
     DIR *d = opendir("untreatedCsv"); 
@@ -93,6 +93,8 @@ int readCSV(char **array, int bdd,MYSQL * con) {
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
+        printf("\nfilePath----------------->%s|||||||||||||||||||||||\n",filePath);
+        printf("\nnewFilePath----------------->%s|||||||||||||||||||||||\n",newFilePath);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
 
