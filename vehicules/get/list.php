@@ -17,7 +17,7 @@ $params = $wAndp[1];
 //print_r($params);
 //TODO TEST TO ADAPT THE CODE WITH THE FUNCTION BELOW TO MAke the request dynamique
 // $sql = buildsSelectAndattributs($_GET, "user");//listfnctns.php
-$sql = 'SELECT imatriculation, nbColis, volumeMax, weightMax FROM vehicule';
+$sql = 'SELECT imatriculation, nbColis, volumeMax, weightMax FROM VEHICULE';
 if (count($where) > 0) {
     $whereClause = join(" AND ", $where);
     $sql .= " WHERE " . $whereClause;

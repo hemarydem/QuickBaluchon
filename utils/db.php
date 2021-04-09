@@ -1,4 +1,16 @@
 <?php
+/* FILE EDITE BY:
+ *                 - YANIS TAGRI
+ *                 - PEROCHON LÉO
+ *                 - HAMED Rémy
+ * FILE purpose:
+ * This file contain general functions who are calling or updating the data base
+ * then, there is some functions for build and write SQL request
+ */
+
+/* getDataBaseConnection ()
+ * this fonction get the connection with the data base
+ */
 function getDataBaseConnection(): PDO {
     $dsn = 'mysql:dbname=qb;host=localhost';
     $user = 'root';
@@ -10,8 +22,22 @@ function getDataBaseConnection(): PDO {
     }
 }
 
-
-function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabName) {
+/* dataBaseInsert ()
+ *
+ * Genereric function who do all the insert
+ *
+ * arguments
+ * obj pdo
+ * string who contains the sql request
+ * array contening all the data for the data base
+ * string who si the name of the tab
+ *
+ * return
+ * integer id of the tab who was insert
+ * or
+ * Null
+ */
+function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabName):?int {
     $statement = $connect->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute($params);
@@ -24,6 +50,23 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
     }
     return NULL;
 }
+
+/* dataBaseInsertForMixePrimaryKey ()
+ *
+ * Genereric function who do all the insert For tab who have more than one line in thiere primary key
+ *
+ * arguments
+ * obj pdo
+ * string who contains the sql request
+ * array contening all the data for the data base
+ * string who si the name of the tab
+ * array contenaing the ids for the primary key
+ *
+ * return
+ * integer id of the tab who was insert
+ * or
+ * Null
+ */
 
 function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $params, string $tabName,array $keyValues):?int {
     $statement = $connect->prepare($sql);
@@ -48,9 +91,100 @@ function dataBaseInsertForMixePrimaryKey(PDO $connect, string $sql, array $param
     }
     return NULL;
 }
+/* execRequest ()
+ *
+ * Genereric function execute sql request
+ * mostly use to get date from the data base
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * array contening all the result of the call
+ * or
+ * Null
+ */
+
+function execRequest(string $sql, array $params):?array {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+    }
+    return NULL;
+}
+
+/* execRequestUpdate ()
+ *
+ * Genereric function execute UPDATE request
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * integer  if success
+ * or
+ * Null for a fail
+ */
+
+function execRequestUpdate(string $sql, array $params):?int {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return 1;
+        }
+    }
+    return NULL;
+}
+
+/* execRequestDelete ()
+ *
+ * Genereric function execute Delete request
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * boolean  if success
+ * or
+ * Null for a fail
+ */
+
+function execRequestDelete(string $sql, array $params) :?bool {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            return true;
+        }
+    }
+    return NULL;
+}
+
+/* buildsUpdateAndattributs ()
+ * Genereric function who build an update sql request
+ *
+ * arguments
+ * string who si the name of the tab
+ * array contenain all the data for the data base
+ *
+ * return
+ * string request sql
+ * or
+ * Null
+ */
 
 function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) :?string {
-    if(isset($attributsToset['id'])) {
+    if(isset($attributsToset['id'])) {                          // must have an id
         $id = intval($attributsToset['id']);
         unset($attributsToset['id']);
     } else {
@@ -66,6 +200,19 @@ function buildsUpdateAndattributs(string $tabNameInDb, array $attributsToset) :?
     return  $str;
 }
 
+/* buildsDelete ()
+ * Genereric function who build an delete sql request
+ *
+ * arguments
+ * string who si the name of the tab
+ * array contenain all the data for the data base
+ *
+ * return
+ * string request sql
+ * or
+ * Null
+ */
+
 function buildsDelete(string $tabNameInDb, int $id) :?string {
     if(is_int($id) ) {
         $sql = "DELETE FROM ".$tabNameInDb." WHERE id = ?";
@@ -75,6 +222,20 @@ function buildsDelete(string $tabNameInDb, int $id) :?string {
     }
     return  $sql;
 }
+
+/* buildsDeleteForMixPRymariKeyTab ()
+ * Genereric function who build an delete sql request
+ *
+ * arguments
+ * string who si the name of the tab
+ * array contenains all the data for the data base
+ * array contenains ids of the line who must be delelete
+ *
+ * return
+ * string request sql
+ * or
+ * Null
+ */
 
 function buildsDeleteForMixPRymariKeyTab(string $tabNameInDb, array $id) :?string {
     foreach ($id as $item)
@@ -91,58 +252,48 @@ function buildsDeleteForMixPRymariKeyTab(string $tabNameInDb, array $id) :?strin
         $sql = "DELETE FROM ".$tabNameInDb.$str;
     return  $sql;
 }
+/* dataBaseFindOne ()
+ * Genereric function call the data base to get informations aboute one line
+ *
+ * arguments
+ * string contenains sql request
+ * int id of tab's line
+ *
+ * return
+ * array contains request results
+ * or
+ * Null
+ */
 
-function execRequest(string $sql, array $params):?array {
-    $db = getDataBaseConnection();
-    $statement = $db->prepare($sql);
-    if($statement !== false) {
-        $success = $statement->execute($params);
-        if($success) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        }
-    }
-    return NULL;
-}
-
-function execRequestUpdate(string $sql, array $params) {
-    $db = getDataBaseConnection();
-    $statement = $db->prepare($sql);
-    if($statement !== false) {
-        $success = $statement->execute($params);
-        if($success) {
-            return 1;
-        }
-    }
-    return NULL;
-}
-
-function execRequestDelete(string $sql, array $params) :?int {
-    $db = getDataBaseConnection();
-    $statement = $db->prepare($sql);
-    if($statement !== false) {
-        $success = $statement->execute($params);
-        if($success) {
-            return true;
-        }
-    }
-    return NULL;
-}
 
 function dataBaseFindOne(string $sql, int $id) :?array {
     $db = getDataBaseConnection();
-    //echo   $sql;
     $statement = $db->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute([$id]);
         if($success) {
             return $statement->fetch(PDO::FETCH_ASSOC);
         } else {
-            //echo "error";
             http_response_code(500);
         }
     }
     return NULL;
 }
+
+/* buildParams ()
+ * get datas from an array associative array to build
+ * check if it's not empty
+ * only keeping the data
+ *
+ * arguments
+ *array
+ *
+ * return
+ * array contains data
+ * or
+ * Null
+ */
+
 
 function buildParams(array $arr):?array {
     if(count($arr) == 0)
@@ -163,6 +314,21 @@ function addIdForMixePrimaryKey( string $sql, array $arr) :string {
     $sql .= " " . $arr[$i]." = ?";
     return $sql;
 }
+
+/* buildParamsForMixePrimaryKey ()
+ * get datas from an array associative array to build
+ * check if it's not empty
+ * cast it in int
+ *
+ * arguments
+ *array
+ *
+ * return
+ * array contains data
+ * or
+ * Null
+ */
+
 
 function buildParamsForMixePrimaryKey(array $arr):?array {
     if(count($arr) == 0)
@@ -186,11 +352,6 @@ function dataBaseFindOneForMixePrimaryKey(string $sql, array $arrIds) :?array {
         }
     }
     return NULL;
-}
-
-
-function flagation(int $num) {
-    echo $num . " --------- " . "flag\n";
 }
 
 function buildsUpdateAndattributsForMixPRymariKeyTab(string $tabNameInDb, array $attributsToset, array $primKeys) :?string {
@@ -225,4 +386,37 @@ function buildAttributArrayFromData(array $data,array $keysToSelect):?array {
         }
     }
     return $attributToSet;
+}
+
+function isExistInDb(int $id, string $tab):bool {
+    $idChecked = intval($id);
+    $sql = "SELECT id FROM " . $tab . " WHERE id = ?";
+    $arr = execCheckRequest($sql,[$idChecked]);
+    if($arr != null && count($arr) > 0)
+        return  true;
+    echo "this id does not exist in data base";
+    return false;
+}
+
+//dev tools
+
+function flagation(int $num) {
+    echo $num . " --------- " . "flag\n";
+}
+
+// testing fucntion
+
+function execCheckRequest(string $sql, array $params):?array {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($result === false)
+                return NULL;
+            return $result;
+        }
+    }
+    return NULL;
 }

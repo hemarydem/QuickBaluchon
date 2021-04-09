@@ -1,16 +1,40 @@
 <?php
+/* FILE EDITE BY:
+ *                 - YANIS TAGRI
+ *                 - PEROCHON LÉO
+ *                 - HAMED Rémy
+ * FILE purpose:
+ * This file contain general functions who are calling or updating the data base
+ * then, there is some functions for build and write SQL request
+ */
+
 /*
  * countJsonObjElem
  * check there is all propertis are in the json bject
+ *
+ *
+ * arguments
+ * $jsonObj
+ * a jsonObj or an array
+ *
  */
-function countJsonObjElem($jsonObj, $numOfElements) {
+
+
+function countJsonObjElem($jsonObj,int $numOfElements) {
     if(count((array)$jsonObj) != $numOfElements) {// check all data are init
         //echo "countJsonObjElem";
         http_response_code(400);
         exit(1);
     }
 }
-function countArrElem(array $arr, $numOfElements) {
+/*
+ * countArrElem
+ * check data are in the array
+ * arguments
+ *  an array
+ *
+ */
+function countArrElem(array $arr, int $numOfElements) {
     if(count($arr) != $numOfElements) {// check all data are init
         //echo "countJsonObjElem";
         http_response_code(400);
@@ -19,9 +43,18 @@ function countArrElem(array $arr, $numOfElements) {
 }
 /*
  *  areSetJsonObjElem
- * check there is all propertis are init
+ *  check there is all propertis are init
  */
 function areSetJsonObjElem($jsonObj) { //NOTE CALL  countJsonObjElem
+    foreach ($jsonObj as $key => $value) {                     //Before areSetJsonObjElem()
+        if(strlen($value) <= 0) {
+            //echo "areSetJsonObjElem";
+            http_response_code(400);
+            exit(1);
+        }
+    }
+}
+function areSetarr($jsonObj) { //NOTE CALL  countJsonObjElem
     foreach ($jsonObj as $key => $value) {                     //Before areSetJsonObjElem()
         if(strlen($value) <= 0) {
             //echo "areSetJsonObjElem";
@@ -104,3 +137,4 @@ function checkStringsArray(array $arr, int $option):bool { // option 0 if keys a
 function codeIsRun($flag){
     echo "\n". $flag."\n";
 }
+

@@ -4,7 +4,7 @@ include("./../functions/functions.php");
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 $idCheck = intval($data['id']);
-$tab = "paysheet";
+$tab = "PAYSHEET";
 //echo $idCheck; // id of the paysheet
 $intKey = [
     "total",
