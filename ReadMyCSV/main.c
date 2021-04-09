@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <mysql/mysql.h>
 
+#define LEN(arr) ((int) (sizeof (arr) / sizeof (arr)[0]))
 //gcc main.c -l mysqlclient
 
 int numberFile;
+
 
 int number_size(){
     int count = 0;
@@ -78,41 +80,89 @@ int ConnexionToBDD(MYSQL con){
 
 }
 
-void insertBDD(char *str){
-    printf("coucou\n");
-    printf("%s\n",str);
-    //MYSQL *con = mysql_init(NULL);
-
-    //mysql_real_connect(MYSQL *mysql, const char *host, const char *user, const char *passwd, const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
-    
-    //if(mysql_real_connect(con,"localhost","admin","admin","qb",0,NULL,0)){
-        //printf("%s\n",str);
-        //On dÃ©clare un tableau de char pour y stocker la requete
-        //char requete[150] = "";
-        //On stock la requete dans notre tableau de char
-        //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
-        //On execute la requete
-        //mysql_query(&mysql, requete);
-        //Fermeture de MySQL
-        //mysql_close(con);
-    //}else
-    //{
-        //printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
-        //fprintf(stderr, "%s\n", mysql_error(con));
-    //}
+char ** buildCharArray(int numOfLine) {
+  char ** array = NULL;
+  int i;
+  array = malloc(sizeof(char*) * numOfLine);
+  if(array != NULL) {
+    for (i = 0; i < numOfLine; i++) {
+      array[i] = malloc(sizeof(char) * 100);// bloquer le nom des maps a 100 char
+    if(array[i] == NULL) {
+        int j = 0;
+        while (j < i) {
+          free(array[i]);
+          j++;
+        }
+        free(array);
+        printf("error malloc\n buildArrayMaplist\n");
+        return array= NULL;
+      }
+    }
+    printf("\nbuildCharArray ok\n");
+    if(array == NULL)printf("array is NULL");
+    return array;
+  }
+  printf("\n error \n  buildArrayMaplist \n");
+  return array = NULL;
 }
 
-int readCSV(char **array, int bdd){
-    char c,nf;
-    char *filePath = malloc(sizeof(char) * 13);
-    char *newFilePath = malloc(sizeof(char) * 13);
+
+void insertBDD(FILE *myfilebro, MYSQL con){
+    char nf,nr;
+    char *id = malloc(sizeof(char)*100);
+    int i = 0;
+    int j = 0;
+    int count = 0;
+    int numberC = 0;
+
+    while((nf=fgetc(myfilebro)) != EOF){
+        if(nf != '\n' && count == 0){
+            id[i] = nf;
+            count++;
+            i++;
+        }
+        numberC++;
+    }
+    id[i] = '\0';
+    i = 0;
+    char **tabValue = buildCharArray(numberC);
+    int posCursor = strlen(id)+1;
+    /////////////////////////////////
+    fseek(myfilebro, posCursor, SEEK_SET );
+    while((nr=fgetc(myfilebro)) != EOF){
+        if(nr != ','){
+            tabValue[i][j] = nr;
+            j++;
+        }else{
+            i++;
+            j = 0;
+        }
+    }
+
+    //On dÃ©clare un tableau de char pour y stocker la requete
+    char requete[255] = "";
+    //On stock la requete dans notre tableau de char
+    //sprintf(requete, "INSERT INTO COLIS VALUES('%s', '%s', '%ld')", id, value2);
+    sprintf(requete, "INSERT INTO COLIS(idUser,adresse, codePostale, recipientMail, weight, volume) VALUES ('%s', '%s','%s','%s','%s','%s')",id,tabValue[2],tabValue[3],tabValue[4],tabValue[5],tabValue[6]);
+    //On execute la requete
+    mysql_query(&con, requete);
+    //Fermeture de MySQL
+    //mysql_close(con);
+    for (size_t i = 0; i < numberC; i++) {// free de chaque ligne
+        free(tabValue[i]); 
+    }
+    free(tabValue);// free du tableau
+}
+
+int readCSV(char **array, int bdd,MYSQL con){
+    char c;
+    char *filePath = malloc(sizeof(char) * 1000);
+    char *newFilePath = malloc(sizeof(char) * 1000);
     for(int i = 0;i < numberFile;i++){
-        int j = 0;
         strcpy(filePath,"untreatedCsv/");
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
-        char *value = malloc(sizeof(char) * 1000);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
 
@@ -123,25 +173,16 @@ int readCSV(char **array, int bdd){
             fclose(file);
             fclose(newfile);
         }
-        FILE *newfiletreatment = newfiletreatment = fopen(newFilePath,"r");
-        while((nf=fgetc(newfiletreatment))!=EOF){
-            if(nf != ','){  
-                value[j] = nf;
-                j++;
-            }
-            else{
-                value[j] = ' ';
-                j++;
-            }
-        }
-        value[j] = '\0';
+        FILE *newfiletreatment = fopen(newFilePath,"r");
         if(bdd == 0){
-            insertBDD(value);
+            insertBDD(newfiletreatment,con);
+            fclose(newfiletreatment);
         }else{
             printf("error\n");
         }
-        free(value);
     }
+    free(filePath);
+    free(newFilePath);
     return 0;
 }
 
@@ -151,7 +192,7 @@ int main(){
     mysql_options(&con,MYSQL_READ_DEFAULT_GROUP,"option");
     int returnValue = ConnexionToBDD(con);
     char **myCsvArray = getCSV();
-    readCSV(myCsvArray,0);
+    readCSV(myCsvArray,returnValue,con);
     mysql_close(&con);
     return 0;
 }
