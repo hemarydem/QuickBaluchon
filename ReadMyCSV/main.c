@@ -10,20 +10,17 @@
 int numberFile;
 
 
-int number_size(){
+int number_size() {
     int count = 0;
     struct dirent *dir;
     // opendir() renvoie un pointeur de type DIR. 
     DIR *lenD = opendir("untreatedCsv"); 
-    if (lenD)
-    {
-        while ((dir = readdir(lenD)) != NULL)
-        {
-            if(strstr(dir->d_name,".csv")){
+    if (lenD) {
+        while ((dir = readdir(lenD)) != NULL) {
+            if(strstr(dir->d_name,".csv")) {
                 count += sizeof(dir->d_name);
                 numberFile += 1;
-            }
-            else {
+            } else {
                 continue;
             }
         }
@@ -32,18 +29,16 @@ int number_size(){
     return count;
 }
 
-char **getCSV(){
+char **getCSV() {
     struct dirent *dir;
     //opendir() renvoie un pointeur de type DIR. 
     DIR *d = opendir("untreatedCsv"); 
     int size = number_size();
     int i = 0;
     char **array = malloc(sizeof(char*)* size);
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-        {
-            if(strstr(dir->d_name,".csv")){
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            if(strstr(dir->d_name,".csv")) {
                 array[i] = dir->d_name;
                 i++;
             }
@@ -54,11 +49,11 @@ char **getCSV(){
     return array;
 }
 
-FILE *deleteLine(FILE *content,FILE *newFile){
+FILE *deleteLine(FILE *content,FILE *newFile) {
     int count = 1;
     char line[255];
-    while(fgets(line, sizeof line, content) != NULL){
-        if(count != 2){
+    while(fgets(line, sizeof line, content) != NULL) {
+        if(count != 2) {
             fputs(line,newFile);
         }
         count++;
@@ -66,18 +61,14 @@ FILE *deleteLine(FILE *content,FILE *newFile){
     return newFile;
 }
 
-int ConnexionToBDD(MYSQL con){
-
-    if(mysql_real_connect(&con,"localhost","admin","admin","qb",0,NULL,0)){
+int ConnexionToBDD(MYSQL con) {
+    if(mysql_real_connect(&con,"localhost","admin","admin","qb",0,NULL,0)) {
         printf("You are connected\n");
         return 0;
-    }
-    else
-    {
+    } else {
         printf("Error: verify your connection data\n");
         return 1;
     }
-
 }
 
 char ** buildCharArray(int numOfLine) {
@@ -107,7 +98,7 @@ char ** buildCharArray(int numOfLine) {
 }
 
 
-void insertBDD(FILE *myfilebro, MYSQL con){
+void insertBDD(FILE *myfilebro, MYSQL con) {
     char nf,nr;
     char *id = malloc(sizeof(char)*100);
     int i = 0;
@@ -115,8 +106,8 @@ void insertBDD(FILE *myfilebro, MYSQL con){
     int count = 0;
     int numberC = 0;
 
-    while((nf=fgetc(myfilebro)) != EOF){
-        if(nf != '\n' && count == 0){
+    while((nf=fgetc(myfilebro)) != EOF) {
+        if(nf != '\n' && count == 0) {
             id[i] = nf;
             count++;
             i++;
@@ -154,20 +145,19 @@ void insertBDD(FILE *myfilebro, MYSQL con){
     free(tabValue);// free du tableau
 }
 
-int readCSV(char **array, int bdd,MYSQL con){
+int readCSV(char **array, int bdd,MYSQL con) {
     char c;
     char *filePath = malloc(sizeof(char) * 1000);
     char *newFilePath = malloc(sizeof(char) * 1000);
-    for(int i = 0;i < numberFile;i++){
+    for(int i = 0;i < numberFile;i++) {
         strcpy(filePath,"untreatedCsv/");
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
-
         if(file != NULL){
-            while((c=fgetc(file))!=EOF){
+            while((c=fgetc(file))!=EOF) {
                 deleteLine(file,newfile);
             }
             fclose(file);
