@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4c780be8-81b2-410d-91df-9a719ada4da2" name="Default Changelist" comment="api basic ok">
+      <change beforePath="$PROJECT_DIR$/chckFnctns/chckFnctns.php" beforeDir="false" afterPath="$PROJECT_DIR$/chckFnctns/chckFnctns.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paysheets/get/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/paysheets/get/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paysheets/get/paysheet.php" beforeDir="false" afterPath="$PROJECT_DIR$/paysheets/get/paysheet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paysheets/post/creat.php" beforeDir="false" afterPath="$PROJECT_DIR$/paysheets/post/creat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/paysheets/post/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/paysheets/post/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recipients/post/creat.php" beforeDir="false" afterPath="$PROJECT_DIR$/recipients/post/creat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/get/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/users/get/user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/post/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/users/post/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vehicules/functions/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vehicules/functions/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vehicules/get/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/vehicules/get/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vehicules/get/vehicule.php" beforeDir="false" afterPath="$PROJECT_DIR$/vehicules/get/vehicule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vehicules/post/creat.php" beforeDir="false" afterPath="$PROJECT_DIR$/vehicules/post/creat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vehicules/post/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/vehicules/post/update.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1pcFPO16AR33v9A5899USfjvUVe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/deposits/get" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/deposits/get" />
+      <recent name="$PROJECT_DIR$/listfnctns" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/colis/functions" />
+      <recent name="$PROJECT_DIR$/bills/functions" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="/Applications/MAMP/bin/php/php7.4.12/bin/php">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c780be8-81b2-410d-91df-9a719ada4da2" name="Default Changelist" comment="" />
+      <created>1615474447042</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615474447042</updated>
+      <workItem from="1615474451629" duration="27237000" />
+      <workItem from="1615722913492" duration="1204000" />
+      <workItem from="1615794783235" duration="201000" />
+      <workItem from="1615797529812" duration="526000" />
+      <workItem from="1615986512955" duration="3140000" />
+      <workItem from="1616089414483" duration="505000" />
+      <workItem from="1616234291668" duration="320000" />
+      <workItem from="1616235023189" duration="7514000" />
+      <workItem from="1616322954921" duration="149000" />
+      <workItem from="1616849410752" duration="15668000" />
+      <workItem from="1616934178418" duration="15103000" />
+      <workItem from="1617095390785" duration="974000" />
+      <workItem from="1617369145848" duration="11931000" />
+      <workItem from="1617440314305" duration="20656000" />
+      <workItem from="1617543362852" duration="2526000" />
+      <workItem from="1617618842941" duration="20138000" />
+      <workItem from="1617729476255" duration="308000" />
+    </task>
+    <task id="LOCAL-00001" summary="list user ok">
+      <created>1615489329842</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615489329842</updated>
+    </task>
+    <task id="LOCAL-00002" summary=" get on user ok&#10; function to build a dynamique select from ok&#10; it left delete">
+      <created>1615496859017</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615496859017</updated>
+    </task>
+    <task id="LOCAL-00003" summary="commit for break&#10;i'm coding the process to get a functions who will permit to&#10;do dynamique updates">
+      <created>1615543283528</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615543283528</updated>
+    </task>
+    <task id="LOCAL-00004" summary="save api">
+      <created>1616254384670</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616254384670</updated>
+    </task>
+    <task id="LOCAL-00005" summary="user&#10;recipient&#10;own&#10;paysheet&#10;are ok">
+      <created>1616944912772</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616944912772</updated>
+    </task>
+    <task id="LOCAL-00006" summary="own&#10;depot&#10;are ok&#10;deposit work in progress">
+      <created>1616958190575</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1616958190575</updated>
+    </task>
+    <task id="LOCAL-00007" summary="commit de pause&#10;deliveryRate crudgg1 ok&#10;deliveryObjecctif crudgg1 ok">
+      <created>1617386767009</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617386767009</updated>
+    </task>
+    <task id="LOCAL-00008" summary="own crudgg ok&#10;deposit crudgg ok&#10;customerate crugg ok delete must be test">
+      <created>1617475025378</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1617475025378</updated>
+    </task>
+    <task id="LOCAL-00009" summary="bill crudgg ok&#10;colis crudgg ok&#10;checkDelivery ok&#10;delyvery ok&#10;deposit ok&#10;work in progress checkdelyvery">
+      <created>1617641547336</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1617641547338</updated>
+    </task>
+    <task id="LOCAL-00010" summary="api basic ok">
+      <created>1617642931165</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1617642931165</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="list user ok" />
+    <MESSAGE value=" get on user ok&#10; function to build a dynamique select from ok&#10; it left delete" />
+    <MESSAGE value="commit for break&#10;i'm coding the process to get a functions who will permit to&#10;do dynamique updates" />
+    <MESSAGE value="save api" />
+    <MESSAGE value="user&#10;recipient&#10;own&#10;paysheet&#10;are ok" />
+    <MESSAGE value="own&#10;depot&#10;are ok&#10;deposit work in progress" />
+    <MESSAGE value="commit de pause&#10;deliveryRate crudgg1 ok&#10;deliveryObjecctif crudgg1 ok" />
+    <MESSAGE value="own crudgg ok&#10;deposit crudgg ok&#10;customerate crugg ok delete must be test" />
+    <MESSAGE value="bill crudgg ok&#10;colis crudgg ok&#10;checkDelivery ok&#10;delyvery ok&#10;deposit ok&#10;work in progress checkdelyvery" />
+    <MESSAGE value="api basic" />
+    <MESSAGE value="api basic ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="api basic ok" />
+  </component>
+</project>

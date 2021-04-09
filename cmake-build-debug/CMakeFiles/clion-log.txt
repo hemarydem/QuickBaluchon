@@ -1,0 +1,6 @@
+"C:\Program Files\JetBrains\CLion 2020.3.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Harpi\CLionProjects\testfileupload
+-- Could NOT find SDL2 (missing: SDL2_LIBRARY SDL2_INCLUDE_DIR) 
+gtk-3gdk-3zgdi32imm32shell32ole32winmmdwmapisetupapicfgmgr32pangowin32-1.0pangocairo-1.0pango-1.0harfbuzzatk-1.0cairo-gobjectcairogdk_pixbuf-2.0gio-2.0gobject-2.0glib-2.0intl
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Harpi/CLionProjects/testfileupload/cmake-build-debug
