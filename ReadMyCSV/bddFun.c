@@ -1,7 +1,7 @@
 #include "bddFun.h"
 
 int ConnexionToBDD(MYSQL * con) {
-    flagWaring(74);//TODO DELETE
+    flagWaring(74, "bddFun");//TODO DELETE
     if(mysql_real_connect(con,"localhost","root","root","qb",0,NULL,0)){
         printf("You are connected\n");
         return 0;
@@ -12,7 +12,7 @@ int ConnexionToBDD(MYSQL * con) {
 }
 
 void insertBDD(FILE *myfilebro, MYSQL * con) {
-    flagWaring(112);//TODO DELETE
+    flagWaring(112, "bddFun");//TODO DELETE
     char nf,nr;
     char *id = malloc(sizeof(char)*100);
     int i = 0;
