@@ -2,7 +2,6 @@
 int numberFile;
 
 char ** buildCharArray(int numOfLine) {
-    flagWaring(5, "folderFun buildCharArray");//TODO DELETE
     char ** array = NULL;
     int i;
     array = malloc(sizeof(char*) * numOfLine);
@@ -30,7 +29,6 @@ char ** buildCharArray(int numOfLine) {
 }
 
 int number_size() {
-    flagWaring(33, "number_size()\nfolderFun");//TODO DELETE
     int count = 0;
     struct dirent *dir;
     // opendir() renvoie un pointeur de type DIR. 
@@ -50,7 +48,6 @@ int number_size() {
 }
 
 char **getCSV() {
-    flagWaring(39, "folderFun **getCSV()");//TODO DELETE
     struct dirent *dir;
     //opendir() renvoie un pointeur de type DIR. 
     DIR *d = opendir("untreatedCsv"); 
@@ -71,7 +68,6 @@ char **getCSV() {
 }
 
 FILE *deleteLine(FILE *content,FILE *newFile) {
-    flagWaring(74, "deleteLine(FILE *content,FILE *newFile)\nfolderFun");//TODO DELETE
     int count = 1;
     char line[255];
     while(fgets(line, sizeof line, content) != NULL) {
@@ -84,7 +80,6 @@ FILE *deleteLine(FILE *content,FILE *newFile) {
 }
 
 int readCSV(char **array, int bdd,MYSQL * con) {
-    flagWaring(87, "readCSV(char **array, int bdd,MYSQL * con)\nfolderFun");//TODO DELETE
     char c;
     char *filePath = malloc(sizeof(char) * 1000);
     char *newFilePath = malloc(sizeof(char) * 1000);
@@ -93,8 +88,8 @@ int readCSV(char **array, int bdd,MYSQL * con) {
         strcpy(newFilePath,"treatment/");
         strcat(filePath,array[i]);
         strcat(newFilePath,array[i]);
-        printf("\nfilePath----------------->%s|||||||||||||||||||||||\n",filePath);
-        printf("\nnewFilePath----------------->%s|||||||||||||||||||||||\n",newFilePath);
+        //printf("\nfilePath----------------->%s|||||||||||||||||||||||\n",filePath);
+        //printf("\nnewFilePath----------------->%s|||||||||||||||||||||||\n",newFilePath);
         FILE *file = fopen(filePath, "r" );
         FILE *newfile = fopen(newFilePath,"w+");
 
