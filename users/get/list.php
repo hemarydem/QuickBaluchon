@@ -24,7 +24,7 @@ if (count($where) > 0) {
 }
 //echo $sql."\n\n";
 $sql .= " LIMIT $offset, $limit";
-echo $sql;
+//echo $sql;
 $db = getDataBaseConnection();
 $statement = $db->prepare($sql);
 if ($statement !== false) {
