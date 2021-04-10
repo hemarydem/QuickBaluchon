@@ -93,17 +93,14 @@ switch ($type) {
         unset($data['type']);
         $tab = $tabArr[intval($data['code'])];
         unset($data['code']);
-        $urlBase.= $tab ."s/get/delete.php?";
+        $urlBase.= $tab ."s/delete/delete.php?";
         foreach ($data as $key => $value) {
             $urlBase.=$key."=".$value."&";
         }
         $urlBase = substr($urlBase, 0, -1);
-        echo $urlBase;
-        //exit(1);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $urlBase);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
