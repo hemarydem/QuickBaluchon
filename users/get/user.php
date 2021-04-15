@@ -15,6 +15,7 @@ if(isset($_GET)) {
     $sql .= " WHERE id = ?";
     //echo $sql;
     $rows = dataBaseFindOne($sql,(int)$id); //db.php
+    echo $_SESSION["token"];
     $json = json_encode($rows);
     header("Content-Type: application/json");
     print_r($json);

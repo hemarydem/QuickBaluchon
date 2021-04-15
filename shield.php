@@ -1,9 +1,12 @@
 <?php
+include("chckFnctns/chckFnctns.php");
+session_start();
+$_SESSION["token"] = tokenApi();
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 $tabArr = [
-    1  => "bill",            // code = 1
-    2  =>"CHECKDELIVERY",    // code = 2
+    1 => "bill",            // code = 1
+    2 =>"CHECKDELIVERY",    // code = 2
     3 =>"coli",             // code = 3
     4 =>"CUSTOMERRATE",     // code = 4
     5 =>"DELIVERY",         // code = 5
@@ -11,19 +14,20 @@ $tabArr = [
     7 =>"DELIVERYRATE",     // code = 7
     8 =>"DEPOSIT",          // code = 8
     9 =>"DEPOT",            // code = 9
-    10 =>"OWN",              // code = 10
-    11 =>"PAYSHEET",         // code = 11
-    12 =>"RECIPIENT",        // code = 12
-    13 =>"user",             // code = 13
-    14 =>"VEHICULE"          // code = 14
+    10 =>"own",             // code = 10
+    11 =>"paysheet",        // code = 11
+    12 =>"recipient",       // code = 12
+    13 =>"user",            // code = 13
+    14 =>"vehicule"         // code = 14
 ];
-if(isset($data['type']) && ($data['type'] >= 1 && $data['type'] <= 14 )) {
+if(isset($data['type']) && ($data['type'] >= 1 && $data['type'] <= 5)) {
     $type = intval($data['type']);
     $urlBase = "http://localhost:8888/";
 } else {
     http_response_code(400);
     exit(1);
 }
+areSetarr($data);
 switch ($type) {
     case 1:
         unset($data['type']);
