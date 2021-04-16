@@ -1,4 +1,5 @@
 <?php
+
 /* FILE EDITE BY:
  *                 - YANIS TAGRI
  *                 - PEROCHON LÉO
@@ -7,6 +8,9 @@
  * This file contain general functions who are calling or updating the data base
  * then, there is some functions for build and write SQL request
  */
+
+
+
 
 /* getDataBaseConnection ()
  * this fonction get the connection with the data base

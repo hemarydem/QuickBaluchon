@@ -2,6 +2,7 @@
 include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
+session_start();
 if(isset($_GET)) {
     $id = $_GET['id'];
     unset($_GET['id']);

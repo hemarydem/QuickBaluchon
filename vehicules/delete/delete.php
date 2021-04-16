@@ -1,6 +1,7 @@
 <?php
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
+session_start();
 $idCheck = intval($_GET['id']);
 $sql = buildsDelete("vehicule", $idCheck);
 $params = array($idCheck);

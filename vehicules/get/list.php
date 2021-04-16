@@ -2,6 +2,7 @@
 include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
+session_start();
 $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
 if($_GET['offset'] >= $_GET['limit']) {

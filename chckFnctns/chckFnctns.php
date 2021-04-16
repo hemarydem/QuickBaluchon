@@ -19,17 +19,86 @@
  * string
  *
  */
+
+
+
 function tokenApi():string {
     $today = getdate();
-    $tddate = strval($today["mday"]) ."/". strval($today["mon"]) ."/". strval($today["year"]);
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "user");
     $tddate = hash("sha512",$tddate,false);
     return $tddate;
 }
+
+
+function driverTokenApi():string {
+    $today = getdate();
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "driver");
+    $tddate = hash("sha512",$tddate,false);
+    return $tddate;
+}
+
+
+function adminTokenApi():string {
+    $today = getdate();
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "admin");
+    $tddate = hash("sha512",$tddate,false);
+    return $tddate;
+}
+
+function clientTokenApi():string {
+    $today = getdate();
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "client");
+    $tddate = hash("sha512",$tddate,false);
+    return $tddate;
+}
+
 /*
  *
  *
+ */
+
+function gotToken(string $token) {
+    $clientToken = driverTokenApi();
+    $adminToken = adminTokenApi();
+    $driverToken = clientTokenApi();
+    $arr = [$clientToken, $adminToken, $driverToken];
+    foreach ($arr as $item) {
+        if(strcmp($token, $item) != 0)
+            return true;
+    }
+    erro400NotConnectJsonMssg("bad token");
+}
+
+/*
+ * didYouConnect
+ * checkIf the user sign in
+ *
  * */
-function errologToFILE(string $mssgError, string $pathToFILE) {
+function didYouConnect() {
+    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+    echo session_status() . "\n";
+    print_r($_SESSION);
+
+    if(!isset($_SESSION["connect"]))
+        erro400NotConnectJsonMssg( "didYouConnect() 1 error: you must be connected to access to this script");
+
+    if(strcmp($_SESSION["connect"], hash("sha512","1",false)) != 0)
+        erro400NotConnectJsonMssg( "didYouConnect() 2 error: you must be connected to access to this script");
+
+    if(isset($_SESSION["token"]))
+        gotToken($_SESSION["token"]);
+    $arrStatus = [1,2,3];
+    for($i = 0; $i < 3; $i++) {
+        if ($arrStatus[$i] == $_SESSION["status"])
+            $valid = true;
+    }
+    if(!$valid)
+        erro400NotConnectJsonMssg( " 4 error: status you must be connected to access to this script");
+}
+
+
+
+/*function errologToFILE(string $mssgError, string $pathToFILE) { // TODO log function
     file_put_contents(,$mssgError,)
     $File = $pathToFILE;
     $fh = fopen($myFile, 'w') or die("can't open file");
@@ -38,7 +107,7 @@ function errologToFILE(string $mssgError, string $pathToFILE) {
     $stringData = "Tracy Tanner\n";
     fwrite($fh, $stringData);
     fclose($fh);
-}
+}*/
 
 /*
  *  erro400NotConnectJsonMssg
@@ -51,7 +120,6 @@ function erro400NotConnectJsonMssg( string $errorMessage) {
     http_response_code(400);
     header("Content-Type: application/json");
     echo json_encode(["message"=> $errorMessage]);
-    echo session_status();
     exit(1);
 }
 
@@ -60,7 +128,7 @@ function chkSessionStarted(){
         erro400NotConnectJsonMssg("chkFnctns -> chkSessionStarted()\n error_session:unactive session");
 }
 function chkSession():boolean {
-    chkSessionStarted()
+    chkSessionStarted();
     if (!isset($_SESSION["status"]) || $_SESSION ['token'] || $_SESSION ['status']) {
         erro400NotConnectJsonMssg("chkFnctns -> chkSession()\n error_session: you must be connect");
         return false;
@@ -81,9 +149,7 @@ function chkSession():boolean {
 
 function countJsonObjElem($jsonObj,int $numOfElements) {
     if(count((array)$jsonObj) != $numOfElements) {// check all data are init
-        //echo "countJsonObjElem";
-        http_response_code(400);
-        exit(1);
+        erro400NotConnectJsonMssg( "warning : it miss some elements");
     }
 }
 /*
@@ -95,9 +161,7 @@ function countJsonObjElem($jsonObj,int $numOfElements) {
  */
 function countArrElem(array $arr, int $numOfElements) {
     if(count($arr) != $numOfElements) {// check all data are init
-        //echo "countJsonObjElem";
-        http_response_code(400);
-        exit(1);
+        erro400NotConnectJsonMssg( "warning : it miss some elements");
     }
 }
 /*
@@ -107,19 +171,14 @@ function countArrElem(array $arr, int $numOfElements) {
 function areSetJsonObjElem($jsonObj) { //NOTE CALL  countJsonObjElem
     foreach ($jsonObj as $key => $value) {                     //Before areSetJsonObjElem()
         if(strlen($value) <= 0) {
-            //echo "areSetJsonObjElem";
-            http_response_code(400);
-            exit(1);
+            erro400NotConnectJsonMssg( "warning : field ".$key." is empty");
         }
     }
 }
-function areSetarr(array $jsonObj) { //NOTE CALL  countJsonObjElem
-    foreach ($jsonObj as $item) {                     //Before areSetJsonObjElem()
-        if(strlen($item) <= 0) {
-            http_response_code(400);
-            header("Content-Type: application/json");
-            echo "{\"warning\":\"field is empty\"}";
-            exit(1);
+function areSetarr(array $arr) { //NOTE CALL  countJsonObjElem
+    foreach ($arr as $key => $value) {                     //Before areSetJsonObjElem()
+        if(strlen($value) <= 0) {
+            erro400NotConnectJsonMssg( "warning : field ".$key." is empty");
         }
     }
 }
@@ -163,6 +222,7 @@ function strToIntAssiArrayElem($arr,$arrayIntKeys) {
         if(isset($arr[$value]))
             $arr[$value] = intval($arr[$value]);
     }
+    return $arr;
 }
 
 /* chek if the stings in the array arr
@@ -177,28 +237,17 @@ function strToIntAssiArrayElem($arr,$arrayIntKeys) {
  * true if their is no matche
  * */
 
-function isInString(string $str, array $arr):bool {
-    foreach ($arr as $item)
-        if(strpos($str, $item) !== false) {
-            return true; //word found
-        } else {
-            return false;
-        }
-}
-
-function checkStringsArray(array $arr, int $option):bool { // option 0 if keys are integer
+function checkStringsArray(array $arr, int $option) { // option 0 if keys are integer
     $ref = ["SELECT", "select","UPDATE", "update", "DROP", "drop", "INSERT", "insert", "DELETE","delete"];
-    foreach ($arr as $key => $value) {                     //or one if keys are strings
-        if(isInString($value,$ref)) {
-            http_response_code(400);
-            exit(1);
-        }
+    foreach ($arr as $key => $value) {
+            if(preg_match("/[Ss][eE][Ll][eE][cC][tT]|[Uu][Pp][Dd][Aa][Tt][Ee]|[Dd][Rr][Oo][Pp]|[Ii][Nn][Ss][Ee][Rr][Tt]|[Dd][eE][lL][eE][Tt][Ee]/",$value) != 0) {
+                erro400NotConnectJsonMssg( "warning : THOSE NEXT WORDS ARE FORBBIDEN SELECT UPDATE DROP INSERT DELETE");
+            }
     }
     if ($option == 1) {
         foreach ($arr as $key => $value)
-            if(isInString($key,$ref)) {
-                http_response_code(400);
-                exit(1);
+            if(preg_match("/[Ss][eE][Ll][eE][cC][tT]|[Uu][Pp][Dd][Aa][Tt][Ee]|[Dd][Rr][Oo][Pp]|[Ii][Nn][Ss][Ee][Rr][Tt]|[Dd][eE][lL][eE][Tt][Ee]/",$value) != 0) {
+                erro400NotConnectJsonMssg( "warning : THOSE NEXT WORDS ARE FORBBIDEN SELECT select UPDATE update DROP drop INSERT insert DELETE delete");
             }
     }
     return true;
