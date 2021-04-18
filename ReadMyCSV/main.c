@@ -80,6 +80,7 @@ int ConnexionToBDD(MYSQL con){
 
 }
 
+<<<<<<< HEAD
 char ** buildCharArray(int numOfLine) {
   char ** array = NULL;
   int i;
@@ -152,6 +153,17 @@ void insertBDD(FILE *myfilebro, MYSQL con){
         free(tabValue[i]); 
     }
     free(tabValue);// free du tableau
+=======
+void insertBDD(char *str){
+    printf("%s\n",str);
+
+    //On dÃ©clare un tableau de char pour y stocker la requete
+    //char requete[255] = "";
+    //On stock la requete dans notre tableau de char
+    //sprintf(requete, "INSERT INTO  VALUES('', '%s', '%ld')", value, value2);
+    //On execute la requete
+    //mysql_query(&mysql, requete);
+>>>>>>> 4733a00fd614cb589b4e167bf8396d565c1757a9
 }
 
 int readCSV(char **array, int bdd,MYSQL con){
