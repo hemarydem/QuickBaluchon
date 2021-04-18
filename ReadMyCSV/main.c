@@ -1,11 +1,10 @@
-#include <dirent.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <mysql/mysql.h>
-
-#define LEN(arr) ((int) (sizeof (arr) / sizeof (arr)[0]))
+#include "bddFun.h"
+#include "folderFun.h"
+#include "erro.h"
+//#define LEN(arr) ((int) (sizeof (arr) / sizeof (arr)[0]))
 //gcc main.c -l mysqlclient
+<<<<<<< HEAD
 
 int numberFile;
 
@@ -202,9 +201,20 @@ int main(){
     MYSQL con;
     mysql_init(&con);
     mysql_options(&con,MYSQL_READ_DEFAULT_GROUP,"option");
+=======
+//gcc ReadMyCSV/*.c -o exec.app -l mysqlclient
+int main(int argc, char ** argv) {
+    MYSQL * con;
+    if (mysql_library_init(argc, argv, NULL)) {
+        fprintf(stderr, "could not initialize MySQL client library\n");
+        exit(1);
+    }
+    con = mysql_init(con);
+    mysql_options(con,MYSQL_READ_DEFAULT_GROUP,"option");
+>>>>>>> 1c53e25aecca8ae797fa92af136fdd64f6615bd1
     int returnValue = ConnexionToBDD(con);
     char **myCsvArray = getCSV();
     readCSV(myCsvArray,returnValue,con);
-    mysql_close(&con);
+    mysql_close(con);
     return 0;
 }
