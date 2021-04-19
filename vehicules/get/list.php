@@ -5,6 +5,7 @@ include ("./../../listfnctns/listfnctns.php");
 if(isset($_GET)) {
     if(isset($_GET['tokenApi'])) {
         chekIfRequestFromShield($_GET['tokenApi']);
+        unset($_GET['tokenApi']);
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
     }

@@ -1,9 +1,14 @@
 <?php
-
 include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
-if (isset($_GET)) {
+if(isset($_GET)) {
+    if(isset($_GET['tokenApi'])) {
+        chekIfRequestFromShield($_GET['tokenApi']);
+        unset($_GET['tokenApi']);
+    } else {
+        erro400NotConnectJsonMssg( "token api is not set");
+    }
     checkStringsArray($_GET,1);
     $id = $_GET['id'];
     unset($_GET['id']);

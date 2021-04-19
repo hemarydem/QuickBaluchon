@@ -3,6 +3,12 @@ include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
+if(isset($data['tokenApi'])) {
+    chekIfRequestFromShield($data['tokenApi']);
+    unset($data['tokenApi']);
+} else {
+    erro400NotConnectJsonMssg( "token api is not set");
+}
 $intKey = [
     "cost",
     "idUser"
