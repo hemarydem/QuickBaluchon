@@ -1,7 +1,6 @@
 <?php
 include ("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
-session_start();
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 $idCheck = intval($data['id']);

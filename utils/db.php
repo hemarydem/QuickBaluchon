@@ -116,7 +116,14 @@ function execRequest(string $sql, array $params):?array {
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
+             $result = $statement->fetch(PDO::FETCH_ASSOC);
+             if($result == false) {
+                 header("Content-Type: application/json");
+                 echo json_encode(["message"=> "result not found"]);
+                 exit(1);
+             } else {
+                 return $result;
+             }
         }
     }
     return NULL;
@@ -424,3 +431,4 @@ function execCheckRequest(string $sql, array $params):?array {
     }
     return NULL;
 }
+

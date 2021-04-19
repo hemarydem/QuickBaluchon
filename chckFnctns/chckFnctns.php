@@ -8,6 +8,10 @@
  * then, there is some functions for build and write SQL request
  */
 
+
+
+
+
 /*
  * tokenApi
  * gen the token api
@@ -22,34 +26,33 @@
 
 
 
-function tokenApi():string {
+function tokenconnection(int $userStatus):string {
     $today = getdate();
-    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "user");
+    $arrStatus = [
+        1 => "driver",
+        2 => "admin",
+        3 => "client"
+    ];
+    $salt = $arrStatus[$userStatus];
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] ) .  $salt;
+    $tddate = hash("sha512",$tddate,false);
+    return $tddate;
+}
+
+function tokenReqShield():string {
+    $today = getdate();
+    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] ) ."c > un peu tout en fait ? xoxo : xoxox　ありがと";
     $tddate = hash("sha512",$tddate,false);
     return $tddate;
 }
 
 
-function driverTokenApi():string {
-    $today = getdate();
-    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "driver");
-    $tddate = hash("sha512",$tddate,false);
-    return $tddate;
-}
-
-
-function adminTokenApi():string {
-    $today = getdate();
-    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "admin");
-    $tddate = hash("sha512",$tddate,false);
-    return $tddate;
-}
-
-function clientTokenApi():string {
-    $today = getdate();
-    $tddate = strval($today["mday"]) . "/" . strval($today["mon"]) . "/" . strval($today["year"] . "client");
-    $tddate = hash("sha512",$tddate,false);
-    return $tddate;
+function getUserStatus(int $id) {
+    $result = execRequest("SELECT statut FROM USER WHERE id = ?",[$id]);
+    if(isset($result["statut"])) {
+        return intval($result["statut"]);
+    }
+    erro400NotConnectJsonMssg( "shield: this id does not exist in data base");
 }
 
 /*
@@ -57,10 +60,10 @@ function clientTokenApi():string {
  *
  */
 
-function gotToken(string $token) {
-    $clientToken = driverTokenApi();
-    $adminToken = adminTokenApi();
-    $driverToken = clientTokenApi();
+function chekIfRequestFromShield(string $token) {
+    $clientToken = tokenconnection(1);
+    $adminToken = tokenconnection(2);
+    $driverToken = tokenconnection(3);
     $arr = [$clientToken, $adminToken, $driverToken];
     foreach ($arr as $item) {
         if(strcmp($token, $item) != 0)
@@ -69,31 +72,42 @@ function gotToken(string $token) {
     erro400NotConnectJsonMssg("bad token");
 }
 
+
+function checIfsessionStarted() {
+    if(session_status() !== PHP_SESSION_ACTIVE)
+        session_start();
+}
+
+
+
+function checkStatus(int $status) {
+    $valid = true;
+    if ($status < 0 || $status > 3) {
+        $valid = false;
+    }
+    if(!$valid)
+        erro400NotConnectJsonMssg( " 4 error: status you must be connected to access to this script");
+}
+
 /*
  * didYouConnect
  * checkIf the user sign in
  *
  * */
 function didYouConnect() {
-    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+
     echo session_status() . "\n";
     print_r($_SESSION);
 
-    if(!isset($_SESSION["connect"]))
-        erro400NotConnectJsonMssg( "didYouConnect() 1 error: you must be connected to access to this script");
+    //if(!isset($_SESSION["connect"]))
+      //  erro400NotConnectJsonMssg( "didYouConnect() 1 error: you must be connected to access to this script");
 
-    if(strcmp($_SESSION["connect"], hash("sha512","1",false)) != 0)
-        erro400NotConnectJsonMssg( "didYouConnect() 2 error: you must be connected to access to this script");
+    //if(strcmp($_SESSION["connect"], hash("sha512","1",false)) != 0)
+     //   erro400NotConnectJsonMssg( "didYouConnect() 2 error: you must be connected to access to this script");
 
-    if(isset($_SESSION["token"]))
-        gotToken($_SESSION["token"]);
-    $arrStatus = [1,2,3];
-    for($i = 0; $i < 3; $i++) {
-        if ($arrStatus[$i] == $_SESSION["status"])
-            $valid = true;
-    }
-    if(!$valid)
-        erro400NotConnectJsonMssg( " 4 error: status you must be connected to access to this script");
+    //if(isset($_SESSION["token"]))
+    //    gotToken($_SESSION["token"]);
+
 }
 
 
@@ -108,6 +122,15 @@ function didYouConnect() {
     fwrite($fh, $stringData);
     fclose($fh);
 }*/
+
+function valueIsInt(array $arr, string $KyeOfValueToCheck):int {
+    if(isset($arr[$KyeOfValueToCheck])) {                  //TODO reduce this code into a fuction
+        $type = intval($arr[$KyeOfValueToCheck]);                                                          //warning "1B" will pass as 1
+    } else {
+        erro400NotConnectJsonMssg( "shield: ". $KyeOfValueToCheck . " is missing or the type's value is to hight, to little value");
+    }
+    return $type;
+}
 
 /*
  *  erro400NotConnectJsonMssg
