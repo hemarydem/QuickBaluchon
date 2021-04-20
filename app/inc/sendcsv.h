@@ -10,5 +10,6 @@
 #include <stdbool.h>
 #include <curl/curl.h>
 #include <gtk/gtk.h>
+#include <unistd.h>
 int sendcsv (char *filename);
 #endif

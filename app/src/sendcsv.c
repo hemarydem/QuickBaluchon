@@ -1,6 +1,40 @@
 #include "../inc/sendcsv.h"
 
 
+
+
+
+char * executeSendCsv(char * filePath, char * file){
+
+    char * cmd = malloc(sizeof(char) * 255);
+    char * endCmd = " --ftp-create-dirs";
+    strcpy(cmd, "curl -k \"sftp://152.228.163.174:59349/csvProcessed/\" --user \"debiansftp:J9Sr0-Vy\" -T ");
+    strcat(cmd, filePath);
+    strcat(cmd, file);
+    strcat(cmd, endCmd);
+    system(cmd);
+    return cmd;
+
+
+}
+
+
+int sendcsv(char *filename)
+{
+    char * filePath = malloc(sizeof(char) * (255));
+    char * file = malloc(sizeof(char) * (255));
+    char * file2 = malloc(sizeof(char) * (255));
+    strcpy(file, "/");
+    strcat(file, filename);
+    getcwd(filePath, 255);
+    executeSendCsv(filePath, file);
+
+
+    return 0;
+}
+
+
+/*
 int sendcsv (char *filename)
 {
     printf("filename: %s\n",filename);
@@ -13,7 +47,7 @@ int sendcsv (char *filename)
     char line[255];
     char * jsonObj = malloc(sizeof(char) * (255));
 
-    /*char filename[] = "testa.csv";*/
+    /*char filename[] = "testa.csv";
     FILE *file = fopen ( filename, "r" );
 
     if(file != NULL)
@@ -63,7 +97,7 @@ int sendcsv (char *filename)
                 printf("Colis enregistré !\n");
             }else{
                 printf("Erreur dans l'enregsitrement du colis\n");
-            }*/
+            }
         }
         fclose (file);
     }
@@ -74,3 +108,4 @@ int sendcsv (char *filename)
     }
     return 0;
 }
+*/
