@@ -50,7 +50,6 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
         $success = $statement->execute($params);
         if($success) {
             $id  = $connect->lastInsertId();
-            echo $id;
             header('Content-type: Application/json');
             echo json_encode(execRequest("SELECT * FROM ".$tabName." WHERE ID =?", [$id]));
             return $id;
