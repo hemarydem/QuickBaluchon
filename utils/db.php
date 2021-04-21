@@ -45,10 +45,13 @@ function getDataBaseConnection(): PDO {
  * Null
  */
 function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabName):?int {
+    flagation(2);
     $statement = $connect->prepare($sql);
     if($statement !== false) {
+        flagation(3);
         $success = $statement->execute($params);
         if($success) {
+            flagation(4);
             $id  = $connect->lastInsertId();
             header('Content-type: Application/json');
             echo json_encode(execRequest("SELECT * FROM ".$tabName." WHERE ID =?", [$id]));
