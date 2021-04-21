@@ -56,6 +56,9 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
             header('Content-type: Application/json');
             echo json_encode(execRequest("SELECT * FROM ".$tabName." WHERE ID =?", [$id]));
             return $id;
+        }else {
+            header('Content-type: Application/json');
+            echo json_encode(["message"=> "insert execute failed"]);
         }
     }
     return NULL;
