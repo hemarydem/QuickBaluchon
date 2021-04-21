@@ -4,7 +4,7 @@
     checIfsessionStarted();
     $content = file_get_contents('php://input');
     $data = json_decode($content, true);
-    //print_r($data);
+    print_r($data);
     $tabArr = [
         1 => "bill",            // code = 1
         2 =>"CHECKDELIVERY",    // code = 2
@@ -31,7 +31,6 @@
         $status = 3;
         $jsonUserStatus = 3;
     } else {
-        flagation(1);
         $id = valueIsInt($data,"jsonUserId");
         $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
         unset($data['jsonUserStatus']);
@@ -75,7 +74,7 @@
         case 2:
             $urlBase = $urlBase . $tabName ."s/post/update.php";
             $ch = curl_init($urlBase);
-            $data ['tokenApi'] = $_SESSION['tokenApi'];
+            //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -89,7 +88,7 @@
         case 3:
             $urlBase = $urlBase . $tabName ."s/get/$tab.php?";
             foreach ($data as $key => $value) {
-                $urlBase.=$key."=".$value."&";
+                $urlBase =$urlBase . $key."=".$value."&";
             }
             $urlBase = substr($urlBase, 0, -1);
             $urlBase.="&tokenApi=".$_SESSION['tokenApi'];
@@ -105,10 +104,10 @@
         case 4:
             $urlBase = $urlBase . $tabName ."s/get/list.php?";
             foreach ($data as $key => $value) {
-                $urlBase.=$key."=".$value."&";
+                $urlBase = $urlBase . $key."=".$value."&";
             }
             $urlBase = substr($urlBase, 0, -1);
-            $urlBase.="&tokenApi=".$_SESSION['tokenApi'];
+            $urlBase =$urlBase . "&tokenApi=" . $_SESSION['tokenApi'];
             $cURLConnection = curl_init();
             curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
             curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -124,7 +123,7 @@
                 $urlBase.=$key."=".$value."&";
             }
             $urlBase = substr($urlBase, 0, -1);
-            $urlBase.="&tokenApi=".$_SESSION['tokenApi'];
+            $urlBase = $urlBase . "&tokenApi=" . $_SESSION['tokenApi'];
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $urlBase);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -138,7 +137,7 @@
         case 6:
             $urlBase = $urlBase . $tabName . "/getByAttribut/getByAttribut.php?";
             foreach ($data as $key => $value) {
-                $urlBase.=$key."=".$value."&";
+                $urlBase =$urlBase . $key."=".$value."&";
             }
             $urlBase = substr($urlBase, 0, -1);
             $urlBase.="&tokenApi=".$_SESSION['tokenApi'];

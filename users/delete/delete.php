@@ -9,7 +9,7 @@ if(isset($_GET)) {
         erro400NotConnectJsonMssg( "token api is not set");
     }
     $idCheck = intval($_GET['id']);
-    $sql = buildsDelete("user", $idCheck);
+    $sql = buildsDelete("USER", $idCheck);
     $params = array($idCheck);
     if (execRequestDelete($sql, $params)) {
         header('Content-type: Application/json');

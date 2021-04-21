@@ -4,6 +4,5 @@ function insertUser( string $tabName, string $nom, string $prenom, string  $mail
     $db = getDataBaseConnection();
     $sql = "INSERT INTO USER( nom, prenom, mail, adresse, numSiret, password, tel, driverLicence, statut, busy, zoneMaxDef) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     $params = [ $nom,  $prenom,   $mail,   $adresse,  $numSiret,  $password,  $tel, $driverLicence, $statut, $busy, $zoneMaxDef];
-    flagation(1);
     return dataBaseInsert($db,  $sql, $params, $tabName);
 }
