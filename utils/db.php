@@ -1,4 +1,7 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
+include("env.php");
 
 /* FILE EDITE BY:
  *                 - YANIS TAGRI
@@ -16,9 +19,9 @@
  * this fonction get the connection with the data base
  */
 function getDataBaseConnection(): PDO {
-    $dsn = 'mysql:dbname=qb;host=localhost';
-    $user = 'root';
-    $password = 'root';
+    $dsn = getenv('DSN');
+    $user = getenv('USER');
+    $password = getenv('PASSWORD');
     try {
        return $dbh = new PDO($dsn, $user, $password);
     } catch (PDOException $e) {

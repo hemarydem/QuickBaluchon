@@ -25,7 +25,7 @@
     $type = valueIsInt($data,"type");
     $tab = valueIsInt($data,"code");
     $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
-    $urlBase = "http://localhost:8888/";
+    $urlBase = "http://152.228.163.174/api/QuickBaluchon";
     unset($data['type']);
     unset($data['code']);
     unset($data['jsonUserId']);
