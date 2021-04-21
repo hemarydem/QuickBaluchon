@@ -59,7 +59,7 @@
     //array_push($data,$_SESSION['tokenApi']);
     switch ($type) {
         case 1:
-            $urlBase.= $tab ."s/post/creat.php";
+            $urlBase = $urlBase . $tab ."s/post/creat.php";
             echo $urlBase;
             $ch = curl_init($urlBase);
             //$data ['tokenApi'] = $_SESSION['tokenApi'];
