@@ -92,6 +92,7 @@
             }
             $urlBase = substr($urlBase, 0, -1);
             $urlBase.="&tokenApi=".$_SESSION['tokenApi'];
+            echo $urlBase;
             $cURLConnection = curl_init();
             curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
             curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
