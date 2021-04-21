@@ -51,7 +51,7 @@
     if($tab < 0 && $tab > 14) {
         erro400NotConnectJsonMssg( "shield: the code's value is to hight, to little value");
     }
-    $tab = $tabArr[$tab];
+    $tabName = $tabArr[$tab];
     areSetarr($data);
     checkStringsArray($data,1);
     $urlBase = "http://152.228.163.174/api/QuickBaluchon";
@@ -59,7 +59,8 @@
     //array_push($data,$_SESSION['tokenApi']);
     switch ($type) {
         case 1:
-            $urlBase = $urlBase . $tab ."s/post/creat.php";
+            echo $tabName;
+            $urlBase = $urlBase . $tabName ."s/post/creat.php";
             echo $urlBase;
             $ch = curl_init($urlBase);
             //$data ['tokenApi'] = $_SESSION['tokenApi'];
