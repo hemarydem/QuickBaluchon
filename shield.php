@@ -59,9 +59,7 @@
     //array_push($data,$_SESSION['tokenApi']);
     switch ($type) {
         case 1:
-            echo $tabName;
             $urlBase = $urlBase . $tabName ."s/post/creat.php";
-            echo $urlBase;
             $ch = curl_init($urlBase);
             //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
@@ -75,7 +73,7 @@
             unset($_SESSION['tokenApi']);
             break;
         case 2:
-            $urlBase.= $tab ."s/post/update.php";
+            $urlBase = $urlBase . $tabName ."s/post/update.php";
             $ch = curl_init($urlBase);
             $data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
@@ -89,7 +87,7 @@
             unset($_SESSION['tokenApi']);
             break;
         case 3:
-            $urlBase.= $tab ."s/get/$tab.php?";
+            $urlBase = $urlBase . $tabName ."s/get/$tab.php?";
             foreach ($data as $key => $value) {
                 $urlBase.=$key."=".$value."&";
             }
@@ -105,7 +103,7 @@
             unset($_SESSION['tokenApi']);
             break;
         case 4:
-            $urlBase.= $tab ."s/get/list.php?";
+            $urlBase = $urlBase . $tabName ."s/get/list.php?";
             foreach ($data as $key => $value) {
                 $urlBase.=$key."=".$value."&";
             }
@@ -121,7 +119,7 @@
             unset($_SESSION['tokenApi']);
             break;
         case 5:
-            $urlBase.= $tab ."s/delete/delete.php?";
+            $urlBase= $urlBase . $tabName ."s/delete/delete.php?";
             foreach ($data as $key => $value) {
                 $urlBase.=$key."=".$value."&";
             }
@@ -138,7 +136,7 @@
             unset($_SESSION['tokenApi']);
             break;
         case 6:
-            $urlBase.= $tab . "/getByAttribut/getByAttribut.php?";
+            $urlBase = $urlBase . $tabName . "/getByAttribut/getByAttribut.php?";
             foreach ($data as $key => $value) {
                 $urlBase.=$key."=".$value."&";
             }
