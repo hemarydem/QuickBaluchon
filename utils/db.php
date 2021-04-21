@@ -49,6 +49,7 @@ function dataBaseInsert(PDO $connect, string $sql, array $params, string $tabNam
     $statement = $connect->prepare($sql);
     if($statement !== false) {
         flagation(3);
+        print_r($params),
         $success = $statement->execute($params);
         if($success) {
             flagation(4);
