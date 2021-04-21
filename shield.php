@@ -18,7 +18,7 @@
         10 =>"own",             // code = 10
         11 =>"paysheet",        // code = 11
         12 =>"recipient",       // code = 12
-        13 =>"USER",            // code = 13
+        13 =>"user",            // code = 13
         14 =>"vehicule"         // code = 14
     ];
 
