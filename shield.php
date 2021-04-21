@@ -54,7 +54,7 @@
     $tabName = $tabArr[$tab];
     areSetarr($data);
     checkStringsArray($data,1);
-    $urlBase = "http://152.228.163.174/api/QuickBaluchon";
+    $urlBase = "http://152.228.163.174/api/QuickBaluchon/";
     $data ['tokenApi'] = $_SESSION['tokenApi'];
     //array_push($data,$_SESSION['tokenApi']);
     switch ($type) {
