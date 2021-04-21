@@ -21,17 +21,24 @@
         13 =>"user",            // code = 13
         14 =>"vehicule"         // code = 14
     ];
-    $id = valueIsInt($data,"jsonUserId");
+
     $type = valueIsInt($data,"type");
     $tab = valueIsInt($data,"code");
-    $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
-    $urlBase = "http://152.228.163.174/api/QuickBaluchon";
     unset($data['type']);
     unset($data['code']);
-    unset($data['jsonUserId']);
-    unset($data['jsonUserStatus']);
     //echo "id = " . $id;
-    $status = getUserStatus($id);
+    if($type == 1 && $tab == 13) {
+        $status = 3;
+        $jsonUserStatus = 3;
+    } else {
+        flagation(1);
+        $id = valueIsInt($data,"jsonUserId");
+        $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
+        unset($data['jsonUserStatus']);
+        unset($data['jsonUserId']);
+        $status = getUserStatus($id);
+
+    }
     //echo $status;
     if($jsonUserStatus != $status)
         erro400NotConnectJsonMssg( "shield: error jsonUserstatus not good");
@@ -47,11 +54,15 @@
     $tab = $tabArr[$tab];
     areSetarr($data);
     checkStringsArray($data,1);
+    $urlBase = "http://152.228.163.174/api/QuickBaluchon";
+    $data ['tokenApi'] = $_SESSION['tokenApi'];
+    //array_push($data,$_SESSION['tokenApi']);
+    print_r($data);
     switch ($type) {
         case 1:
             $urlBase.= $tab ."s/post/creat.php";
             $ch = curl_init($urlBase);
-            $data ['tokenApi'] = $_SESSION['tokenApi'];
+            //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
