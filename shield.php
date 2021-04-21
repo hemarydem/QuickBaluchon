@@ -57,10 +57,10 @@
     $urlBase = "http://152.228.163.174/api/QuickBaluchon";
     $data ['tokenApi'] = $_SESSION['tokenApi'];
     //array_push($data,$_SESSION['tokenApi']);
-    print_r($data);
     switch ($type) {
         case 1:
             $urlBase.= $tab ."s/post/creat.php";
+            echo $urlBase;
             $ch = curl_init($urlBase);
             //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
