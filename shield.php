@@ -2,9 +2,10 @@
     include("utils/db.php");
     include("chckFnctns/chckFnctns.php");
     checIfsessionStarted();
-    $content = file_get_contents('php://input');
-    $data = json_decode($content, true);
-    //print_r($data);
+    if(isset($_POST)) {
+        $content = file_get_contents('php://input');
+        $data = json_decode($content, true);
+    }
     $tabArr = [
         1 => "bill",            // code = 1
         2 =>"CHECKDELIVERY",    // code = 2
@@ -21,18 +22,22 @@
         13 =>"user",            // code = 13
         14 =>"vehicule"         // code = 14
     ];
-    $id = valueIsInt($data,"jsonUserId");
     $type = valueIsInt($data,"type");
     $tab = valueIsInt($data,"code");
-    $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
-    $urlBase = "http://localhost:8888/";
     unset($data['type']);
     unset($data['code']);
-    unset($data['jsonUserId']);
-    unset($data['jsonUserStatus']);
     //echo "id = " . $id;
-    $status = getUserStatus($id);
-    //echo $status;
+    if($type == 1 && $tab == 13) {
+        $status = 3;
+        $jsonUserStatus = 3;
+    } else {
+        $id = valueIsInt($data,"jsonUserId");
+        $jsonUserStatus = valueIsInt($data,"jsonUserStatus");
+        unset($data['jsonUserStatus']);
+        unset($data['jsonUserId']);
+        $status = getUserStatus($id);
+
+    }
     if($jsonUserStatus != $status)
         erro400NotConnectJsonMssg( "shield: error jsonUserstatus not good");
     $_SESSION ['tokenApi'] = tokenconnection($status);
@@ -47,11 +52,15 @@
     $tab = $tabArr[$tab];
     areSetarr($data);
     checkStringsArray($data,1);
+    $urlBase = "http://localhost:8888/";
+    $data ['tokenApi'] = $_SESSION['tokenApi'];
+    //array_push($data,$_SESSION['tokenApi']);
+    //print_r($data);
     switch ($type) {
         case 1:
             $urlBase.= $tab ."s/post/creat.php";
             $ch = curl_init($urlBase);
-            $data ['tokenApi'] = $_SESSION['tokenApi'];
+            //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -65,7 +74,7 @@
         case 2:
             $urlBase.= $tab ."s/post/update.php";
             $ch = curl_init($urlBase);
-            $data ['tokenApi'] = $_SESSION['tokenApi'];
+            //$data ['tokenApi'] = $_SESSION['tokenApi'];
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));

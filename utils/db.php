@@ -1,5 +1,5 @@
 <?php
-
+include ("env.php");
 /* FILE EDITE BY:
  *                 - YANIS TAGRI
  *                 - PEROCHON LÉO
@@ -15,7 +15,7 @@
 /* getDataBaseConnection ()
  * this fonction get the connection with the data base
  */
-function getDataBaseConnection(): PDO {
+/*function getDataBaseConnection(): PDO {
     $dsn = 'mysql:dbname=qb;host=localhost';
     $user = 'root';
     $password = 'root';
@@ -24,7 +24,25 @@ function getDataBaseConnection(): PDO {
     } catch (PDOException $e) {
         echo 'Connection failed: ' . $e->getMessage();
     }
+}*/
+
+/* getDataBaseConnection ()
+ * this fonction get the connection with the data base//TODO DELELTE FOR TEST
+ */
+function getDataBaseConnection(): PDO {
+    $dsn = getenv('DSN');
+    $user = getenv('USER');
+    $password = getenv('PASSWORD');
+    try {
+        return $dbh = new PDO($dsn, $user, $password);
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+    }
 }
+
+
+
+
 
 /* dataBaseInsert ()
  *

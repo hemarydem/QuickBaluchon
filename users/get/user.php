@@ -3,12 +3,12 @@ include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
 if(isset($_GET)) {
-    if(isset($_GET['tokenApi'])) {
+   /* if(isset($_GET['tokenApi'])) {
         chekIfRequestFromShield($_GET['tokenApi']);
         unset($_GET['tokenApi']);
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
-    }
+    }*/
     $id = intval($_GET['id']);
     $tab = "USER";
     if(!isExistInDb($id,$tab)){

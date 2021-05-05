@@ -1,4 +1,7 @@
 <?php
+include("./../../chckFnctns/chckFnctns.php");
+include("./../../listfnctns/listfnctns.php");
+include("../../utils/db.php");
 $tabArr = [
     "BILL",
     "CHECKDELIVERY",
@@ -32,3 +35,27 @@ $tabArr = [
     "USER"=> ["nom", "prenom", "mail", "adresse", "numSiret", "password", "tel", "driverLicence", "statut", "busy", "zoneMaxDef"],
     "VEHICULE"=> ["imatriculation", "nbColis", "volumeMax", "weightMax"]
 ];
+
+
+
+if (isset($_GET)) {
+    $bdd = getDataBaseConnection();
+    $sql = "SELECT
+                   VEHICULE.id,
+                   VEHICULE.imatriculation,
+                   VEHICULE.nbColis,
+                   VEHICULE.volumeMax,
+                   VEHICULE.weightMax 
+            FROM 
+                    VEHICULE 
+            INNER JOIN
+                    OWN 
+            WHERE 
+                    OWN.idUser = 3";
+    $statement = $bdd->prepare($sql);
+    $success = $statement->execute([]);
+    if($success) {
+        $resull = $statement->fetchAll(PDO::FETCH_ASSOC);
+        print_r($resull);
+    }
+}

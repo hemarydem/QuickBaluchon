@@ -1,0 +1,21 @@
+Dans se fichier note pour le dev
+
+objectif du jour supprimer le fichier shield et porté sur tous les fichiers les fonctions de controle.
+
+Note - les contrôles effectué par shield
+
+1 controle type de id user
+
+    $id = valueIsInt($data,"jsonUserId");
+
+2 controle des droit user
+
+     $status = getUserStatus($id);
+
+3 copntrôle si le schamps sont vide
+
+    areSetarr($data);
+
+4 controle des injection sql
+
+       checkStringsArray($data,1);

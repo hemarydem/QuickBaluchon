@@ -72,3 +72,13 @@ function buildsSelectAndattributsForMixePrimaryKey(array $tab, string $tabNameIn
         exit(1);
     }
 }
+
+function buildsSelectattributs(array $tab,string $tabNameInDb) :string {
+    $str = "SELECT * FROM " . $tabNameInDb . " WHERE ";
+    foreach ($tab as $key=> $value ) {
+        $str = $str . $key ."=? AND ";
+    }
+    $str = substr($str, 0, -4);
+    return  $str;
+}
+

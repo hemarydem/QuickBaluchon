@@ -97,7 +97,7 @@ function checkStatus(int $status) {
 function didYouConnect() {
 
     echo session_status() . "\n";
-    print_r($_SESSION);
+    //print_r($_SESSION);
 
     //if(!isset($_SESSION["connect"]))
       //  erro400NotConnectJsonMssg( "didYouConnect() 1 error: you must be connected to access to this script");
