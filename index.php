@@ -8,10 +8,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<?php
-    require "utls/header/header.php";
-?>
-
+    <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a href="http://localhost:8888/"><img id="imgQB" src="img/logo2.png" width="12%"></a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./signIn/signIn.php">Se connecter</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
     <div class="dropdown-menu">
         <form class="px-4 py-3">
             <div class="form-group">
