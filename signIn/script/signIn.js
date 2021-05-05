@@ -1,3 +1,4 @@
+document.getElementById("imgQB").src="../img/logo2.png";
 function getUser() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
