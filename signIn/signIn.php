@@ -61,7 +61,7 @@
                 let login = document.getElementById("mail").value;
                 let psswrd = document.getElementById("pssword").value;
                 let request = new XMLHttpRequest();
-                let destination = ["http://localhost:8888/home/homeDriver.php", "http://localhost:8888/home/homeAdmin.php", "http://localhost:8888/home/homeUser.php"];
+                let destination = ["http://localhost:8888/front/home/homeDriver.php", "http://localhost:8888/front/home/homeAdmin.php", "http://localhost:8888/front/home/homeUser.php"];
                 request.open("GET","http://localhost:8888/api/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
                 request.onreadystatechange = function() {
                     if(request.readyState == 4) {
@@ -69,8 +69,9 @@
 
                             let ObjJson = JSON.parse(request.responseText);
                             console.log(ObjJson);
-                            
-                            window.location.href = destination[ObjJson["status"]];
+                            console.log(ObjJson["statut"]);
+                            console.log(destination[ObjJson["statut"]]);
+                            window.location.href = destination[ObjJson["statut"]];
                         } else {
                             alert("Error: returned status code " + request.status + " " + request.statusText);
                         }
