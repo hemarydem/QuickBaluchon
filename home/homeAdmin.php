@@ -1,3 +1,8 @@
+<?php
+    require "../utls/utls.php";
+    checIfsessionStarted();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

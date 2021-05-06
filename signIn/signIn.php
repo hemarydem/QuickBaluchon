@@ -1,6 +1,6 @@
 <?php
- require "../utls/utls.php";
- checIfsessionStarted();
+    require "../utls/utls.php";
+    checIfsessionStarted();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,19 +22,19 @@
                 </div>
                 <div class="col-md-4" style="background-color: grey">
                     <div class="container" >
-                        <div class="row">
-                            <div class="col-md-2 col-md-offset-5">
-                                <p>mail</p>
-                                <input type="text" value="DKKDKS@gmail.com" placeholder="mail address" id="mail">
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <p>mail</p>
+                                    <input type="text" value="DKKDKS@gmail.com" placeholder="mail address" id="mail">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 col-md-offset-5">
-                                <label>passwords</label>
-                                <input type="text" placeholder="password" id="pssword">
-                                
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-5">
+                                    <label>passwords</label>
+                                    <input type="text" placeholder="password" id="pssword">
+                                    
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-4" style="background-color: white">
@@ -60,26 +60,17 @@
             signIn: function() {
                 let login = document.getElementById("mail").value;
                 let psswrd = document.getElementById("pssword").value;
-                let request = new XMLHttpRequest();  
+                let request = new XMLHttpRequest();
+                let destination = ["http://localhost:8888/home/homeDriver.php", "http://localhost:8888/home/homeAdmin.php", "http://localhost:8888/home/homeUser.php"];
                 request.open("GET","http://localhost:8888/api/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
                 request.onreadystatechange = function() {
                     if(request.readyState == 4) {
                         if(request.status == 200) {
-                            console.log("ok");
-                            
+
                             let ObjJson = JSON.parse(request.responseText);
-                            //console.log(ObjJson);
-                            for (const [key, value] of Object.entries(ObjJson)) {
-                                //console.log(`${key}: ${value}`);
-                                let stringKey = `${key}`;
-                                let stringValue = `${value}`;
-                                let stringForSetCookie = stringKey + "=" + stringValue;
-                                console.log("\n ->" + stringForSetCookie);
-                                document.cookie=stringForSetCookie;
-                            }
-                            console.log(document.cookie);
-                            //document.cookie = "name=oeschge;";
-                            window.location.href = "http://localhost:8888/front/test.php";
+                            console.log(ObjJson);
+                            
+                            window.location.href = destination[ObjJson["status"]];
                         } else {
                             alert("Error: returned status code " + request.status + " " + request.statusText);
                         }
