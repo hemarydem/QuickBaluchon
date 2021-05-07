@@ -19,10 +19,10 @@
         <div class="row ">
             <div class="col-md-4" style="background-color: white" >
                 <h2>Mes voitures</h2>
-                <div id="listeCars"></div>
-
+                <div id="leftcont"></div>
             </div>
             <div class="col-md-4" style="background-color: grey">
+                <div id="centerCont"></div>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <h2>Mes fiches de payes</h2>
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-4" style="background-color: grey">
                 <div class="container" >
-                        <button v-on:click="signIn()">Sign In</button>
+                        
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
