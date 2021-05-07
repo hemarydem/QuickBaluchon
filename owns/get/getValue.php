@@ -2,7 +2,6 @@
 include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
-checIfsessionStarted();
 if (isset($_GET)) {
     /* if(isset($_GET['tokenApi'])) {
          chekIfRequestFromShield($_GET['tokenApi']);
@@ -10,19 +9,14 @@ if (isset($_GET)) {
      } else {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
-    $tab = "USER";
+    $tab = "OWN";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
-    $rows = execRequest( $sql, $params);
+    $rows = execRequestGetALLResults( $sql, $params);
     if($rows == null) {
-        header("Content-Type: application/json");
-        echo json_encode(["message"=> "no result found"]);
         exit(1);
     }
     $json = json_encode($rows);
-    foreach ($rows as $key => $value) {
-        $_SESSION[$key."_session"] = $value;
-    }
     header("Content-Type: application/json");
     print_r($json);
 } else {

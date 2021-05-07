@@ -146,6 +146,38 @@ function execRequest(string $sql, array $params):?array {
     }
     return NULL;
 }
+/* execRequestGetALLResults ()
+ *
+ * Genereric function execute sql request
+ * mostly use to get date from the data base
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * array contening all the result of the call
+ * or
+ * Null
+ */
+
+function execRequestGetALLResults(string $sql, array $params):?array {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if($result == false) {
+                header("Content-Type: application/json");
+                echo json_encode(["message"=> "result not found"]);
+            } else {
+                return $result;
+            }
+        }
+    }
+    return NULL;
+}
 
 /* execRequestUpdate ()
  *
@@ -301,7 +333,11 @@ function dataBaseFindOne(string $sql, int $id) :?array {
     if($statement !== false) {
         $success = $statement->execute([$id]);
         if($success) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($result === false) {
+                return NULL;
+            }
+            return $result;
         } else {
             http_response_code(500);
         }
