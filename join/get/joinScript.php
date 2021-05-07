@@ -40,6 +40,11 @@ $tabArr = [
 
 if (isset($_GET)) {
     $bdd = getDataBaseConnection();
+
+
+
+
+
     $sql = "SELECT
                    VEHICULE.id,
                    VEHICULE.imatriculation,
@@ -50,6 +55,8 @@ if (isset($_GET)) {
                     VEHICULE 
             INNER JOIN
                     OWN 
+            ON
+                OWN.idUser =
             WHERE 
                     OWN.idUser = 3";
     $statement = $bdd->prepare($sql);

@@ -171,6 +171,7 @@ function execRequestGetALLResults(string $sql, array $params):?array {
             if($result == false) {
                 header("Content-Type: application/json");
                 echo json_encode(["message"=> "result not found"]);
+                exit(1);
             } else {
                 return $result;
             }

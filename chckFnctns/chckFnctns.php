@@ -137,10 +137,23 @@ function valueIsInt(array $arr, string $KyeOfValueToCheck):int {
  *
  *  error 400 http
  *  display json
- *  stop the screen
+ *  stop the execution
  * */
 function erro400NotConnectJsonMssg( string $errorMessage) {
     http_response_code(400);
+    header("Content-Type: application/json");
+    echo json_encode(["message"=> $errorMessage]);
+    exit(1);
+}
+
+/*
+ *  errorJsonMssg
+ *
+ *  error 400 http
+ *  display json
+ *  stop the execution
+ * */
+function erroJsonMssg( string $errorMessage) {
     header("Content-Type: application/json");
     echo json_encode(["message"=> $errorMessage]);
     exit(1);
