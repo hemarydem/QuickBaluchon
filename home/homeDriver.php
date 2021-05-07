@@ -11,14 +11,16 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <title>homeDriver</title>
 </head>
-<body>
+<body id="body">
 <?php
     require "../utls/header/header.php";
 ?>
     <div class="container" id="app">
         <div class="row ">
-            <div class="col-md-4" style="background-color: white" id="listeCars">
+            <div class="col-md-4" style="background-color: white" >
                 <h2>Mes voitures</h2>
+                <div id="listeCars"></div>
+
             </div>
             <div class="col-md-4" style="background-color: grey">
             </div>
@@ -37,44 +39,10 @@
             <div class="col-md-4" style="background-color: white">
             </div>
         </div>
-    </div>
     <?php
-        echo "<div id=\"di\">".$_SESSION["id"]."</div>";
+        echo "<div id=\"di\">" . $_SESSION["id_session"] . "</div>";
     ?>
+    </div>
 </body>
-<script>
-    const app =  new Vue({
-        el:"#app",
-        data:{
-            cars:[],
-            paysheet:[]
-        },
-        methods:{
-            getCars: function() {
-                let destination = ["http://localhost:8888/front/home/homeDriver.php", "http://localhost:8888/front/home/homeAdmin.php", "http://localhost:8888/front/home/homeUser.php"];
-                request.open("GET","http://localhost:8888/api/users/get/own.php?password=" + psswrd + "&mail=" + login ,true); 
-                request.onreadystatechange = function() {
-                    if(request.readyState == 4) {
-                        if(request.status == 200) {
-
-                            let ObjJson = JSON.parse(request.responseText);
-                            console.log(ObjJson);
-                            console.log(ObjJson["statut"]);
-                            console.log(destination[ObjJson["statut"]]);
-                            window.location.href = destination[ObjJson["statut"]];
-                        } else {
-                            alert("Error: returned status code " + request.status + " " + request.statusText);
-                        }
-                    }
-                }
-                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                request.send();
-            },
-            beforeMount(){
-                this.getUnits()
-            }
-        }
-    });
-</script>
-
+<script src="scriptHomeDriver/script.js"></script>
 </html>
