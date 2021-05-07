@@ -65,22 +65,36 @@ function getCarBYID(idCar) {
                         containerLeft.innerHTML = ObjJson["message"];
                     } else {
                         let divBase = document.createElement("div");
+                        containerCenter.innerHTML="";
                         containerCenter.appendChild(divBase);
+                        let h2 = document.createElement("h2");
+                        h2.innerHTML = "inforamtion voiture";
+                        divBase.appendChild(h2);
                         let p1 =  document.createElement("p");
                         let p2 =  document.createElement("p");
                         let p3 =  document.createElement("p");
                         let p4 =  document.createElement("p");
-                        //p1.innerHTML = ObjJson[0]["imatriculation"];
-                        //p2.innerHTML = ObjJson[0]["nbColis"];
-                        //p3.innerHTML = ObjJson[0]["volumeMax"];
-                        //p4.innerHTML = ObjJson[0]["weightMax"];
+
+                        let label1 =  document.createElement("label");
+                        let label2 =  document.createElement("label");
+                        let label3 =  document.createElement("label");
+                        let label4 =  document.createElement("label");
+                        label1.innerHTML = "imatriculation";
+                        label2.innerHTML = "nbColis";
+                        label3.innerHTML = "volumeMax";
+                        label4.innerHTML = "weightMax";
+                
                         p1.innerHTML = ObjJson["imatriculation"];
                         p2.innerHTML = ObjJson["nbColis"];
                         p3.innerHTML = ObjJson["volumeMax"];
                         p4.innerHTML = ObjJson["weightMax"];
+                        divBase.appendChild(label1);
                         divBase.appendChild(p1);
+                        divBase.appendChild(label2);
                         divBase.appendChild(p2);
+                        divBase.appendChild(label3);
                         divBase.appendChild(p3);
+                        divBase.appendChild(label4);
                         divBase.appendChild(p4);
                     }
             } else {

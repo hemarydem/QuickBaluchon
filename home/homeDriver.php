@@ -21,7 +21,7 @@
                 <h2>Mes voitures</h2>
                 <div id="leftcont"></div>
             </div>
-            <div class="col-md-4" style="background-color: grey">
+            <div class="col-md-4" style="background-color: white">
                 <div id="centerCont"></div>
             </div>
             <div class="col-md-4" style="background-color: white">

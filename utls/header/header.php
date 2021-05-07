@@ -15,7 +15,7 @@ if(!realpath($path)){
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">S'inscrire</a>
+                        <a class="nav-link" href="../signUp/signUp.php">S'inscrire</a>
                     </li>
                     <?php
                         if(isset($_SESSION["status"]) && $_SESSION["status"] == 3) {
