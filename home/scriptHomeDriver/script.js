@@ -1,3 +1,12 @@
+/* FILE EDITE BY:
+ *                 - YANIS TAGRI
+ *                 - PEROCHON LÉO
+ *                 - HAMED Rémy
+ * FILE purpose:
+ *  All fuction to help the driver to interact with his profile
+ * 
+ */
+
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -7,6 +16,16 @@ let containerCenter = document.getElementById("centerCont");
 document.getElementById("app").removeChild(divTOremov);
 
 getCarsListByDriverId();
+
+/*
+ *  getCarsListByDriverId
+ *
+ *  arg id of an element
+ *  
+ * get the list of cars and data of drivers car by calling api
+ * 
+ * return a void
+ * */
 
 function getCarsListByDriverId() {
     let ObjJson;
