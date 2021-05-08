@@ -52,61 +52,76 @@ function validate() {
     let OnlyNumberNot = false;
     let OnlyLetter = true;
     let OnlyLetterNot = false;
-    checkInput("name",50,OnlyNumberNot,OnlyLetter,canContainSpace);
 
-    checkInput("firstname",50,OnlyNumberNot,OnlyLetter,canContainSpace);
+    let allowedSend = [true,true,true,true,true,true];
+    
+    allowedSend[0] = checkInput("name",50,OnlyNumberNot,OnlyLetter,canContainSpace);
+    
+    allowedSend [1]= checkInput("firstname",50,OnlyNumberNot,OnlyLetter,canContainSpace);
+    
+    allowedSend[2] = checkInput("pssword",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
-    checkInput("pssword",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    allowedSend[3] = checkInput("address",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
 
-    checkInput("address",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
-
-    checkInput("tel",10,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+    allowedSend[4] = checkInput("tel",10,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
 
     if(parseInt(document.getElementById("statut").value,10) == 1){
-        checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+        console.log("client");
+        allowedSend[5] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    } else {
+        document.getElementById("erronumSiret").innerHTML="";
     }
+    console.log(allowedSend);
+    allowedSend.forEach(element => {
+        if(element == false){
+            console.log("envoie pas");
+            return 1;
+        }
+            
+    });
+    
 }
 
 
 function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace) {
     let trigger = true;
     let element =  String(document.getElementById(idInput).value);
-    if(element.length == 0 || element == "") {
-        console.log(idInput);
-        console.log(element.length);
+    if(element.length == 0 || element == "") {                      // empty or not
         trigger = false;
         innerMessagetoElement(idInput,"ne peux être vide");
         return trigger
     }  
     element = element.trim();
-    if(mustNotContainSpace) {
-        trigger = element.replace(/\s/, ''); 
+    if(mustNotContainSpace) {                                       // supp space
+        element = element.replace(/\s/, ''); 
     }   
     if(OnlyLetter){
-        trigger = element.match(/^[a-z]+$/);
+        if(!/^[a-zA-Z]+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;
         if(!trigger){
-            innerMessagetoElement(idInput,"pas de chiffre");
+            innerMessagetoElement(idInput,"pas de chiffre ni accent");       
             return trigger;
         }
     }   
     if(OnlyNumber){
-        trigger = element.match(/^\d+$/);
+        if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;                         // check if there is only number
         if(!trigger){
             innerMessagetoElement(idInput,"pas de lettre");
             return trigger;
         }
     }   
-    if(element.length >lenMax) {
+    if(element.length >lenMax) {                                     // the lenght
         trigger = false;
         innerMessagetoElement(idInput,"trop grand");
         return trigger;
     }   
-    if(trigger)
+    if(trigger)                                                     //void <p> element because no error to signal
         innerMessagetoElement(idInput,"");
     return trigger;
 }
 
-function innerMessagetoElement(idInpuEl,strMessageError) {
+function innerMessagetoElement(idInpuEl,strMessageError) {                          
     document.getElementById("erro" + idInpuEl).innerHTML = "";
     document.getElementById("erro" + idInpuEl).innerHTML = strMessageError;
 }
