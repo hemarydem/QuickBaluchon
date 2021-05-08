@@ -8,7 +8,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <title>homeDriver</title>
 </head>
 <body id="body">
@@ -20,31 +19,37 @@
             <div class="col-md-4" style="background-color: white" >
                 <div class="col-md-2 col-md-offset-5">
                     <label>NOM</label>
-                    <input type="text" placeholder="password" id="name">
+                    <input type="text" oninput="checkLen('name',50)" placeholder="name" id="name">
+                    <p id="limitname">50/50</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>Prénom</label>
-                    <input type="text" placeholder="password" id="firstname">
+                    <input type="text" oninput="checkLen('firstname',50)" placeholder="firstname" id="firstname">
+                    <p id="limitfirstname">50/50</p>
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
                     <label>passwords</label>
-                    <input type="text" placeholder="password" id="pssword">
+                    <input type="text" oninput="checkLen('pssword',255)" placeholder="password" id="pssword">
+                    <p id="limitpssword">255/255</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>confirmPassword</label>
-                    <input type="text" placeholder="password" id="confiamtionPword">
+                    <input type="text" oninput="checkLen('confiamtionPword',255)" placeholder="confirme password" id="confiamtionPword">
+                    <p id="limitconfiamtionPword">255/255</p>
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
                     <label>adresse</label>
-                    <input type="text" placeholder="password" id="address">
+                    <input type="text" oninput="checkLen('address',255)" placeholder="address" id="address">
+                    <p id="limitaddress">255/255</p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>numSiret</label>
-                    <input type="text" placeholder="password" id="numSiret">
+                    <input type="text" oninput="checkLen('numSiret',50)" placeholder="numSiret" id="numSiret">
+                    <p id="limitnumSiret">50/50</p>
                 </div>
             </div>
         </div>
@@ -52,7 +57,8 @@
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
                         <label>téléphone</label>
-                        <input type="text" placeholder="password" id="tel">
+                        <input type="text" oninput="checkLen('tel',10)" placeholder="telephon number" id="tel">
+                        <p id="limittel">10/10</p>
                     </div>
                 </div>
             <div class="col-md-4" style="background-color: white">
@@ -69,5 +75,5 @@
         </div>
     </div>
 </body>
-<script src="/scipt/scrip.js`"></script>
+<script src="./scipt/scrip.js"></script>
 </html>
