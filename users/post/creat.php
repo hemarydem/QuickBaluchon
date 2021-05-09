@@ -26,7 +26,7 @@ insertUser(
     $data->{"mail"},
     $data->{"adresse"},
     $data->{"numSiret"},
-    hash('sha256', $data->{"password"}),
+    Hash256 ($data->{"password"}),
     $data->{"tel"},
     $data->{"driverLicence"},
     $data->{"statut"},
