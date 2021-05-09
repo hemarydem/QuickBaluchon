@@ -1,9 +1,7 @@
 #include "qrInt.h"
-int ** genMapIntegerArray(char * str) {
+void genMapIntegerArray(char * str, int (*ptr)[60]) {
     size_t i, j;
     int size = 60;
-    int ** array = build2dArray(size);
-    array = Array2dSetToZero(array,size);
     int h = 0;
     int w = 0;
     int border = 4;
@@ -15,14 +13,14 @@ int ** genMapIntegerArray(char * str) {
         for (int y = -border; y < size + border; y++) {
             for (int x = -border; x < size + border; x++) {
                 if(qrcodegen_getModule(qrcode, x, y)) {
-                    array[h][w] = 1;
+                    *(*( ptr + h) + w )= 1;
                     w++;
-                    array[h][w] = 1;
+                    *(*( ptr + h) + w )= 1;
                     w++;
                 } else {
-                    array[h][w] = 0;
+                    *(*( ptr + h) + w );
                     w++;
-                    array[h][w] = 0;
+                    *(*( ptr + h) + w );
                     w++;
                 }
             }
@@ -30,39 +28,4 @@ int ** genMapIntegerArray(char * str) {
             w = 0;
         }
     }
-    return array;
-}
-
-int ** build2dArray(int numOfLine) {
-  int ** array = NULL;
-  int i;
-  array = malloc(sizeof(int*) * numOfLine);
-  if(array != NULL) {
-    for (i = 0; i < numOfLine; i++) {
-      array[i] = malloc(sizeof(int) * numOfLine);
-      //printf("\ni = %d\n", i);
-    if(array[i] == NULL) {
-        int j = 0;
-        while (j < i) {
-          free(array[i]);
-          j++;
-        }
-        free(array);
-        printf("error malloc\n buildArrayMaplist\n");
-        return array= NULL;
-      }
-    }
-    //printf("\nbuildCharArray ok\n");
-    if(array == NULL)printf("array is NULL");
-    return array;
-  }
-  printf("\n error \n  buildArrayMaplist \n");
-  return array = NULL;
-}
-
-int ** Array2dSetToZero(int ** array, int size) {
-  for (int i = 0; i < size; i++) 
-      for (int j = 0; j < size; j++)
-          array[i][j] = 0;
-  return array;
 }
