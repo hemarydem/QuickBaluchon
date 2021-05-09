@@ -20,7 +20,7 @@ areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data,$intKey);         // cast elements
 checkStringsArray((array)$data,1);
 insertUser(
-    "user",
+    "USER",
     $data->{"nom"},
     $data->{"prenom"},
     $data->{"mail"},
