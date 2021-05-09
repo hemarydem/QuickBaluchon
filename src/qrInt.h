@@ -5,7 +5,5 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "qrcodegen.h"
-int ** genMapIntegerArray(char * str);
-int ** build2dArray(int numOfLine);
-int ** Array2dSetToZero(int ** array, int size);
+void genMapIntegerArray(char * str, int (*ptr)[60]);
 #endif
