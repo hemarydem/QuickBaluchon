@@ -9,5 +9,5 @@
 #include <stdio.h>
 void qrCodePrintPNG(char * str, char * fileName);
 SDL_Surface * paintToWhiteSurface(SDL_Surface * drawingSheet);
-SDL_Surface * paintQrcodeToSurface(SDL_Surface * drawingSheet, int ** array);
+SDL_Surface * paintQrcodeToSurface(SDL_Surface * drawingSheet, int (*ptr)[60]);
 #endif
