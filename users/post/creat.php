@@ -19,6 +19,7 @@ countJsonObjElem($data, 11);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data,$intKey);         // cast elements
 checkStringsArray((array)$data,1);
+print_r($data);
 insertUser(
     "USER",
     $data->{"nom"},
