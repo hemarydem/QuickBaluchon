@@ -30,6 +30,23 @@
         </div>
         <div class="row ">
             <div class="col-md-4" style="background-color: white">
+                <div class="col-md-2 col-md-offset-5">
+                    <label>immatriculation</label>
+                    <input type="text" placeholder="imatriculation" oninput="checkLen('imatriculation',50)" id="imatriculation">
+                    <p id="limitimatriculation">50/50</p>
+                    <label>nombre de colis</label>
+                    <input type="text" placeholder="password" id="nbColis">
+                    
+                    <label>volumeMax</label>
+                    <input type="text" placeholder="volumeMax" id="volumeMax">
+                
+                    <label>poids Max</label>
+                    <input type="text" placeholder="Max" id="weightMax">
+                
+                    <div class="container" >
+                            <button onclick="addCar()">ajouter une voiture</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4" style="background-color: grey">
                 <div class="container" >

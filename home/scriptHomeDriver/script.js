@@ -124,3 +124,104 @@ function getCarBYID(idCar) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+
+
+/*
+ *  checkLen
+ *
+ *  arg id of an element and the max lenght of the string
+ *  
+ * check if the input don't have a to long string 
+ * 
+ * function is void
+ * */
+
+function checkLen(StrElementId,limit) {
+    let charWarning = ""; 
+    let valuLen = parseInt(document.getElementById(StrElementId).value.length,10);
+    let diff = limit - valuLen;
+    let colorTrigger = false;
+    if(diff >= 0)
+        colorTrigger = true;
+    charWarning = String(diff) + "/" + String(limit);
+    let warningElement  = document.getElementById( "limit" + StrElementId);
+    warningElement.innerHTML = charWarning;
+    if(colorTrigger) {
+        warningElement.style.color = "green";
+    }else{
+        warningElement.style.color = "red";
+    }
+}
+
+/*
+ *  validate
+ *
+ * check general of the inputs
+ * if not to long
+ * if there is appropriate chars
+ * 
+ * function is void
+ * 
+ * it call ajaxSendPost()
+ * */
+
+function validate() {
+    console.log("ok");
+    let canContainSpace = false;
+    let mustNotContainSpace = true;
+    let OnlyNumber = true;
+    let OnlyNumberNot = false;
+    let OnlyLetter = true;
+    let OnlyLetterNot = false;
+
+    let allowedSend = [true,true,true,true];
+    
+    allowedSend[0] = checkInput("imatriculation",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    
+    allowedSend[1]= checkInput("nbColis",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+    
+    allowedSend[2] = checkInput("volumeMax",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+    allowedSend[3] = checkInput("weightMax",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+    console.log(allowedSend);
+    let block = 0;
+    allowedSend.forEach(element => {
+        if(element == false){
+            console.log("envoie pas");
+            block = 1;
+        }
+    });
+    console.log("ok");
+    if(block == 0) {
+        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon//vehicules/post/creat.php");
+    }
+    console.log(" FIN");
+}
+
+
+
+function ajaxSendPost(data,urlLink) {
+
+    let jsonToSend = {
+        imatriculation:data[0],
+        nbColis:data[1],
+        volumeMax:data[2],
+        weightMax:data[3]
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjeJson);
+                    
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}

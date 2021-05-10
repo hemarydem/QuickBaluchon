@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-2 col-md-offset-5">
                                     <p>mail</p>
-                                    <input type="text" value="DKKDKS@gmail.com" placeholder="mail address" id="mail">
+                                    <input type="text" placeholder="mail address" id="mail">
                                 </div>
                             </div>
                             <div class="row">
