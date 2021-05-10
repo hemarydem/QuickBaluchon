@@ -18,6 +18,11 @@ header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 4);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);        // cast elements
+if(execRequestALLreadyExist("SELECT imatriculation FROM VEHICULE WHERE imatriculation=?", [$data->{"imatriculation"}])){
+    header("Content-Type: application/json");
+    echo json_encode(["message"=> "vehicule déjà enregistré"]);
+    exit(1);
+}
 insertVehicules(
     "VEHICULE",
     $data->{"imatriculation"},
