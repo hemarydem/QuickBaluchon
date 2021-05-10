@@ -20,7 +20,7 @@ if(isset($_GET)) {
     $wAndp = buildsLIkes($where, $params, $_GET);
     $where = $wAndp[0];
     $params = $wAndp[1];
-    $tab = "own";
+    $tab = "OWN";
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);

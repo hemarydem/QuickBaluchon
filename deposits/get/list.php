@@ -4,12 +4,12 @@ include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
 
 if(isset($_GET)) {
-    if(isset($_GET['tokenApi'])) {
+    /*if(isset($_GET['tokenApi'])) {
         chekIfRequestFromShield($_GET['tokenApi']);
         unset($_GET['tokenApi']);
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
-    }
+    }*/
     $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
     if ($_GET['offset'] >= $_GET['limit']) {
@@ -21,7 +21,7 @@ if(isset($_GET)) {
     $wAndp = buildsLIkes($where, $params, $_GET);
     $where = $wAndp[0];
     $params = $wAndp[1];
-    $tab = "deposit";
+    $tab = "DEPOSIT";
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);

@@ -3,12 +3,12 @@ include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
 if(isset($_GET)) {
-    if(isset($_GET['tokenApi'])) {
+   /* if(isset($_GET['tokenApi'])) {
         chekIfRequestFromShield($_GET['tokenApi']);
         unset($_GET['tokenApi']);
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
-    }
+    }*/
     $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
     if ($_GET['offset'] >= $_GET['limit']) {

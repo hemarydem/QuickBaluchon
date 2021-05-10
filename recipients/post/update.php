@@ -3,12 +3,12 @@ include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
-if(isset($data['tokenApi'])) {
+/*if(isset($data['tokenApi'])) {
     chekIfRequestFromShield($data['tokenApi']);
     unset($data['tokenApi']);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
-}
+}*/
 $idCheck = intval($data['id']);
 $intKey = [
     "mail",
@@ -17,7 +17,7 @@ $intKey = [
     "id"
 ];
 strToIntAssiArrayElem($data, $intKey); //TODO must return array currently the function has no effects
-$sql = buildsUpdateAndattributs("recipient", $data);
+$sql = buildsUpdateAndattributs("RECIPIENT", $data);
 unset($data['id']);
 $params = buildParams($data);
 if (execRequestUpdate($sql, $params)) {

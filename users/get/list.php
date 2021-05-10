@@ -24,7 +24,7 @@ if(isset($_GET)) {
 //print_r($params);
 //TODO TEST TO ADAPT THE CODE WITH THE FUNCTION BELOW TO MAke the request dynamique
 // $sql = buildsSelectAndattributs($_GET, "user");//listfnctns.php
-    $sql = 'SELECT nom, prenom, mail, adresse, numSiret, password, tel, driverLicence, statut, busy, zoneMaxDef, id FROM user';
+    $sql = 'SELECT nom, prenom, mail, adresse, numSiret, password, tel, driverLicence, statut, busy, zoneMaxDef, id FROM USER';
     if (count($where) > 0) {
         $whereClause = join(" AND ", $where);
         $sql .= " WHERE " . $whereClause;

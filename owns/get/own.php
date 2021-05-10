@@ -11,7 +11,7 @@ if(isset($_GET)) {
     }*/
     //print_r($_GET);
     checkStringsArray($_GET, 1);
-    $sql = buildsSelectAndattributsForMixePrimaryKey($_GET, "own");
+    $sql = buildsSelectAndattributsForMixePrimaryKey($_GET, "OWN");
     $params = buildParamsForMixePrimaryKey($_GET);
     //echo $sql;
     //print_r($params);
