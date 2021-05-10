@@ -11,7 +11,7 @@ if(!realpath($path)){
 ?>
 <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="http://localhost:8888/"><img id="imgQB" src="../img/logo2.png" width="12%"></a>
+        <a href="http://quickbaluchonservice.site/QuickBaluchon/#"><img id="imgQB" src="../img/logo2.png" width="12%"></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav mr-auto">
                     <li class="nav-item active">

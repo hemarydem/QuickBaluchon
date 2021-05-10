@@ -46,6 +46,7 @@ function checkLen(StrElementId,limit) {
  * */
 
 function validate() {
+    console.log("ok");
     let canContainSpace = false;
     let mustNotContainSpace = true;
     let OnlyNumber = true;
@@ -53,7 +54,7 @@ function validate() {
     let OnlyLetter = true;
     let OnlyLetterNot = false;
 
-    let allowedSend = [true,true,true,true,true,true];
+    let allowedSend = [true,true,true,true,true,true,true];
     
     allowedSend[0] = checkInput("name",50,OnlyNumberNot,OnlyLetter,canContainSpace);
     
@@ -65,9 +66,11 @@ function validate() {
 
     allowedSend[4] = checkInput("tel",10,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
 
+    allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+
     if(parseInt(document.getElementById("statut").value,10) == 1){
         console.log("client");
-        allowedSend[5] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+        allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
     } else {
         document.getElementById("erronumSiret").innerHTML="";
     }
@@ -77,9 +80,9 @@ function validate() {
             console.log("envoie pas");
             return 1;
         }
-            
     });
-    
+    console.log("ok");
+    ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/users/post/creat.php");
 }
 
 
@@ -129,12 +132,27 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
 
 
 function ajaxSendPost(data,urlLink) {
-        let ObjJson;
+
+        let jsonToSend = {
+            nom:data[0],
+            prenom:data[1],
+            mail:data[2],
+            adresse:data[3],
+            numSiret:data[4],
+            password:data[5],
+            tel:data[6],
+            driverLicence:0,
+            statut:data[8],
+            busy:0,
+            zoneMaxDef:0
+        };
         let request = new XMLHttpRequest();  
-        request.open("GET","http://localhost:8888/api/vehicules/get/getCarsByUserId.php?id="+ id,true); 
+        request.open("POST",urlLink,true); 
         request.onreadystatechange = function() {
             if(request.readyState == 4) {
                     if(request.status == 200) {
+                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        console.log(ObjeJson);
                         
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -142,7 +160,45 @@ function ajaxSendPost(data,urlLink) {
             }
         }
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send();
+        request.send(JSON.stringify(jsonToSend));
+}
+
+
+
+/*
+*get data
+*function do get data in the input
+*
+* no argument
+*
+* return array
+*/
+function  getData() {
+    let name = document.getElementById("name").value;
+    let firstname = document.getElementById("firstname").value;
+    let mail = document.getElementById("mail").value;//
+    let numSiret= document.getElementById("numSiret").value;
+    let address = document.getElementById("address").value;
+    let password= document.getElementById("pssword").value;//
+    let tel = document.getElementById("tel").value;//
+    let statut = document.getElementById("statut").value;
+   
+    name = name.trim();
+    firstname = firstname.trim();
+    mail = mail.trim();
+    numSiret= numSiret.trim();
+    address = address.trim();
+    password = password.trim();
+    tel = tel.trim();
+    statut = statut.trim();
+
+    mail = mail.replace(/\s/, ''); 
+    tel = tel.replace(/\s/, '');
+    if(numSiret.length != 0)
+        numSiret = numSiret.replace(/\s/, '');
+    
+    let array = [name,firstname,mail,numSiret,address,password,tel,statut];
+    return array;
 }
 
 
@@ -207,3 +263,6 @@ function isValideStringOnlyLetter(str) {
     }
     return false;
 }
+
+
+

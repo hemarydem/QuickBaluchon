@@ -24,19 +24,19 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>Prénom</label>
-                    <input type="text" oninput="checkLen('firstname',50)" placeholder="firstname" id="firstname">
+                    <input type="text" oninput="checkLen('firstname',50)" value="remy" placeholder="firstname" id="firstname">
                     <p id="limitfirstname">50/50</p><p id="errofirstname"></p>
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
                     <label>passwords</label>
-                    <input type="text" oninput="checkLen('pssword',255)" placeholder="password" id="pssword">
+                    <input type="text" oninput="checkLen('pssword',255)" value="azerty" placeholder="password" id="pssword">
                     <p id="limitpssword">255/255</p><p id="erropssword"></p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>confirmPassword</label>
-                    <input type="text" oninput="checkLen('confiamtionPword',255)" placeholder="confirme password" id="confiamtionPword">
+                    <input type="text" oninput="checkLen('confiamtionPword',255)" value="azerty" placeholder="confirme password" id="confiamtionPword">
                     <p id="limitconfiamtionPword">255/255</p><p id="erroconfiamtionPword"></p>
                 </div>
             </div>
@@ -56,9 +56,9 @@
         <div class="row ">
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
-                        <label>téléphone</label>
-                        <input type="text" oninput="checkLen('tel',10)" placeholder="telephon number" id="tel">
-                        <p id="limittel">10/10</p><p id="errotel"></p>
+                        <label>mail</label>
+                        <input type="mail" oninput="checkLen('mail',255)" value="hamedremy@gmail.com" placeholder="mail" id="mail">
+                        <p id="limitmail">255/255</p><p id="erromail"></p>
                     </div>
                 </div>
             <div class="col-md-4" style="background-color: white">
@@ -71,7 +71,13 @@
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
-             </div>
+                <div class="col-md-2 col-md-offset-5">
+                        <label>téléphone</label>
+                        <input type="text" oninput="checkLen('tel',10)" placeholder="telephon number" id="tel">
+                        <p id="limittel">10/10</p><p id="errotel"></p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container" >
                 <button onclick="validate()">Sign Up</button>

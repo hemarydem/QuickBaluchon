@@ -30,7 +30,7 @@ getCarsListByDriverId();
 function getCarsListByDriverId() {
     let ObjJson;
     let request = new XMLHttpRequest();  
-    request.open("GET","http://localhost:8888/api/vehicules/get/getCarsByUserId.php?id="+ id,true); 
+    request.open("GET","http://152.228.163.174/api/QuickBaluchon/vehicules/get/getCarsByUserId.php?id="+ id,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
