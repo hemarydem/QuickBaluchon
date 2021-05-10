@@ -1,7 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
+
 checIfsessionStarted();
 if (isset($_GET)) {
     /* if(isset($_GET['tokenApi'])) {
