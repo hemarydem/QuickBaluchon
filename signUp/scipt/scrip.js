@@ -79,7 +79,8 @@ function validate() {
     allowedSend.forEach(element => {
         if(element == false){
             console.log("envoie pas");
-            return 1;
+            block = 1;
+            break
         }
     });
     console.log("ok");
