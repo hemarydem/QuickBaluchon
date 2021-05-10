@@ -61,8 +61,8 @@
                 let login = document.getElementById("mail").value;
                 let psswrd = document.getElementById("pssword").value;
                 let request = new XMLHttpRequest();
-                let destination = ["http://localhost:8888/front/home/homeDriver.php", "http://localhost:8888/front/home/homeAdmin.php", "http://localhost:8888/front/home/homeUser.php"];
-                request.open("GET","http://localhost:8888/api/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
+                let destination = ["http://152.228.163.174/QuickBaluchon/home/homeDriver.php", "http://152.228.163.174/QuickBaluchon/home/homeAdmin.php", "http://152.228.163.174/QuickBaluchon/home/homeUser.php"];
+                request.open("GET","http://152.228.163.174/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
                 request.onreadystatechange = function() {
                     if(request.readyState == 4) {
                         if(request.status == 200) {
