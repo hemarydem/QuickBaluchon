@@ -191,7 +191,6 @@ function execRequestALLreadyExist(string $sql, array $params):?bool {
             if($result == false) {
                return false;
             } else {
-                print_r($result);
                 if(count($result)>=1) {
                     return true;
                 } else {
