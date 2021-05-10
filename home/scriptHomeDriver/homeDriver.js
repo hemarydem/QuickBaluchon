@@ -271,3 +271,33 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
     document.getElementById("erro" + idInpuEl).innerHTML = "";
     document.getElementById("erro" + idInpuEl).innerHTML = strMessageError;
 }
+
+
+
+/*
+*get data
+*function do get data in the input
+*
+* no argument
+*
+* return array
+*/
+function  getData() {
+    let immatriculation = document.getElementById("imatriculation").value;
+    let nbColis = document.getElementById("nbColis").value;
+    let volumeMax = document.getElementById("volumeMax").value;//
+    let weightMax= document.getElementById("weightMax").value;
+   
+    immatriculation = immatriculation.trim();
+    nbColis = nbColis.trim();
+    volumeMax = volumeMax.trim();
+    weightMax= weightMax.trim();
+
+    immatriculation = immatriculation.replace(/\s/, ''); 
+    nbColis = nbColis.replace(/\s/, '');
+    volumeMax = volumeMax.replace(/\s/, ''); 
+    weightMax = weightMax.replace(/\s/, '');
+
+    let array = [immatriculation,nbColis,volumeMax,weightMax];
+    return array;
+}
