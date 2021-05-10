@@ -2,6 +2,7 @@
     require "../utls/utls.php";
     checIfsessionStarted();
     checkRightToBeHere(3);
+    checkIfconnected();
 ?>
 <!DOCTYPE html>
 <html lang="en">
