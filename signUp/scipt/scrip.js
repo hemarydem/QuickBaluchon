@@ -198,10 +198,12 @@ function  getData() {
 
     mail = mail.replace(/\s/, ''); 
     tel = tel.replace(/\s/, '');
-    if(numSiret.length != 0)
+    if(numSiret.length != 0){
         numSiret = numSiret.replace(/\s/, '');
-    
-    let array = [name,firstname,mail,numSiret,address,password,tel,statut];
+    } else {
+        numSiret = 0;
+    }
+    let array = [name,firstname,mail,address,numSiret,password,tel,statut];
     return array;
 }
 
