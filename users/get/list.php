@@ -9,6 +9,7 @@ if(isset($_GET)) {
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
     }*/
+    checkStringsArray($_GET,1);
     $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
     if($_GET['offset'] >= $_GET['limit']) {

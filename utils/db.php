@@ -150,6 +150,60 @@ function execRequest(string $sql, array $params):?array {
     }
     return NULL;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* execRequest ()
+ *
+ * Genereric function execute sql request
+ * mostly use to get date from the data base
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * array contening all the result of the call
+ * or
+ * Null
+ */
+
+function execRequestALLreadyExist(string $sql, array $params):?bool {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if($result == false) {
+               return false;
+            } else {
+                print_r($result);
+                if(count($result)>=1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return null; // if prepare fail
+        }
+    }
+    return NULL;
+}
 /* execRequestGetALLResults ()
  *
  * Genereric function execute sql request

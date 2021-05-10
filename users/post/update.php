@@ -9,6 +9,7 @@ $data = json_decode($content, true);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+checkStringsArray($data,1);
 $idCheck = intval($data['id']);
 $tab = "USER";
 if(!isExistInDb($idCheck,$tab)){

@@ -9,6 +9,7 @@ if(isset($_GET)) {
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
     }*/
+    checkStringsArray($_GET,1);
     $id = intval($_GET['id']);
     $tab = "USER";
     if(!isExistInDb($id,$tab)){

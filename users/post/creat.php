@@ -9,6 +9,9 @@ $data = json_decode($content);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+
+
+
 $intKey = [
     "driverLicence",
     "statut",
@@ -19,7 +22,17 @@ countJsonObjElem($data, 11);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data,$intKey);         // cast elements
 checkStringsArray((array)$data,1);
-print_r($data);
+if(execRequestALLreadyExist("SELECT mail FROM USER WHERE mail=?", [$data->{"mail"}])){
+    header("Content-Type: application/json");
+    echo json_encode(["message"=> "mail alreayd use"]);
+    exit(1);
+}
+if (!filter_var($data->{"mail"}, FILTER_VALIDATE_EMAIL)) {
+    header("Content-Type: application/json");
+    echo json_encode(["message"=> "is not a mail"]);
+    exit(1);
+}
+
 insertUser(
     "USER",
     $data->{"nom"},

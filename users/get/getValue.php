@@ -10,6 +10,7 @@ if (isset($_GET)) {
      } else {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
+    checkStringsArray($_GET,1);
     $tab = "USER";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
