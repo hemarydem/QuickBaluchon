@@ -66,7 +66,6 @@
                 request.onreadystatechange = function() {
                     if(request.readyState == 4) {
                         if(request.status == 200) {
-
                             let ObjJson = JSON.parse(request.responseText);
                             console.log(ObjJson);
                             console.log(ObjJson["statut"]);

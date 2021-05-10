@@ -75,6 +75,7 @@ function validate() {
         document.getElementById("erronumSiret").innerHTML="";
     }
     console.log(allowedSend);
+    let block = 0;
     allowedSend.forEach(element => {
         if(element == false){
             console.log("envoie pas");
@@ -82,7 +83,10 @@ function validate() {
         }
     });
     console.log("ok");
-    ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/users/post/creat.php");
+    if(block == 0) {
+        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/users/post/creat.php");
+    }
+    console.log(" FIN");
 }
 
 
