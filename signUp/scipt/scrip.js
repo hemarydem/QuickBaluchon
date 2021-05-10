@@ -146,7 +146,7 @@ function ajaxSendPost(data,urlLink) {
             password:data[5],
             tel:data[6],
             driverLicence:0,
-            statut:data[8],
+            statut:data[7],
             busy:0,
             zoneMaxDef:0
         };
