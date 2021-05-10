@@ -3,7 +3,7 @@
 include("./../functions/functions.php");
 include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
-header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Origin: *");
 checIfsessionStarted();
 if (isset($_GET)) {
     /* if(isset($_GET['tokenApi'])) {
@@ -28,6 +28,7 @@ if (isset($_GET)) {
     foreach ($rows as $key => $value) {
         $_SESSION[$key."_session"] = $value;
     }
+    header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json");
     print_r($json);
 } else {
