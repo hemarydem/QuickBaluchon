@@ -16,6 +16,7 @@ $intKey = [
     "prenom",
     "id"
 ];
+header("Access-Control-Allow-Origin: *");
 strToIntAssiArrayElem($data, $intKey); //TODO must return array currently the function has no effects
 $sql = buildsUpdateAndattributs("RECIPIENT", $data);
 unset($data['id']);

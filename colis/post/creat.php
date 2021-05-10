@@ -19,6 +19,7 @@ $intKey = [
     "idCost",
     "idExpressCost"
 ];
+header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 14);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);        // cast elements

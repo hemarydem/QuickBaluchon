@@ -11,6 +11,7 @@ if(isset($_GET)) {
     }*/
     $id = $_GET['id'];
     unset($_GET['id']);
+    header("Access-Control-Allow-Origin: *");
     $sql = buildsSelectAndattributs($_GET, "VEHICULE");//listfnctns.php
     $sql .= " WHERE id = ?";
     $rows = dataBaseFindOne($sql,(int)$id); //db.php

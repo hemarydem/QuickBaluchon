@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+
 include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
@@ -41,6 +41,7 @@ if(isset($_GET)) {
         if ($success) {
             $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
             $json = json_encode($rows);
+            header("Access-Control-Allow-Origin: *");
             header("Content-Type: application/json");
             print_r($json);
         } else {

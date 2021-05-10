@@ -16,6 +16,7 @@ $intKey = [
     "nbColis",
     "idUser"
 ];
+header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 5);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements

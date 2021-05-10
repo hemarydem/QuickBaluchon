@@ -9,6 +9,7 @@ $data = json_decode($content);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+header("Access-Control-Allow-Origin: *");
 $intKey = [
     "costByKm",
     "costByColis",

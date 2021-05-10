@@ -13,6 +13,7 @@ if(isset($_GET)) {
     $params = array($idCheck);
     if (execRequestDelete($sql, $params)) {
         header('Content-type: Application/json');
+        header("Access-Control-Allow-Origin: *");
         echo json_encode(["success"=>1]);
     } else {
         http_response_code(400);

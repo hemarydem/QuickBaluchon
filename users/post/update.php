@@ -9,6 +9,7 @@ $data = json_decode($content, true);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+header("Access-Control-Allow-Origin: *");
 checkStringsArray($data,1);
 $idCheck = intval($data['id']);
 $tab = "USER";
@@ -28,6 +29,7 @@ $sql = buildsUpdateAndattributs($tab,$data);
 unset($data['id']);
 $params = buildParams($data);
 if(execRequestUpdate($sql, $params)) {
+
     header('Content-type: Application/json');
     echo json_encode(execRequest("SELECT * FROM ".$tab." WHERE ID =?", [$idCheck]));
 } else {

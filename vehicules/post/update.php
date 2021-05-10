@@ -17,6 +17,7 @@ $intKey = [
   "weightMax",
   "id"
 ];
+header("Access-Control-Allow-Origin: *");
 strToIntAssiArrayElem($data,$intKey); //TODO must return array currently the function has no effects
 $sql = buildsUpdateAndattributs($tab,$data);
 unset($data['id']);

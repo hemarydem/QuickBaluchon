@@ -10,6 +10,7 @@ if (isset($_GET)) {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
     $tab = "VEHICULE";
+    header("Access-Control-Allow-Origin: *");
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
     $rows = execRequestGetALLResults( $sql, $params);

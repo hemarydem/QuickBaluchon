@@ -18,6 +18,7 @@ $intKey = [
     "expressCost",
     "mode"
 ];
+header("Access-Control-Allow-Origin: *");
 //création du tableau params
 $attributsToset = buildAttributArrayFromData($data,["weight","mode"]);
 //strToIntAssiArrayElem($data, $intKey); //TODO must return array currently the function has no effects

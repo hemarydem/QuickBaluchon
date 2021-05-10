@@ -13,6 +13,7 @@ $intKey = [
     "palier",
     "idUser"
 ];
+header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 2);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements

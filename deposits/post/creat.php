@@ -13,6 +13,7 @@ $intKey = [
     "idDepot",
     "idUser"
 ];
+header("Access-Control-Allow-Origin: *");
 countArrElem($data, 2);   // must have 11 elements
 //areSetJsonObjElem($data);                   //TODO function check elements are init
 $data = strToIntJsonArray($data, $intKey);  // cast elements

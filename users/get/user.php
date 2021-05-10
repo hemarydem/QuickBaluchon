@@ -24,6 +24,7 @@ if(isset($_GET)) {
     $rows = dataBaseFindOne($sql,(int)$id); //db.php
     $json = json_encode($rows);
     header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
     print_r($json);
 
 } else {

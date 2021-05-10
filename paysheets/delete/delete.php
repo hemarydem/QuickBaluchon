@@ -1,6 +1,7 @@
 <?php
 include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
+header("Access-Control-Allow-Origin: *");
 if(isset($_GET)) {
         /*if(isset($_GET['tokenApi'])) {
             chekIfRequestFromShield($_GET['tokenApi']);

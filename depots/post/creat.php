@@ -9,6 +9,7 @@ $data = json_decode($content);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 5);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 insertDepot(

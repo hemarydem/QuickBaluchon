@@ -9,6 +9,7 @@ $data = json_decode($content, true);
 } else {
     erro400NotConnectJsonMssg( "token api is not set");
 }*/
+header("Access-Control-Allow-Origin: *");
 $idCheck = intval($data['id']);
 $tab = "DELIVERY";
 //echo $idCheck; // id of the paysheet
