@@ -11,6 +11,8 @@ if (isset($_GET)) {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
     checkStringsArray($_GET,1);
+    if(isset($_GET['password']))
+        $_GET['password'] = hash("sha256",  $_GET['password']);
     $tab = "USER";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
