@@ -265,3 +265,9 @@ function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace)
         innerMessagetoElement(idInput,"");
     return trigger;
 }
+
+
+function innerMessagetoElement(idInpuEl,strMessageError) {                          
+    document.getElementById("erro" + idInpuEl).innerHTML = "";
+    document.getElementById("erro" + idInpuEl).innerHTML = strMessageError;
+}
