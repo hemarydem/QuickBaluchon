@@ -34,16 +34,16 @@
                 <div class="col-md-2 col-md-offset-5">
                     <label>immatriculation</label>
                     <input type="text" placeholder="imatriculation" oninput="checkLen('imatriculation',50)" id="imatriculation">
-                    <p id="limitimatriculation">50/50</p>
+                    <p id="limitimatriculation">50/50</p><p id="erroimatriculation"></p>
                     <label>nombre de colis</label>
                     <input type="text" placeholder="password" id="nbColis">
-                    
+                    <p id="erronbColis"></p>
                     <label>volumeMax</label>
                     <input type="text" placeholder="volumeMax" id="volumeMax">
-                
+                    <p id="errovolumeMax"></p>
                     <label>poids Max</label>
                     <input type="text" placeholder="Max" id="weightMax">
-                
+                    <p id="erroweightMax"></p>
                     <div class="container" >
                             <button onclick="validate()">ajouter une voiture</button>
                     </div>
@@ -62,5 +62,5 @@
     ?>
     </div>
 </body>
-<script src="scriptHomeDriver/script.js"></script>
+<script src="scriptHomeDriver/homeDriver.js"></script>
 </html>
