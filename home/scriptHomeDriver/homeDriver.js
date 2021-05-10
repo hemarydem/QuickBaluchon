@@ -194,7 +194,7 @@ function validate() {
     });
     console.log("ok");
     if(block == 0) {
-        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon//vehicules/post/creat.php");
+        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/vehicules/post/creat.php");
     }
     console.log(" FIN");
 }
@@ -216,6 +216,29 @@ function ajaxSendPost(data,urlLink) {
                 if(request.status == 200) {
                     let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                     console.log(ObjeJson);
+                    creatOwnerOnCar(id,ObjeJson['id'],"http://152.228.163.174/api/QuickBaluchon/owns/post/creat.php");
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+function creatOwnerOnCar(idDriver,idCar,urlLink) {
+    let jsonToSend = {
+        idVehicule:idCar,
+        idUser:idDriver
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjeJson);
                     
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -225,6 +248,9 @@ function ajaxSendPost(data,urlLink) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(jsonToSend));
 }
+
+
+
 
 
 
