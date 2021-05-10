@@ -225,3 +225,43 @@ function ajaxSendPost(data,urlLink) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(jsonToSend));
 }
+
+
+
+function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace) {
+    let trigger = true;
+    let element =  String(document.getElementById(idInput).value);
+    if(element.length == 0 || element == "") {                      // empty or not
+        trigger = false;
+        innerMessagetoElement(idInput,"ne peux être vide");
+        return trigger
+    }  
+    element = element.trim();
+    if(mustNotContainSpace) {                                       // supp space
+        element = element.replace(/\s/, ''); 
+    }   
+    if(OnlyLetter){
+        if(!/^[a-zA-Z]+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;
+        if(!trigger){
+            innerMessagetoElement(idInput,"pas de chiffre ni accent");       
+            return trigger;
+        }
+    }   
+    if(OnlyNumber){
+        if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;                         // check if there is only number
+        if(!trigger){
+            innerMessagetoElement(idInput,"pas de lettre");
+            return trigger;
+        }
+    }   
+    if(element.length >lenMax) {                                     // the lenght
+        trigger = false;
+        innerMessagetoElement(idInput,"trop grand");
+        return trigger;
+    }   
+    if(trigger)                                                     //void <p> element because no error to signal
+        innerMessagetoElement(idInput,"");
+    return trigger;
+}
