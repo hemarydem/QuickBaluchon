@@ -44,7 +44,7 @@
                     <input type="text" placeholder="Max" id="weightMax">
                 
                     <div class="container" >
-                            <button onclick="addCar()">ajouter une voiture</button>
+                            <button onclick="validate()">ajouter une voiture</button>
                     </div>
                 </div>
             </div>
