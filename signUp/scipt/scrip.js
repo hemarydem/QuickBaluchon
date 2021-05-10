@@ -80,7 +80,6 @@ function validate() {
         if(element == false){
             console.log("envoie pas");
             block = 1;
-            break
         }
     });
     console.log("ok");
