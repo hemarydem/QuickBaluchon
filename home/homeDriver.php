@@ -50,11 +50,23 @@
                 </div>
             </div>
             <div class="col-md-4" style="background-color: grey">
-                <div class="container" >
+                <div class="container"  id="depoliste">
                         
                 </div>
+                <button onclick="validate()">PRECÉDENT</button><button onclick="validate()">SUIVANT</button>
+                <div id="divCheckbox" style="display: none;">0</div>
             </div>
             <div class="col-md-4" style="background-color: white">
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-2" style="background-color: white">
+                
+            </div>
+            <div class="col-md-6" style="background-color: grey" id="COLISLIST">
+            
+            </div>
+            <div class="col-md-2" style="background-color: white">
             </div>
         </div>
     <?php

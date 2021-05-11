@@ -6,12 +6,17 @@
  *  All fuction to help the driver to interact with his profile
  * 
  */
-
+let =  apiPath = "http://152.228.163.174/api/QuickBaluchon/"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
 let containerLeft = document.getElementById("leftcont");
 let containerCenter = document.getElementById("centerCont");
+
+let clListElement = document.getElementById("COLISLIST");
+
+
+let elementDepotList = document.getElementById("depoliste"); 
 //let containerLeft = document.getElementById("leftcont");
 document.getElementById("app").removeChild(divTOremov);
 
@@ -327,4 +332,57 @@ function  getData() {
 
     let array = [immatriculation,nbColis,volumeMax,weightMax];
     return array;
+}
+
+
+function getDepot() {
+    console.log("XOXOXOX");
+    let offset = document.getElementById("divCheckbox");
+    let request = new XMLHttpRequest();  
+    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset=" + offset.innerHTML,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    if(!(request.responseText.length == 0)) {
+                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        console.log(ObjeJson);
+                        elementDepotList = "";
+                        ObjeJson.forEach(Element =>{
+                            let nwLine =  document.createElement("p");
+                            nwLine.setAttribute('onclick','getColist(' +String(element["id"])+ ');');
+                            elementDepotList.appendChild(divBase);
+                        });
+                        let save = parseInt(offset.innerHTML,10);
+                        offset.innerHTML = "";
+                        offset.innerHTML =  save + 10;
+                    } else {
+                        console.log("empty");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+function getColist(idOfColisDepot) {
+    console.log("ZZZZ");
+    let request = new XMLHttpRequest();  
+    request.open("GET",apiPath + "/colis/get/getValue.php?idDepot=" + idOfColisDepot,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        console.log(ObjeJson);
+                        elementDepotList = "";
+                        clListElement
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
 }
