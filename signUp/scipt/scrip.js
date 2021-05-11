@@ -166,7 +166,7 @@ function ajaxSendPost(data,urlLink) {
                         num--;
                         homePage[num];
                         console.log(homePage[num]);
-                        //window.location.href = homePage[ObjJson["statut"] - 1];
+                        window.location.href = homePage[ObjJson["statut"] - 1];
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }
