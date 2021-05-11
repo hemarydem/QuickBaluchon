@@ -59,6 +59,10 @@
                 </div>
                 <button onclick="getDepot(0)">PRECÉDENT</button><button onclick="getDepot(1)">SUIVANT</button>
                 <div id="divCheckbox" style="display: none;">0</div>
+                <label>livraison dans un rayon ...km</label>
+                    <input type="text" placeholder="numéro entier KM" id="zoneMax">
+                    <p id="errozoneMax"></p><button onclick="validateForZoneMax()">initialiser la zone d'action</button>
+                    <button onclick="validateForZoneMax()">ajouter une voiture</button>
             </div>
             <div class="col-md-4" style="background-color: white">
             </div>

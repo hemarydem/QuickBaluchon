@@ -6,7 +6,7 @@
  *  All fuction to help the driver to interact with his profile
  * 
  */
-let =  apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon/"
+let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon/"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -358,20 +358,12 @@ function getDepot(arg) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
                         elementDepotList.innerHTML = "";
-                        let back =  document.createElement("p");
-                        back.innerHTML = "back";
-                        back.setAttribute('onclick','getDepot(0);');
-                        elementDepotList.appendChild(back);
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("p");
                             nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
                             nwLine.innerHTML = Element["ville"];
                             elementDepotList.appendChild(nwLine);
                         });
-                        let next =  document.createElement("p");
-                        next.innerHTML = "next";
-                        next.setAttribute('onclick','getDepot(1);');
-                        elementDepotList.appendChild(next);
                         if(arg == 1) {
                         let save = parseInt(offset.innerHTML,10);
                         offset.innerHTML = "";
@@ -430,4 +422,59 @@ function getoffsetMax(url){
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
+}
+
+
+function validateForZoneMax() {
+
+    let idInput2  = "zoneMax";
+    let trigger = true;
+    let element =  String(document.getElementById(idInput2).value);
+    if(element.length == 0 || element == "") {                      // empty or not
+        trigger = false;
+        innerMessagetoElement(idInput2,"ne peux être vide");
+        return trigger
+    }  
+    element = element.trim();
+    if(mustNotContainSpace) {                                       // supp space
+        element = element.replace(/\s/, ''); 
+    }   
+
+    if(OnlyNumber){
+        if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;                         // check if there is only number
+        if(!trigger){
+            innerMessagetoElement(idInput2,"pas de lettre");
+            return trigger;
+        }
+    }   
+    if(trigger) {
+        innerMessagetoElement(idInput2,"");
+        ajaxZoneMax(apiPath + "user/post/update.php");
+    }                                                     //void <p> element because no error to signal
+}
+
+
+
+function ajaxZoneMax(urlLink) {
+    let zone = document.getElementById("zoneMax").value;
+    zone = parseInt(zone,10);
+    let jsonToSend = {
+        zoneMaxDef:zone,
+        id:id
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjeJson);
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
 }
