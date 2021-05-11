@@ -224,6 +224,7 @@ function ajaxSendPost(data,urlLink) {
                     let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                     console.log(ObjeJson);
                     creatOwnerOnCar(id,ObjeJson['id'],"https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php");
+                    getCarsListByDriverId();
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
