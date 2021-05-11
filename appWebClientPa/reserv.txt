@@ -1,9 +1,0 @@
-<label>imatriculation</label>
-    <input type="text" id="imatriculation">
-    <label>nbColis</label>
-    <input type="text" id="nbColis">
-    <label>volumeMax</label>
-    <input type="text" id="volumeMax">
-    <label>weightMax</label>
-    <input type="text" id="weightMax">
-    <input type="button" onclick="addCar()">
