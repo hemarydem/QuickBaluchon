@@ -356,12 +356,20 @@ function getDepot(arg) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
                         elementDepotList.innerHTML = "";
+                        let back =  document.createElement("option");
+                        nwLine.innerHTML = "back";
+                        nwLine.setAttribute('onclick','getDepot(0);');
+                        elementDepotList.appendChild(nwLine);
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("option");
                             nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
                             nwLine.innerHTML = Element["ville"];
                             elementDepotList.appendChild(nwLine);
                         });
+                        let next =  document.createElement("option");
+                        nwLine.innerHTML = "next";
+                        nwLine.setAttribute('onclick','getDepot(1);');
+                        elementDepotList.appendChild(nwLine)
                         if(arg == 1) {
                         let save = parseInt(offset.innerHTML,10);
                         offset.innerHTML = "";
