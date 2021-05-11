@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>Prénom</label>
-                    <input type="text" oninput="checkLen('firstname',50)" value="remy" placeholder="firstname" id="firstname">
+                    <input type="text" oninput="checkLen('firstname',50)"  placeholder="firstname" id="firstname">
                     <p id="limitfirstname">50/50</p><p id="errofirstname"></p>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
                         <label>mail</label>
-                        <input type="mail" oninput="checkLen('mail',255)" value="hamedremy@gmail.com" placeholder="mail" id="mail">
+                        <input type="mail" oninput="checkLen('mail',255)"  placeholder="mail" id="mail">
                         <p id="limitmail">255/255</p><p id="erromail"></p>
                     </div>
                 </div>

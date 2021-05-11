@@ -191,7 +191,6 @@ function  getData() {
     let password= document.getElementById("pssword").value;//
     let tel = document.getElementById("tel").value;//
     let statut = document.getElementById("statut").value;
-   
     name = name.trim();
     firstname = firstname.trim();
     mail = mail.trim();
@@ -199,7 +198,7 @@ function  getData() {
     address = address.trim();
     password = password.trim();
     tel = tel.trim();
-    statut = statut.trim();
+   
 
     mail = mail.replace(/\s/, ''); 
     tel = tel.replace(/\s/, '');
