@@ -14,11 +14,21 @@ function signIn() {
             if(request.status == 200) {
                 let ObjJson = JSON.parse(request.responseText);
                 console.log(request.responseText);
+                console.log("affuchafe de l'objet");
                 console.log(ObjJson);
+                console.log("affuchafe de l'objet ObjJson[statut]");
                 console.log(ObjJson["statut"]);
-                console.log(typeof(bjJson["statut"]));
-                console.log(parseInt(String(homePage[ObjJson["statut"]]) - 1,10));
-                let numRedirection = parseInt(String(homePage[ObjJson["statut"]]) - 1,10);
+                console.log("type de ObjJson[statut]");
+                console.log(typeof(ObjJson["statut"]));
+                console.log("type de ObjJson[statut]");
+                let num = ObjJson["statut"].toString();
+                console.log(" num 1");
+                console.log(num);
+                num = parseInt(num);
+                console.log(" num 2");
+                console.log(num);
+                console.log(typeof(numRedirection));
+                let numRedirection = num;
                 console.log(typeof(numRedirection));
                 console.log(numRedirection);
                 //window.location.href = homePage[ObjJson["statut"] - 1];
