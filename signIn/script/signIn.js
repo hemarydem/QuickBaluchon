@@ -1,8 +1,13 @@
+let webSitePath ="https://quickbaluchonservice.site";
+
+
+
 function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
+    let homePage =[webSitePath + "/home/homeUser.php",webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeDriver.php"];
     let request = new XMLHttpRequest();
-    let destination = ["https://quickbaluchonservice.site/QuickBaluchon/home/homeDriver.php", "https://quickbaluchonservice.site/QuickBaluchon/home/homeAdmin.php", "https://quickbaluchonservice.site/QuickBaluchon/home/homeUser.php"];
+    
     request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
@@ -11,7 +16,7 @@ function signIn() {
                 console.log(ObjJson);
                 console.log(ObjJson["statut"]);
                 console.log(destination[ObjJson["statut"]]);
-                window.location.href = destination[ObjJson["statut"]];
+                window.location.href = homePage[ObjJson["statut"] - 1];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }

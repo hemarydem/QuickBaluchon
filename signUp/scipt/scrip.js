@@ -162,7 +162,7 @@ function ajaxSendPost(data,urlLink) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
                         console.log(destination[ObjJson["statut"] - 1]);
-                        //window.location.href = destination[ObjJson["statut"] - 1];
+                        window.location.href = destination[ObjJson["statut"] - 1];
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }
