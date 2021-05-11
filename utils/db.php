@@ -152,6 +152,43 @@ function execRequest(string $sql, array $params):?array {
 }
 
 
+/* execRequestForCount ()
+ *
+ * Genereric function execute sql request
+ * mostly use to get the num of rows
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ *
+ * or
+ * Null
+ */
+
+function execRequestForCount(string $tab):?int {
+    $db = getDataBaseConnection();
+    $sql = "SELECT count(id) FROM " .$tab;
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if($result == false) {
+                header("Content-Type: application/json");
+                echo json_encode(["message"=> "result not found"]);
+                exit(1);
+            } else {
+                print_r($result);
+                return 1;
+                //return $result;
+            }
+        }
+    }
+    return NULL;
+}
+
 
 
 

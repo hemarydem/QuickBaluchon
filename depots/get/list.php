@@ -12,16 +12,19 @@ if(isset($_GET)) {
     }*/
     $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
+
     if ($_GET['offset'] >= $_GET['limit']) {
         http_response_code(400);
         exit(1);
     }
+
     $where = [];
     $params = [];
     $wAndp = buildsLIkes($where, $params, $_GET);
     $where = $wAndp[0];
     $params = $wAndp[1];
     $tab = "DEPOT";
+    execRequestForCount("DEPOT");
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);
