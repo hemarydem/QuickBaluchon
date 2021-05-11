@@ -445,7 +445,7 @@ function validateForZoneMax() {
     }
     if(trigger) {
         innerMessagetoElement(idInput2,"");
-        ajaxZoneMax(apiPath + "user/post/update.php");
+        ajaxZoneMax(apiPath + "/users/post/update.php");
     }                                                     //void <p> element because no error to signal
 }
 
