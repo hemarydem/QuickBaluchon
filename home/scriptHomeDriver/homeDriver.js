@@ -535,7 +535,7 @@ function activateVehicule(idVehiculetoSet) {
         id:idVehiculetoSet
     };
     let request = new XMLHttpRequest();  
-    request.open("POST",apiPath + "vehicules/post/update.php",true); 
+    request.open("POST",apiPath + "/vehicules/post/update.php",true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -557,7 +557,7 @@ function desactiveVehicule(idtodesactice) {
         id:idtodesactice
     };
     let request = new XMLHttpRequest();  
-    request.open("POST",apiPath + "vehicules/post/update.php",true); 
+    request.open("POST",apiPath + "/vehicules/post/update.php",true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
