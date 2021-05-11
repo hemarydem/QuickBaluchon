@@ -53,9 +53,9 @@
 
             <div class="col-md-2 col-md-offset-5">
                     <label for="status">profil:</label>
-                    <select id="depoliste">
+                    <div id="depoliste">
                     
-                    </select>
+                    </div>
                 </div>
                 <button onclick="getDepot(0)">PRECÉDENT</button><button onclick="getDepot(1)">SUIVANT</button>
                 <div id="divCheckbox" style="display: none;">0</div>
