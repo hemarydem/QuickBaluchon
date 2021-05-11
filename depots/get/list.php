@@ -12,9 +12,11 @@ if(isset($_GET)) {
     }*/
     $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
-
-    if ($_GET['offset'] >= $_GET['limit']) {
-        http_response_code(400);
+    $tab = "DEPOT";
+    $max =  execRequestForCount($tab);
+    if ($_GET['offset'] > $max || $max == null) {
+        header("Content-Type: application/json");
+        echo json_encode(["message"=> "offset too hight or there is now data"]);
         exit(1);
     }
 
@@ -23,8 +25,6 @@ if(isset($_GET)) {
     $wAndp = buildsLIkes($where, $params, $_GET);
     $where = $wAndp[0];
     $params = $wAndp[1];
-    $tab = "DEPOT";
-    execRequestForCount("DEPOT");
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);

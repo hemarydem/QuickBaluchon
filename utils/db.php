@@ -169,20 +169,16 @@ function execRequest(string $sql, array $params):?array {
 
 function execRequestForCount(string $tab):?int {
     $db = getDataBaseConnection();
-    $sql = "SELECT count(id) FROM " .$tab;
+    $sql = "SELECT count(id) as StoreId FROM " .$tab;
     $statement = $db->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute($params);
         if($success) {
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             if($result == false) {
-                header("Content-Type: application/json");
-                echo json_encode(["message"=> "result not found"]);
-                exit(1);
+                return -1;
             } else {
-                print_r($result);
-                return 1;
-                //return $result;
+                return $result["StoreId"];
             }
         }
     }
