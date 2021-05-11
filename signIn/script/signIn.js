@@ -16,7 +16,7 @@ function signIn() {
                 console.log(request.responseText);
                 console.log(ObjJson);
                 console.log(ObjJson["statut"]);
-                console.log(parseInt(homePage[ObjJson["statut"]]-1));
+                console.log(parseInt(homePage[ObjJson["statut"]]-1,10));
                 //window.location.href = homePage[ObjJson["statut"] - 1];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
