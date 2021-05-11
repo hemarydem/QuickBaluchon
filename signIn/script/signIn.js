@@ -3,7 +3,7 @@ function signIn() {
     let psswrd = document.getElementById("pssword").value;
     let request = new XMLHttpRequest();
     let destination = ["https://152.228.163.174/QuickBaluchon/home/homeDriver.php", "https://152.228.163.174/QuickBaluchon/home/homeAdmin.php", "https://152.228.163.174/QuickBaluchon/home/homeUser.php"];
-    request.open("GET","https://152.228.163.174/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
