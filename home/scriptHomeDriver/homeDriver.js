@@ -128,7 +128,7 @@ function getCarBYID(idCar) {
                         divBase.appendChild(label4);
                         divBase.appendChild(p4);
                         let buttOnElement = document.createElement("button");
-                        buttOnElement.setAttribute('onclick','selecting(' + String(element["id"])+ ');');
+                        buttOnElement.setAttribute('onclick',"selecting(" + String(idCar)+ ");");
                         divBase.appendChild(buttOnElement);
                     }
             } else {
@@ -330,7 +330,6 @@ function  getData() {
     let nbColis = document.getElementById("nbColis").value;
     let volumeMax = document.getElementById("volumeMax").value;//
     let weightMax= document.getElementById("weightMax").value;
-   
     immatriculation = immatriculation.trim();
     nbColis = nbColis.trim();
     volumeMax = volumeMax.trim();
@@ -369,7 +368,7 @@ function getDepot(arg) {
                         elementDepotList.innerHTML = "";
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("p");
-                            nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
+                            nwLine.setAttribute('onclick','getColist(' + String(Element["id"]) + ');');
                             nwLine.innerHTML = Element["ville"];
                             elementDepotList.appendChild(nwLine);
                         });
