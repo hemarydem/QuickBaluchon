@@ -375,7 +375,7 @@ function getDepot(arg) {
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
+    request.send();
 }
 
 function getColist(idOfColisDepot) {
@@ -395,5 +395,5 @@ function getColist(idOfColisDepot) {
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
+    request.send();
 }
