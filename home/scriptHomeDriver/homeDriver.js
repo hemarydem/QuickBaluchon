@@ -506,7 +506,11 @@ function getAllreadySellectVehicule() {
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
-                    return JSON.parse(request.responseText);
+                    let restult = JSON.parse(request.responseText);
+                    console.log(restult);
+                    result = String(restult["id"]);
+                    console.log(result);
+                    return restult;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
