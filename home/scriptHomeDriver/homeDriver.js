@@ -358,7 +358,7 @@ function getDepot(arg) {
                         elementDepotList = "";
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("p");
-                            nwLine.setAttribute('onclick','getColist(' +String(element["id"])+ ');');
+                            nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
                             elementDepotList.appendChild(divBase);
                         });
                         if(arg == 1) {
