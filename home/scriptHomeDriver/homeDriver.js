@@ -355,7 +355,7 @@ function getDepot(arg) {
                     if(!(request.responseText.length == 0)) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
-                        elementDepotList = "";
+                        elementDepotList.innerHTML = "";
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("p");
                             nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
