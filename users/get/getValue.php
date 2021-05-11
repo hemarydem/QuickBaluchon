@@ -13,10 +13,8 @@ if (isset($_GET)) {
     checkStringsArray($_GET,1);
     if(isset($_GET['password']))
         $_GET['password'] = hash("sha256",  $_GET['password']);
-    print_r( $_GET);
     $tab = "USER";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
-    echo  $sql;
     $params = buildParams($_GET);
     $rows = execRequest( $sql, $params);
     if($rows == null) {

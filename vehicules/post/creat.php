@@ -15,7 +15,7 @@ $intKey = [
     "weightMax"
 ];
 header("Access-Control-Allow-Origin: *");
-countJsonObjElem($data, 4);   // must have 11 elements
+countJsonObjElem($data, 5);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);        // cast elements
 if(execRequestALLreadyExist("SELECT imatriculation FROM VEHICULE WHERE imatriculation=?", [$data->{"imatriculation"}])){
@@ -28,4 +28,6 @@ insertVehicules(
     $data->{"imatriculation"},
     $data->{"nbColis"},
     $data->{"volumeMax"},
-    $data->{"weightMax"});
+    $data->{"weightMax"},
+    $data->{"employ"}
+    );
