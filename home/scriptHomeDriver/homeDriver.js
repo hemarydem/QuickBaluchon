@@ -21,7 +21,7 @@ let elementDepotList = document.getElementById("depoliste");
 document.getElementById("app").removeChild(divTOremov);
 
 getCarsListByDriverId();
-
+getDepot();
 /*
  *  getCarsListByDriverId
  *
@@ -335,11 +335,20 @@ function  getData() {
 }
 
 
-function getDepot() {
+function getDepot(arg) {
     console.log("XOXOXOX");
     let offset = document.getElementById("divCheckbox");
+    if(arg == 0) {
+        let save = parseInt(offset.innerHTML,10);
+        offset.innerHTML = "";
+        save =  save - 10;
+        if(save < 0) {
+            save = 0;
+        }
+        offset.innerHTML =  save;
+    }
     let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset=" + offset.innerHTML,true); 
+    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset=" + String(parseInt(offset.innerHTML,10)),true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -352,9 +361,11 @@ function getDepot() {
                             nwLine.setAttribute('onclick','getColist(' +String(element["id"])+ ');');
                             elementDepotList.appendChild(divBase);
                         });
+                        if(arg == 1) {
                         let save = parseInt(offset.innerHTML,10);
                         offset.innerHTML = "";
                         offset.innerHTML =  save + 10;
+                        }
                     } else {
                         console.log("empty");
                     }

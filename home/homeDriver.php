@@ -53,7 +53,7 @@
                 <div class="container"  id="depoliste">
                         
                 </div>
-                <button onclick="validate()">PRECÉDENT</button><button onclick="validate()">SUIVANT</button>
+                <button onclick="getDepot(0)">PRECÉDENT</button><button onclick="getDepot(1)">SUIVANT</button>
                 <div id="divCheckbox" style="display: none;">0</div>
             </div>
             <div class="col-md-4" style="background-color: white">

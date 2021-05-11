@@ -2,8 +2,8 @@ function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
     let request = new XMLHttpRequest();
-    let destination = ["http://152.228.163.174/QuickBaluchon/home/homeDriver.php", "http://152.228.163.174/QuickBaluchon/home/homeAdmin.php", "http://152.228.163.174/QuickBaluchon/home/homeUser.php"];
-    request.open("GET","http://152.228.163.174/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
+    let destination = ["https://152.228.163.174/QuickBaluchon/home/homeDriver.php", "https://152.228.163.174/QuickBaluchon/home/homeAdmin.php", "https://152.228.163.174/QuickBaluchon/home/homeUser.php"];
+    request.open("GET","https://152.228.163.174/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
