@@ -540,7 +540,7 @@ function activateVehicule(idVehiculetoSet) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjeJson);
+                    console.log(ObjJson);
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
