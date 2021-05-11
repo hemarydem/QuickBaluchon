@@ -172,7 +172,7 @@ function execRequestForCount(string $tab):?int {
     $sql = "SELECT count(id) as StoreId FROM " .$tab;
     $statement = $db->prepare($sql);
     if($statement !== false) {
-        $success = $statement->execute($params);
+        $success = $statement->execute([]);
         if($success) {
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             if($result == false) {
