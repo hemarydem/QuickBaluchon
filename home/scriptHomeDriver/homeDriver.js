@@ -45,6 +45,7 @@ function getCarsListByDriverId() {
                     if(ObjJson.hasOwnProperty("message")) {
                         containerLeft.innerHTML = ObjJson["message"];
                     } else {
+                        containerLeft.innerHTML = "";
                         let tabBase = document.createElement("table");
                         containerLeft.appendChild(tabBase);
                         let tr1 =  document.createElement("tr");
@@ -68,6 +69,10 @@ function getCarsListByDriverId() {
                             nwLine.appendChild(td1);
                             nwLine.appendChild(td2);
                             nwLine.appendChild(buttOnElement);
+                            let select = parseInt(element["nbColis"], 10);
+                            if( select == 1) {
+                            nwLine.style.backgroundColor = 'green';
+                            }
                         });
                     }
             } else {
@@ -122,6 +127,8 @@ function getCarBYID(idCar) {
                         divBase.appendChild(p3);
                         divBase.appendChild(label4);
                         divBase.appendChild(p4);
+                        let buttOnElement = document.createElement("button");
+                        buttOnElement.setAttribute('onclick','selecting(' + String(element["id"])+ ');');
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -466,6 +473,91 @@ function ajaxZoneMax(urlLink) {
                 if(request.status == 200) {
                     let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                     console.log(ObjeJson);
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+
+
+function selecting(idVeh) {
+    //selection celui déjà a un
+    let ObjeJson = getAllreadySellectVehicule();
+    if(ObjJson.hasOwnProperty("message")) {
+        activateVehicule(idVeh);
+        return 0;
+    } 
+    //le mettre à 0
+    desactiveVehicule(ObjeJson["id"]);
+    activateVehicule(idVeh)
+
+}
+
+
+
+function getAllreadySellectVehicule() {
+    let request = new XMLHttpRequest();  
+    request.open("GET",apiPath + "/vehicules/get/getValue.php?employ=1",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    return JSON.parse(request.responseText);
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+
+
+
+
+function activateVehicule(idVehiculetoSet) {
+    let zone = document.getElementById("zoneMax").value;
+    zone = parseInt(zone,10);
+    let jsonToSend = {
+        employ:1,
+        id:idVehiculetoSet
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",apiPath + "vehicules/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjeJson);
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+function desactiveVehicule(idtodesactice) {
+    let jsonToSend = {
+        employ:0,
+        id:idtodesactice
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",apiPath + "vehicules/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjeJson);
+                    return true;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
