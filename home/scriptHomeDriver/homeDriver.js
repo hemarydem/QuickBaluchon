@@ -487,13 +487,13 @@ function ajaxZoneMax(urlLink) {
 
 function selecting(idVeh) {
     //selection celui déjà a un
-    let ObjeJson = getAllreadySellectVehicule();
-    if(ObjJson.hasOwnProperty("message")) {
+    let idtoStop = getAllreadySellectVehicule();
+    if(idtoStop == null) {
         activateVehicule(idVeh);
         return 0;
     } 
     //le mettre à 0
-    desactiveVehicule(ObjeJson["id"]);
+    desactiveVehicule(idtoStop);
     activateVehicule(idVeh)
 
 }
@@ -507,8 +507,10 @@ function getAllreadySellectVehicule() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let restult = JSON.parse(request.responseText);
+                    if(restult.hasOwnProperty("message"))
+                        return null;
                     console.log(restult);
-                    result = String(restult["id"]);
+                    result = String(restult[0]["id"]);
                     console.log(result);
                     return restult;
             } else {
