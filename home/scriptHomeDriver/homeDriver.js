@@ -359,7 +359,7 @@ function getDepot(arg) {
                         ObjeJson.forEach(Element =>{
                             let nwLine =  document.createElement("p");
                             nwLine.setAttribute('onclick','getColist(' +String(Element["id"])+ ');');
-                            elementDepotList.appendChild(divBase);
+                            elementDepotList.appendChild(nwLine);
                         });
                         if(arg == 1) {
                         let save = parseInt(offset.innerHTML,10);
