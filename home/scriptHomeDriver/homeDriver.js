@@ -419,7 +419,7 @@ function getoffsetMax(url){
                 if(request.status == 200) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log("offset max  = " + String(ObjeJson["total"]));
-                        return parse(ObjeJson["total"],10);
+                        return parseInt(ObjeJson["total"],10);
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
