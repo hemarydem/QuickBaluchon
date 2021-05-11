@@ -1,11 +1,11 @@
 let webSitePath ="https://quickbaluchonservice.site";
-
+let homePage =[webSitePath + "/home/homeDriver.php", webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
 
 
 function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
-    let homePage =[webSitePath + "/home/homeDriver.php,webSitePath" + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
+    
     let request = new XMLHttpRequest();
     
     request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
@@ -27,10 +27,11 @@ function signIn() {
                 num = parseInt(num);
                 console.log(" num 2");
                 console.log(num);
-                //console.log(typeof(numRedirection));
-                let numRedirection = num;
-                //console.log(typeof(numRedirection));
-                //console.log(numRedirection);
+                num--;
+                console.log(num);
+                console.log(homePage);
+                console.log(homePage[num]);
+                
                 window.location.href = homePage[numRedirection - 1];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
