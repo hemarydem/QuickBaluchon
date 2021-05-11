@@ -502,7 +502,7 @@ function selecting(idVeh) {
 
 function getAllreadySellectVehicule() {
     let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/vehicules/get/getValue.php?employ=1",true); 
+    request.open("GET",apiPath + "/vehicules/get/getCarsByUsed.php?id="+ id,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
