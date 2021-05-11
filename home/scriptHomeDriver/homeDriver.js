@@ -435,19 +435,14 @@ function validateForZoneMax() {
         innerMessagetoElement(idInput2,"ne peux être vide");
         return trigger
     }  
-    element = element.trim();
-    if(mustNotContainSpace) {                                       // supp space
-        element = element.replace(/\s/, ''); 
-    }   
-
-    if(OnlyNumber){
-        if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
-            trigger = false;                         // check if there is only number
-        if(!trigger){
-            innerMessagetoElement(idInput2,"pas de lettre");
-            return trigger;
-        }
-    }   
+    element = element.trim();          
+    element = element.replace(/\s/, '');    // supp space
+    if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
+        trigger = false;                         // check if there is only number
+    if(!trigger){
+        innerMessagetoElement(idInput2,"pas de lettre");
+        return trigger;
+    }
     if(trigger) {
         innerMessagetoElement(idInput2,"");
         ajaxZoneMax(apiPath + "user/post/update.php");
