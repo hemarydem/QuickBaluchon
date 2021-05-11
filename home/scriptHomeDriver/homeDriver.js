@@ -340,8 +340,8 @@ function  getData() {
 function getDepot(arg) {
     console.log("XOXOXOX");
     let offset = document.getElementById("divCheckbox");
+    let save = parseInt(offset.innerHTML,10);
     if(arg == 0) {
-        let save = parseInt(offset.innerHTML,10);
         offset.innerHTML = "";
         save =  save - 10;
         if(save < 0) {
