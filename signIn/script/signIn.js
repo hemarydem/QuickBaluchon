@@ -27,10 +27,10 @@ function signIn() {
                 num = parseInt(num);
                 console.log(" num 2");
                 console.log(num);
-                console.log(typeof(numRedirection));
+                //console.log(typeof(numRedirection));
                 let numRedirection = num;
                 //console.log(typeof(numRedirection));
-                console.log(numRedirection);
+                //console.log(numRedirection);
                 window.location.href = homePage[numRedirection - 1];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
