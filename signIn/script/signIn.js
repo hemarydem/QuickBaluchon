@@ -1,4 +1,4 @@
-let webSitePath ="https://quickbaluchonservice.site";
+let webSitePath ="https://quickbaluchonservice.site/QuickBaluchon";
 let homePage =[webSitePath + "/home/homeDriver.php", webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
 
 
@@ -32,7 +32,7 @@ function signIn() {
                 console.log(homePage);
                 console.log(homePage[num]);
                 
-                window.location.href = homePage[numRedirection - 1];
+                window.location.href = homePage[num];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
