@@ -6,7 +6,7 @@
  *  All fuction to help the driver to interact with his profile
  * 
  */
-let =  apiPath = "http://152.228.163.174/api/QuickBaluchon/"
+let =  apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon/"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -35,7 +35,7 @@ getDepot();
 function getCarsListByDriverId() {
     let ObjJson;
     let request = new XMLHttpRequest();  
-    request.open("GET","http://152.228.163.174/api/QuickBaluchon/vehicules/get/getCarsByUserId.php?id="+ id,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUserId.php?id="+ id,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -80,7 +80,7 @@ function getCarsListByDriverId() {
 function getCarBYID(idCar) {
     let ObjJson;
     let request = new XMLHttpRequest();  
-    request.open("GET","http://152.228.163.174/api/QuickBaluchon/vehicules/get/vehicule.php?id="+ idCar,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/vehicule.php?id="+ idCar,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -199,7 +199,7 @@ function validate() {
     });
     console.log("ok");
     if(block == 0) {
-        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/vehicules/post/creat.php");
+        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/post/creat.php");
     }
     console.log(" FIN");
 }
@@ -221,7 +221,7 @@ function ajaxSendPost(data,urlLink) {
                 if(request.status == 200) {
                     let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                     console.log(ObjeJson);
-                    creatOwnerOnCar(id,ObjeJson['id'],"http://152.228.163.174/api/QuickBaluchon/owns/post/creat.php");
+                    creatOwnerOnCar(id,ObjeJson['id'],"https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php");
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }

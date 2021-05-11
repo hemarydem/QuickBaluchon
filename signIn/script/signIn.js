@@ -2,7 +2,7 @@ function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
     let request = new XMLHttpRequest();
-    let destination = ["https://152.228.163.174/QuickBaluchon/home/homeDriver.php", "https://152.228.163.174/QuickBaluchon/home/homeAdmin.php", "https://152.228.163.174/QuickBaluchon/home/homeUser.php"];
+    let destination = ["https://quickbaluchonservice.site/QuickBaluchon/home/homeDriver.php", "https://quickbaluchonservice.site/QuickBaluchon/home/homeAdmin.php", "https://quickbaluchonservice.site/QuickBaluchon/home/homeUser.php"];
     request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {

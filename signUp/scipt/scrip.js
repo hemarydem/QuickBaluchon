@@ -84,7 +84,7 @@ function validate() {
     });
     console.log("ok");
     if(block == 0) {
-        ajaxSendPost(getData(),"http://152.228.163.174/api/QuickBaluchon/users/post/creat.php");
+        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
     }
     console.log(" FIN");
 }
