@@ -7,6 +7,7 @@
  * check if input are correctly filled to be send to the api
  */
 let webSitePath ="https://quickbaluchonservice.site";
+let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath + "/QuickBaluchon/home/homeAdmin.php",webSitePath + "/QuickBaluchon/home/homeUser.php"];
 
 /*
  *  checkLen
@@ -140,7 +141,6 @@ function ajaxSendPost(data,urlLink) {
         //driver 1
         //admin 2
         //client3
-        let homePage =[webSitePath + "/home/homeDriver.php,webSitePath" + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
         let jsonToSend = {
             nom:data[0],
             prenom:data[1],
@@ -161,7 +161,11 @@ function ajaxSendPost(data,urlLink) {
                     if(request.status == 200) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
-                        console.log(homePage[ObjJson["statut"] - 1]);
+                        let num = ObjJson["statut"].toString();
+                        num = parseInt(num);
+                        num--;
+                        homePage[num];
+                        console.log(homePage[num]);
                         //window.location.href = homePage[ObjJson["statut"] - 1];
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);

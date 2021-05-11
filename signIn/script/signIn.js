@@ -13,20 +13,8 @@ function signIn() {
         if(request.readyState == 4) {
             if(request.status == 200) {
                 let ObjJson = JSON.parse(request.responseText);
-                console.log(request.responseText);
-                console.log("affuchafe de l'objet");
-                console.log(ObjJson);
-                console.log("affuchafe de l'objet ObjJson[statut]");
-                console.log(ObjJson["statut"]);
-                console.log("type de ObjJson[statut]");
-                console.log(typeof(ObjJson["statut"]));
-                console.log("type de ObjJson[statut]");
                 let num = ObjJson["statut"].toString();
-                console.log(" num 1");
-                console.log(num);
                 num = parseInt(num);
-                console.log(" num 2");
-                console.log(num);
                 num--;
                 console.log(num);
                 console.log(homePage);
