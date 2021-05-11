@@ -14,7 +14,12 @@ if(isset($_GET)) {
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
     $tab = "DEPOT";
     $max =  execRequestForCount($tab);
-    if ($_GET['offset'] > $max || $max == null) {
+    if ( $max == null ) {
+        header("Content-Type: application/json");
+        echo json_encode(["message"=> "fail to get data"]);
+        exit(1);
+    }
+    if ($_GET['offset'] > $max ) {
         header("Content-Type: application/json");
         echo json_encode(["message"=> "offset too hight or there is now data"]);
         exit(1);

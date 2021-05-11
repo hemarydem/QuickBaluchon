@@ -169,7 +169,7 @@ function execRequest(string $sql, array $params):?array {
 
 function execRequestForCount(string $tab):?int {
     $db = getDataBaseConnection();
-    $sql = "SELECT count(id) as StoreId FROM " .$tab;
+    $sql = "SELECT count(id) as storeId FROM " .$tab;
     $statement = $db->prepare($sql);
     if($statement !== false) {
         $success = $statement->execute([]);
@@ -178,7 +178,7 @@ function execRequestForCount(string $tab):?int {
             if($result == false) {
                 return -1;
             } else {
-                return $result["StoreId"];
+                return $result["storeId"];
             }
         }
     }
