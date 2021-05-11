@@ -513,7 +513,7 @@ function getAllreadySellectVehicule() {
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
+    request.send();
 }
 
 
