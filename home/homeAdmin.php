@@ -1,6 +1,7 @@
 <?php
     require "../utls/utls.php";
     checIfsessionStarted();
+    checkRightToBeHere(2);
     checkIfconnected();
 ?>
 

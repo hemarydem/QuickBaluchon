@@ -140,7 +140,7 @@ function ajaxSendPost(data,urlLink) {
         //driver 1
         //admin 2
         //client3
-        let homePage =[webSitePath + "/home/homeUser.php",webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeDriver.php"];
+        let homePage =[webSitePath + "/home/homeDriver.php,webSitePath" + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
         let jsonToSend = {
             nom:data[0],
             prenom:data[1],
@@ -161,8 +161,8 @@ function ajaxSendPost(data,urlLink) {
                     if(request.status == 200) {
                         let ObjeJson =  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
-                        console.log(destination[ObjJson["statut"] - 1]);
-                        window.location.href = destination[ObjJson["statut"] - 1];
+                        console.log(homePage[ObjJson["statut"] - 1]);
+                        window.location.href = homePage[ObjJson["statut"] - 1];
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }

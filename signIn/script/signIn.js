@@ -5,7 +5,7 @@ let webSitePath ="https://quickbaluchonservice.site";
 function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
-    let homePage =[webSitePath + "/home/homeUser.php",webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeDriver.php"];
+    let homePage =[webSitePath + "/home/homeDriver.php,webSitePath" + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
     let request = new XMLHttpRequest();
     
     request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
