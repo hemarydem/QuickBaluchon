@@ -16,7 +16,9 @@ let containerCenter = document.getElementById("centerCont");
 let clListElement = document.getElementById("COLISLIST");
 
 
-let elementDepotList = document.getElementById("depoliste"); 
+let elementDepotList = document.getElementById("depoliste");
+
+let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
 //let containerLeft = document.getElementById("leftcont");
 document.getElementById("app").removeChild(divTOremov);
 
@@ -398,6 +400,26 @@ function getColist(idOfColisDepot) {
                         console.log(ObjeJson);
                         elementDepotList = "";
                         clListElement
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+function getoffsetMax(url){
+    console.log("ZZZZ");
+    let request = new XMLHttpRequest();  
+    request.open("GET", url, true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        console.log("offset max  = " + String(ObjeJson["total"]));
+                        return parse(ObjeJson["total"],10);
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
