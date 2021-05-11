@@ -29,9 +29,9 @@ function signIn() {
                 console.log(num);
                 console.log(typeof(numRedirection));
                 let numRedirection = num;
-                console.log(typeof(numRedirection));
+                //console.log(typeof(numRedirection));
                 console.log(numRedirection);
-                //window.location.href = homePage[ObjJson["statut"] - 1];
+                window.location.href = homePage[numRedirection - 1];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
