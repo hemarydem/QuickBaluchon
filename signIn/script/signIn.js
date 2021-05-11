@@ -13,6 +13,7 @@ function signIn() {
         if(request.readyState == 4) {
             if(request.status == 200) {
                 let ObjJson = JSON.parse(request.responseText);
+                console.log(request.responseText);
                 console.log(ObjJson);
                 console.log(ObjJson["statut"]);
                 console.log(destination[ObjJson["statut"]]);
