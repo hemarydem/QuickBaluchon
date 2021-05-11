@@ -129,6 +129,7 @@ function getCarBYID(idCar) {
                         divBase.appendChild(p4);
                         let buttOnElement = document.createElement("button");
                         buttOnElement.setAttribute('onclick','selecting(' + String(element["id"])+ ');');
+                        divBase.appendChild(buttOnElement);
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
