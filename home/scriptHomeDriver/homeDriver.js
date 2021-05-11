@@ -350,7 +350,7 @@ function getDepot(arg) {
         offset.innerHTML =  save;
     }
     let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset=" + String(parseInt(offset.innerHTML,10)),true); 
+    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset="+ save,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -375,7 +375,10 @@ function getDepot(arg) {
                         if(arg == 1) {
                         let save = parseInt(offset.innerHTML,10);
                         offset.innerHTML = "";
-                        offset.innerHTML =  save + 10;
+                        save += 10;
+                        if(save > maxOffset)
+                            save = maxOffset - 1;
+                        offset.innerHTML =  save;
                         }
                     } else {
                         console.log("empty");
