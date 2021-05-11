@@ -6,7 +6,7 @@
  *  All fuction to help the driver to interact with his profile
  * 
  */
-let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon/"
+let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
