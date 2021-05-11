@@ -69,7 +69,7 @@ function validate() {
 
     allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
-    if(parseInt(document.getElementById("statut").value,10) == 1){
+    if(parseInt(document.getElementById("statut").value,10) == 3){
         console.log("client");
         allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
     } else {
