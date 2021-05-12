@@ -74,6 +74,7 @@
             <h1>liste des colis à saisir</h1>
             </div>
             <div class="col-md-2" style="background-color: white">
+            <h2>liste des colis assigner</h2>
             </div>
         </div>
     <?php

@@ -580,3 +580,7 @@ function desactiveVehicule(idtodesactice) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(jsonToSend));
 }
+
+function assigneTo(){
+    
+}
