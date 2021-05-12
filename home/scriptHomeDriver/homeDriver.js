@@ -401,6 +401,9 @@ function getColist(idOfColisDepot) {
                         let  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjJson);
                         baliseToFilled.innerHTML = "";
+                        let h1 = document.createElement("h1");
+                        h1.innerHTML = "liste des colis à saisir";
+                        baliseToFilled.appendChild(h1);
                         ObjJson.forEach(element=>{
                             let nwLine = document.createElement("p");
                             nwLine.setAttribute('onclick','assigneTo(' + String(element["id"]) + ');');
