@@ -51,11 +51,11 @@
             </div>
             <div class="col-md-4" style="background-color: grey">
 
-            <div class="col-md-2 col-md-offset-5">
-                    <label for="status">profil:</label>
-                    <div id="depoliste">
-                    
-                    </div>
+                <div class="col-md-2 col-md-offset-5">
+                        <label for="status">profil:</label>
+                        <div id="depoliste">
+                        
+                        </div>
                 </div>
                 <button onclick="getDepot(0)">PRECÉDENT</button><button onclick="getDepot(1)">SUIVANT</button>
                 <div id="divCheckbox" style="display: none;">0</div>
