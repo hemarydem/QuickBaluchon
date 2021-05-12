@@ -346,7 +346,6 @@ function  getData() {
 
 
 function getDepot(arg) {
-    console.log("XOXOXOX");
     let offset = document.getElementById("divCheckbox");
     let save = parseInt(offset.innerHTML,10);
     if(arg == 0) {
@@ -358,7 +357,7 @@ function getDepot(arg) {
         offset.innerHTML =  save;
     }
     let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset="+ save,true); 
+    request.open("GET",apiPath + "/depots/get/list.php?limit=" + 10 +"&offset=" + save,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -393,16 +392,21 @@ function getDepot(arg) {
 }
 
 function getColist(idOfColisDepot) {
-    console.log("ZZZZ");
+    let baliseToFilled = document.getElementById("COLISLIST");
     let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/colis/get/getValue.php?idDepot=" + idOfColisDepot,true); 
+    request.open("GET",apiPath + "/colis/get/getValue.php?idDepot=" + idOfColisDepot +"?sendingStatut=0",true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
-                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        let  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
-                        elementDepotList = "";
-                        clListElement
+                        baliseToFilled = "";
+                        ObjJson.forEach(element=>{
+                            let nwLine = document.createElement("p");
+                            nwLine.setAttribute('onclick','getColist(' + String(Element["id"]) + ');');
+                            nwLine.innerHTML = Element["adresse"];
+                            baliseToFilled.appendChild(nwLine);
+                        });
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -562,7 +566,8 @@ function desactiveVehicule(idtodesactice) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjeJson);
+                    console.log("désactive");
+                    console.log(ObjJson);
                     return true;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
