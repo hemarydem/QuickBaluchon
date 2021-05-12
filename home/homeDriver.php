@@ -70,9 +70,8 @@
             <div class="col-md-2" style="background-color: white">
                 
             </div>
-            <h1>liste des colis à saisir</h1>
             <div class="col-md-6" style="background-color: white" id="COLISLIST">
-            
+            <h1>liste des colis à saisir</h1>
             </div>
             <div class="col-md-2" style="background-color: white">
             </div>
