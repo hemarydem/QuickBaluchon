@@ -635,6 +635,7 @@ function assigneTo(idColis) {
 function deliveryGenerator(){
     let listColis  = getColist(depotGlobal);
     let idActiveCar = getAllreadySellectVehicule();
-    let car = getCarBYIDForDelivery(idActiveCar)
+    let car = getCarBYIDForDelivery(idActiveCar);
+    console.log(" data");
     console.log(car);
 }
