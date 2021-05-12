@@ -399,11 +399,11 @@ function getColist(idOfColisDepot) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                         let  ObjJson = JSON.parse(request.responseText);
-                        console.log(ObjeJson);
+                        console.log(ObjJson);
                         baliseToFilled = "";
                         ObjJson.forEach(element=>{
                             let nwLine = document.createElement("p");
-                            nwLine.setAttribute('onclick','getColist(' + String(Element["id"]) + ');');
+                            nwLine.setAttribute('onclick','getColist(' + String(element["id"]) + ');');
                             nwLine.innerHTML = Element["adresse"];
                             baliseToFilled.appendChild(nwLine);
                         });
