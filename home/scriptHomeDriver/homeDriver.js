@@ -403,7 +403,7 @@ function getColist(idOfColisDepot) {
                         baliseToFilled.innerHTML = "";
                         ObjJson.forEach(element=>{
                             let nwLine = document.createElement("p");
-                            nwLine.setAttribute('onclick','getColist(' + String(element["id"]) + ');');
+                            nwLine.setAttribute('onclick','assigneTo(' + String(element["id"]) + ');');
                             nwLine.innerHTML = element["adresse"];
                             baliseToFilled.appendChild(nwLine);
                         });
