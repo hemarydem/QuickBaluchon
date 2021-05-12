@@ -400,7 +400,7 @@ function getColist(idOfColisDepot) {
                 if(request.status == 200) {
                         let  ObjJson = JSON.parse(request.responseText);
                         console.log(ObjJson);
-                        baliseToFilled = "";
+                        baliseToFilled.innerHTML = "";
                         ObjJson.forEach(element=>{
                             let nwLine = document.createElement("p");
                             nwLine.setAttribute('onclick','getColist(' + String(element["id"]) + ');');
