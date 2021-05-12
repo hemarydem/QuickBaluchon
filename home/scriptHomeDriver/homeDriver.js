@@ -19,6 +19,8 @@ let clListElement = document.getElementById("COLISLIST");
 let elementDepotList = document.getElementById("depoliste");
 
 let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
+
+let depotGlobal = null;
 //let containerLeft = document.getElementById("leftcont");
 document.getElementById("app").removeChild(divTOremov);
 
@@ -130,6 +132,30 @@ function getCarBYID(idCar) {
                         let buttOnElement = document.createElement("button");
                         buttOnElement.setAttribute('onclick',"selecting(" + String(idCar)+ ");");
                         divBase.appendChild(buttOnElement);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+
+function getCarBYIDForDelivery(idCar) {
+    let ObjJson;
+    let request = new XMLHttpRequest();  
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/vehicule.php?id="+ idCar,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        containerLeft.innerHTML = ObjJson["message"];
+                    } else {
+                       return ObjJson;
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -366,8 +392,8 @@ function getDepot(arg) {
                         console.log(ObjeJson);
                         elementDepotList.innerHTML = "";
                         ObjeJson.forEach(Element =>{
-                            let nwLine =  document.createElement("p");
-                            nwLine.setAttribute('onclick','getColist(' + String(Element["id"]) + ');');
+                            let nwLine =  document.createElement("d");
+                            nwLine.setAttribute('onclick','(setDepoTGlobal' + String(Element["id"]) + ');');
                             nwLine.innerHTML = Element["ville"];
                             elementDepotList.appendChild(nwLine);
                         });
@@ -391,6 +417,12 @@ function getDepot(arg) {
     request.send();
 }
 
+function setDepoTGlobal(idToset) {
+    depotGlobal = idToset;
+}
+
+
+
 function getColist(idOfColisDepot) {
     let baliseToFilled = document.getElementById("COLISLIST");
     let request = new XMLHttpRequest();  
@@ -399,17 +431,7 @@ function getColist(idOfColisDepot) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                         let  ObjJson = JSON.parse(request.responseText);
-                        console.log(ObjJson);
-                        baliseToFilled.innerHTML = "";
-                        let h1 = document.createElement("h1");
-                        h1.innerHTML = "liste des colis à saisir";
-                        baliseToFilled.appendChild(h1);
-                        ObjJson.forEach(element=>{
-                            let nwLine = document.createElement("p");
-                            nwLine.setAttribute('onclick','assigneTo(' + String(element["id"]) + ');');
-                            nwLine.innerHTML = element["adresse"];
-                            baliseToFilled.appendChild(nwLine);
-                        });
+                        return ObjJson;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -421,7 +443,6 @@ function getColist(idOfColisDepot) {
 
 
 function getoffsetMax(url){
-    console.log("ZZZZ");
     let request = new XMLHttpRequest();  
     request.open("GET", url, true); 
     request.onreadystatechange = function() {
@@ -530,10 +551,6 @@ function getAllreadySellectVehicule() {
 }
 
 
-
-
-
-
 function activateVehicule(idVehiculetoSet) {
     let zone = document.getElementById("zoneMax").value;
     zone = parseInt(zone,10);
@@ -581,6 +598,43 @@ function desactiveVehicule(idtodesactice) {
     request.send(JSON.stringify(jsonToSend));
 }
 
-function assigneTo(){
-    
+
+function assigneTo(idColis) {
+    let jsonToSend = {
+        id:idColis,
+        idDelivery:id
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",apiPath + "/colis/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                        let  ObjJson = JSON.parse(request.responseText);
+                        console.log(ObjJson);
+                        baliseToFilled.innerHTML = "";
+                        let h1 = document.createElement("h1");
+                        h1.innerHTML = "liste des colis à saisir";
+                        baliseToFilled.appendChild(h1);
+                        ObjJson.forEach(element=>{
+                            let nwLine = document.createElement("p");
+                            nwLine.setAttribute('onclick','assigneTo(' + String(element["id"]) + ');');
+                            nwLine.innerHTML = element["adresse"];
+                            baliseToFilled.appendChild(nwLine);
+                        });
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+
+function deliveryGenerator(){
+    let listColis  = getColist(depotGlobal);
+    let idActiveCar = getAllreadySellectVehicule();
+    let car = getCarBYIDForDelivery(idActiveCar)
+    console.log(car);
 }

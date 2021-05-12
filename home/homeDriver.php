@@ -71,7 +71,8 @@
                 
             </div>
             <div class="col-md-6" style="background-color: white" id="COLISLIST">
-            <h1>liste des colis à saisir</h1>
+                <label>Generer ma livraison</label>
+                    <button onclick="deliveryGenerator()">Genereration</button>
             </div>
             <div class="col-md-2" style="background-color: white">
             <h2>liste des colis assigner</h2>
