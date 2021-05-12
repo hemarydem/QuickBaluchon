@@ -16,7 +16,7 @@ if (isset($_GET)) {
     $tab = "COLIS";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
-    $rows = execRequest($sql, $params);
+    $rows = execRequestfetchall($sql, $params);
     if ($rows == null) {
         header("Content-Type: application/json");
         echo json_encode(["message" => "no result found"]);

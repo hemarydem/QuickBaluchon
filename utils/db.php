@@ -150,7 +150,39 @@ function execRequest(string $sql, array $params):?array {
     }
     return NULL;
 }
+/* execRequest ()
+ *
+ * Genereric function execute sql request
+ * mostly use to get date from the data base
+ *
+ * arguments
+ * string who contains the sql request
+ * array contenains all the data for the data base
+ *
+ * return
+ * array contening all the result of the call
+ * or
+ * Null
+ */
 
+function execRequestfetchall(string $sql, array $params):?array {
+    $db = getDataBaseConnection();
+    $statement = $db->prepare($sql);
+    if($statement !== false) {
+        $success = $statement->execute($params);
+        if($success) {
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if($result == false) {
+                header("Content-Type: application/json");
+                echo json_encode(["message"=> "result not found"]);
+                exit(1);
+            } else {
+                return $result;
+            }
+        }
+    }
+    return NULL;
+}
 
 /* execRequestForCount ()
  *
