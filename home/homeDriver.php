@@ -70,7 +70,7 @@
             <div class="col-md-2" style="background-color: white">
                 
             </div>
-            <div class="col-md-6" style="background-color: grey" id="COLISLIST">
+            <div class="col-md-6" style="background-color: white" id="COLISLIST">
             
             </div>
             <div class="col-md-2" style="background-color: white">
