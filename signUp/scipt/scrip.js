@@ -29,6 +29,8 @@ function sendGetResponseText(data,urlLink) {
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
+                    console.log(request.responseText);
+                    typeof(request.responseText);
                     return request.responseText;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
