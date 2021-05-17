@@ -54,6 +54,7 @@ formSelector.addEventListener('change', (event) => {
     selectValue = parseInt(selectValue, 10);
     let form = selectValue == 1 ? sendGetResponseText("","./driverForm.php"): sendGetResponseText("","./clientForm.php")
     console.log(form);
+    app.innerHTML = "";
     app.innerHTML = form;
 });
 
