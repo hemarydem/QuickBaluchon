@@ -64,8 +64,6 @@ echo' <div class="row ">
                 </div>
             </div>
         </div>
-        <div class="container" >
-                <button onclick="validate()">Sign Up</button>
-        </div>';
+        ';
 
 ?>
