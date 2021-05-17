@@ -29,7 +29,7 @@ getDepot();
 /*
  *  getCarsListByDriverId
  *
- *  arg id of an element
+ *  arg driver's id
  *  
  * get the list of cars and data of drivers car by calling api
  * 
@@ -155,7 +155,7 @@ function getCarBYIDForDelivery(idCar) {
                     if(ObjJson.hasOwnProperty("message")) {
                         containerLeft.innerHTML = ObjJson["message"];
                     } else {
-                       return ObjJson;
+                    return ObjJson;
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);

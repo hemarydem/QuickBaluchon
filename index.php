@@ -49,17 +49,9 @@
         <a class="dropdown-item" href="#">New around here? Sign up</a>
         <a class="dropdown-item" href="#">Forgot password?</a>
     </div>
-    <h1>COUCOUC</h1>
-    <div>
-        <input type="button" onclick="getUser()">
-    </div>
-    <h1>secondbouton</h1>
-    <div>
-    <input type="button" onclick="getUserone()">
-    </div>  
-    <div id="containeur">
+    <div id="containeur" >
+    <img src="./img/colisImg.jpeg" alt="..." class="mx-auto d-block">
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="scritp.js"></script>
 </html>

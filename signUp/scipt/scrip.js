@@ -159,7 +159,7 @@ function ajaxSendPost(data,urlLink) {
         request.onreadystatechange = function() {
             if(request.readyState == 4) {
                     if(request.status == 200) {
-                        let ObjeJson =  ObjJson = JSON.parse(request.responseText);
+                        let ObjJson = JSON.parse(request.responseText);
                         console.log(ObjeJson);
                         let num = ObjJson["statut"].toString();
                         num = parseInt(num);
