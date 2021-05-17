@@ -7,25 +7,7 @@
  * check if input are correctly filled to be send to the api
  */
 
-let responseOfFormSelectorajax = "";
-
-function sendPostResponseText(data,urlLink) {
-    let request = new XMLHttpRequest();  
-    request.open("POST",urlLink,true); 
-    request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-            if(request.status == 200) {
-                return request.responseText;
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
-}
-
-function sendGetResponseText(data,urlLink) {
+function displayForm(elementApp,urlLink) {
     let request = new XMLHttpRequest();  
     request.open("GET",urlLink,true); 
     request.onreadystatechange = function() {
@@ -33,7 +15,7 @@ function sendGetResponseText(data,urlLink) {
                 if(request.status == 200) {
                     console.log(request.responseText);
                     typeof(request.responseText);
-                    responseOfFormSelectorajax = request.responseText;
+                    app.innerHTML = request.responseText;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -56,10 +38,7 @@ const formSelector = document.getElementById("frmSelector");
 formSelector.addEventListener('change', (event) => {
     let selectValue = formSelector.value;
     selectValue = parseInt(selectValue, 10);
-    let form = selectValue == 1 ? sendGetResponseText("","./driverForm.php"): sendGetResponseText("","./clientForm.php")
-    console.log(responseOfFormSelectorajax);
-    app.innerHTML = "";
-    app.innerHTML = responseOfFormSelectorajax;
+    selectValue == 1 ? displayForm(app,"./driverForm.php"): displayForm(app,"./clientForm.php")
 });
 
 let webSitePath ="https://quickbaluchonservice.site";
