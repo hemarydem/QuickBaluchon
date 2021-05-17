@@ -49,8 +49,10 @@
         <a class="dropdown-item" href="#">New around here? Sign up</a>
         <a class="dropdown-item" href="#">Forgot password?</a>
     </div>
-    <div id="containeur" >
-    <img src="./img/colisImg.jpeg" alt="My Image" class="img-fluid" >
+
+
+    <div class="wrapper">
+        <img src="./img/colisImg.jpeg" class="img-responsive" alt="Responsive image">
     </div>
 </body>
 <script src="scritp.js"></script>
