@@ -50,7 +50,7 @@
         <a class="dropdown-item" href="#">Forgot password?</a>
     </div>
     <div id="containeur" >
-    <img src="./img/colisImg.jpeg" alt="..." class="mx-auto d-block">
+    <img src="./img/colisImg.jpeg" alt="My Image" class="img-fluid" >
     </div>
 </body>
 <script src="scritp.js"></script>
