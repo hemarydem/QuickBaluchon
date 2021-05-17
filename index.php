@@ -52,7 +52,7 @@
     </div>
 
 
-    <div class="wrapper">
+    <div id="wrapper">
     </div>
     <img src="./img/colisImg.jpeg" class="img-fluid" alt="Responsive image">
 
