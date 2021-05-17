@@ -6,6 +6,57 @@
  * get feed back to the user to make hime now if inputs are filled correctly
  * check if input are correctly filled to be send to the api
  */
+
+function sendPostResponseText(data,urlLink) {
+    let request = new XMLHttpRequest();  
+    request.open("POST",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                return request.responseText;
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+function sendGetResponseText(data,urlLink) {
+    let request = new XMLHttpRequest();  
+    request.open("GET",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    return request.responseText;
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+let app = document.getElementById("app");
+
+/*
+*
+* Set up functions
+*
+*/
+
+const formSelector = document.getElementById("frmSelector");
+
+formSelector.addEventListener('change', (event) => {
+    let selectValue = formSelector.value;
+    selectValue = parseInt(selectValue, 10);
+    let form = selectValue == 1 ? sendGetResponseText("","./driverForm.php"): sendGetResponseText("","./clientForm.php")
+    console.log(form);
+    app.innerHTML = form;
+});
+
 let webSitePath ="https://quickbaluchonservice.site";
 let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath + "/QuickBaluchon/home/homeAdmin.php",webSitePath + "/QuickBaluchon/home/homeUser.php"];
 
