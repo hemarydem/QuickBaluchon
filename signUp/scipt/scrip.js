@@ -31,7 +31,8 @@ function sendGetResponseText(data,urlLink) {
                 if(request.status == 200) {
                     console.log(request.responseText);
                     typeof(request.responseText);
-                    return request.responseText;
+                    let result = request.responseText;
+                    return result;
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
