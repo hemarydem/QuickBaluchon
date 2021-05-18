@@ -32,27 +32,37 @@ echo '
             <input type="text" oninput="checkLen(\'address\',255)" placeholder="address" id="address">
             <p id="limitaddress">255/255</p><p id="erroaddress"></p>
         </div>
+    </div>
     <div class="col-md-4" style="background-color: white">
-        <div class="col-md-2 col-md-offset-5">
-            <label>immatriculation</label>
-            <input type="text" placeholder="imatriculation" oninput="checkLen(\'imatriculation\',50)" id="imatriculation">
-            <p id="limitimatriculation">50/50</p><p id="erroimatriculation"></p>
-            <label>nombre de colis</label>
-            <input type="text" placeholder="password" id="nbColis">
-            <p id="erronbColis"></p>
-            <label>volumeMax</label>
-            <input type="text" placeholder="volumeMax" id="volumeMax">
-            <p id="errovolumeMax"></p>
-            <label>poids Max</label>
-            <input type="text" placeholder="Max" id="weightMax">
-            <p id="erroweightMax"></p>
-            <div class="container" >
-                <button onclick="validate()">ajouter une voiture</button>
-            </div>
-        </div>
+    
     </div>
 </div>
+///////////////////
+
+<div class="row ">
+    <div class="col-md-4" style="background-color: white" >
+        
+    </div>
+    <div class="col-md-4" style="background-color: white">
+        <div class="col-md-2 col-md-offset-5">
+            <label>passwords</label>
+            <input type="text" oninput="checkLen(\'pssword\',255)" value="azerty" placeholder="password" id="pssword">
+            <p id="limitpssword">255/255</p><p id="erropssword"></p>
+        </div>
+        <div class="col-md-2 col-md-offset-5">
+            <label>confirmPassword</label>
+            <input type="text" oninput="checkLen(\'confiamtionPword\',255)" value="azerty" placeholder="confirme password" id="confiamtionPword">
+            <p id="limitconfiamtionPword">255/255</p><p id="erroconfiamtionPword"></p>
+        </div>
+    </div>
+    <div class="col-md-4" style="background-color: white">
+        
+    </div>
+    <div class="col-md-4" style="background-color: white">
+    
+    </div>
 </div>
+//////////////////
 
 <div class="row ">
     <div class="col-md-4" style="background-color: white">
