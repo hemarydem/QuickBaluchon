@@ -70,11 +70,7 @@
                 </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
-                    <label for="status">profil:</label>
-                    <select id="statut">
-                        <option value="3">client</option>
-                        <option value="1">conducteur</option>
-                    </select>
+                    <button onclick="validate()">Sign Up</button>
                 </div>
             </div>
             <div class="col-md-4" style="background-color: white">
@@ -87,7 +83,7 @@
             </div>
         </div>
         <div class="container" >
-                <button onclick="validate()">Sign Up</button>
+                
         </div>
     </div>
 </body>
