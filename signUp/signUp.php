@@ -80,9 +80,6 @@
                 </div>
             </div>
         </div>
-        <div class="container" >
-                
-        </div>
     </div>
 </body>
 <script src="./scipt/scrip.js"></script>

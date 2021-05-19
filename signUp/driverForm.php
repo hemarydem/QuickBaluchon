@@ -32,8 +32,8 @@ echo' <div class="row ">
                     <p id="limitaddress">255/255</p><p id="erroaddress"></p>
                 </div>
                 <div class="col-md-2 col-md-offset-5">
-                    <label>permis de conduire</label>
-                    <input type="file"  id="driverLicence">
+                    <label>permis</label>
+                    <input type="file" accept="image/*,.pdf" id="driverLicence">
                     <p id="errodriverLicence"></p>
                 </div>
             </div>
@@ -47,9 +47,7 @@ echo' <div class="row ">
                     </div>
                 </div>
             <div class="col-md-4" style="background-color: white">
-                <div class="col-md-2 col-md-offset-5">
-                    <button onclick="validate()">Sign Up</button>
-                </div>
+                <button onclick="validate()">Sign Up</button>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
@@ -58,6 +56,35 @@ echo' <div class="row ">
                         <p id="limittel">10/10</p><p id="errotel"></p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <h1>Vehicule</h1>
+        <div class="row ">
+            <div class="col-md-4" style="background-color: white" >
+                <div class="col-md-2 col-md-offset-5">
+                    <label>immatriculation</label>
+                    <input type="text" placeholder="imatriculation" oninput="checkLen(\'imatriculation\',50)" id="imatriculation">
+                    <p id="limitimatriculation">50/50</p><p id="erroimatriculation"></p>
+                </div>
+                <div class="col-md-2 col-md-offset-5">
+                    <label>nombre de colis</label>
+                    <input type="text" placeholder="password" id="nbColis">
+                    <p id="erronbColis"></p>
+                </div>
+            </div>
+            <div class="col-md-4" style="background-color: white">
+                <div class="col-md-2 col-md-offset-5">
+                    <label>volumeMax</label>
+                    <input type="text" placeholder="volumeMax" id="volumeMax">
+                    <p id="errovolumeMax"></p>
+                </div>
+                <div class="col-md-2 col-md-offset-5">
+                    <label>poids Max</label>
+                    <input type="text" placeholder="Max" id="weightMax">
+                    <p id="erroweightMax"></p>
+                </div>
+            </div>
+            <div class="col-md-4" style="background-color: white">
             </div>
         </div>
         ';
