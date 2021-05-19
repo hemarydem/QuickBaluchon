@@ -7,6 +7,12 @@
  * check if input are correctly filled to be send to the api
  */
 
+/*
+*
+* display the good inputs for the user
+*
+*/
+
 function displayForm(elementApp,urlLink) {
     let request = new XMLHttpRequest();  
     request.open("GET",urlLink,true); 
@@ -83,7 +89,6 @@ function checkLen(StrElementId,limit) {
  * */
 
 function validate() {
-    console.log("ok");
     let canContainSpace = false;
     let mustNotContainSpace = true;
     let OnlyNumber = true;
@@ -105,28 +110,30 @@ function validate() {
 
     allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
-    if(parseInt(document.getElementById("statut").value,10) == 3){
-        console.log("client");
-        allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
-    } else {
-        document.getElementById("erronumSiret").innerHTML="";
-    }
+    allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+
     console.log(allowedSend);
     let block = 0;
-    allowedSend.forEach(element => {
+    allowedSend.forEach(element => {            // check if each input was validate
         if(element == false){
             console.log("envoie pas");
             block = 1;
         }
     });
-    console.log("ok");
     if(block == 0) {
         ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
     }
     console.log(" FIN");
 }
-
-
+/* checkInput
+*
+* arg 
+* idInput
+* len of the input
+* boolean to know wich characters are allowed
+*
+*return a boolean
+*/
 function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace) {
     let trigger = true;
     let element =  String(document.getElementById(idInput).value);
@@ -237,7 +244,6 @@ function  getData() {
     address = address.trim();
     password = password.trim();
     tel = tel.trim();
-   
 
     mail = mail.replace(/\s/, ''); 
     tel = tel.replace(/\s/, '');
@@ -250,68 +256,6 @@ function  getData() {
     return array;
 }
 
-
-
-
-/*
- *  checkLenForValidate
- * args
- * the string and the max lenght
- *
- * trim and check if the str is not to long
- * 
- * 
- * return a boolean 
- * 
- * */
-
-function checkLenForValidate(str, lengMax) {
-    str = str.trim();
-    if(str === "")
-        return false;
-    if(str.length <= 0)
-        return false;
-    if(str.length > lengMax)
-        return false;
-    return true;
-}
-
-
-/*
- *  isValideInt
- *
- *  arg id of an element
- *  
- * check if the input got only numbers
- * 
- * return a boolean
- * */
-function isValideInt(str) {
-    str = str.trim();
-    str.replace(/\s/, '')
-    if(str.match(/^\d+$/)){
-        return true;
-    }
-    return false;
-}
-
-
-/*
- *  isValideStringOnlyLetter
- *
- *  arg id of an string
- *  
- * check if the input got only letters
- * 
- * return a boolean
- * */
-function isValideStringOnlyLetter(str) {
-    str = str.trim;
-    if(str.match(/^[a-z]+$/)){
-        return true;
-    }
-    return false;
-}
 
 
 
