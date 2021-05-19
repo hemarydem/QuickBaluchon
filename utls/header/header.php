@@ -45,7 +45,7 @@ if(!realpath($path)){
                         <li class="nav-item">
                             <a class="nav-link" href="../signOut/signOut.php">Se déconnecter</a>
                         </li>';
-                    }
+                    }?>
                 </ul>
             </div>
         </nav>
