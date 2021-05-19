@@ -11,7 +11,6 @@
     <title>Connexion</title>
     <link rel="stylesheet" href="./css/index.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-   
 </head>
 <body>
     <header>
@@ -19,13 +18,14 @@
                 <a href="http://quickbaluchonservice.site/QuickBaluchon/#"><img id="imgQB" src="img/logo2.png" width="12%"></a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav mr-auto">
+                        
                         <li class="nav-item dropdown">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     s'inscrire
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="../signUp/signUpDriver.php"">formulair conducteur</a>
+                                    <a class="dropdown-item" href="../signUp/signUpDriver.php">formulair conducteur</a>
                                     <a class="dropdown-item" href="../signUp/signUpClient.php">formulair client</a>
                                 </div>
                             </div>
