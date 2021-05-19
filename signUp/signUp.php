@@ -69,9 +69,7 @@
                     </div>
                 </div>
             <div class="col-md-4" style="background-color: white">
-                <div class="col-md-2 col-md-offset-5">
                     <button onclick="validate()">Sign Up</button>
-                </div>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
