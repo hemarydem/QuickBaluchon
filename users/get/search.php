@@ -27,13 +27,15 @@ if(isset($_GET)) {
     $where = [];
     $params = [];
     $wAndp = buildsLIkes($where, $params, $_GET);
-    print_r($wAndp);
-    exit(1);
+
     $where = $wAndp[0];
     $params = $wAndp[1];
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);
+    echo $sql;
+    print_r($wAndp);
+    exit(1);
     if (count($where) > 0) {
         $whereClause = join(" OR ", $where);
         $sql .= " WHERE " . $whereClause;
