@@ -38,14 +38,14 @@ let app = document.getElementById("app");
 * Set up functions
 *
 */
-
+/*
 const formSelector = document.getElementById("frmSelector");
 
 formSelector.addEventListener('change', (event) => {
     let selectValue = formSelector.value;
     selectValue = parseInt(selectValue, 10);
     selectValue == 1 ? displayForm(app,"./driverForm.php"): displayForm(app,"./clientForm.php")
-});
+});*/
 
 let webSitePath ="https://quickbaluchonservice.site";
 let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath + "/QuickBaluchon/home/homeAdmin.php",webSitePath + "/QuickBaluchon/home/homeUser.php"];
