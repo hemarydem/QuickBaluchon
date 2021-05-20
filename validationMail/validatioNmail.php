@@ -5,7 +5,7 @@ if(!isset($_GET['mail']) || !isset($_GET['token']) ) {
 ?>
 
 <?php
-    require "utls/utls.php";
+    require "../utls/utls.php";
     checIfsessionStarted();
 ?>
 <!DOCTYPE html>
