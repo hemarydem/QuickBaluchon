@@ -136,3 +136,9 @@ formSelector.addEventListener('change', (event) => {
     selectValue = parseInt(selectValue, 10);
     selectValue == 1 ? displayForm(app,"./driverForm.php"): displayForm(app,"./clientForm.php")
 });*/
+
+les statut
+
+    //driver 1
+    //admin 2
+    //client3

@@ -8,7 +8,7 @@ function signIn() {
     
     let request = new XMLHttpRequest();
     
-    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/signIn.php?password=" + psswrd + "&mail=" + login ,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
