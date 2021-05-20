@@ -33,14 +33,14 @@ if(isset($_GET)) {
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);
-    echo $sql.'\n';
-    print_r($wAndp);
-    exit(1);
     if (count($where) > 0) {
         $whereClause = join(" OR ", $where);
         $sql .= " WHERE " . $whereClause;
     }
     $sql .= " LIMIT $offset,$limit";
+    echo $sql.'\n';
+    print_r($wAndp);
+    exit(1);
     $rows = execRequestGetALLResults( $sql, $params);
     if($rows == null) {
         exit(1);
