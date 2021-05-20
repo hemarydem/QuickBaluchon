@@ -34,12 +34,8 @@ function  active(){
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let result = JSON.stringify(request.responseText);
-                    console.log(result);
-                    if(String(result['tokenEmail']) == token){
-                        updateActiveUserAtribute(idUser);
-                    } else {
-                        console.log("was not equal");
-                    }
+                    console.log (result);
+                    updateActiveUserAtribute(idUser);
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
