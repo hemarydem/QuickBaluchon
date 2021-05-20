@@ -203,7 +203,7 @@ function ajaxSendPost(data,urlLink) {
                     if(request.status == 200) {
                         let ObjJson = JSON.parse(request.responseText);
                         console.log(ObjJson);
-                        let num = ObjJson["statut"].toString();
+                        let num = String(ObjJson["statut"]);
                         num = parseInt(num);
                         num--;
                         homePage[num];
