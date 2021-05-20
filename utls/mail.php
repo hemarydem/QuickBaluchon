@@ -26,6 +26,8 @@ if(isset($data["id"]) && isset($data["mail"])){
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchonusers/post/update.php";
     $ch = curl_init($urlBase);
     $payload = json_encode($dataSending);
+    echo $payload;
+    exit(1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
