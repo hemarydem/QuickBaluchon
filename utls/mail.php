@@ -8,7 +8,7 @@ if(isset($data["id"]) && isset($data["mail"])){
     $from = 'quickBaluchon';
     $name = 'quickBaluchon';
     $subject = 'Confirmation inscription';
-    $link = 'https://quickbaluchonservice.site/validationMail/validationMail.php?mail=' . $data["mail"] . '&token=' . $token . "&id=" . $data["id"];
+    $link = 'https://quickbaluchonservice.site/validationMail/validatioNmail.php?mail=' . $data["mail"] . '&token=' . $token . "&id=" . $data["id"];
     $message = '<a href="' . $link . '"> Clickez sur ce lien pour valider votre inscription </a>';
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
