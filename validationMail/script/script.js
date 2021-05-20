@@ -35,7 +35,7 @@ function  active(){
                 if(request.status == 200) {
                     let result = JSON.stringify(request.responseText);
                     console.log(result);
-                    if(result['tokenEmail'] == token){
+                    if(String(result['tokenEmail']) == token){
                         updateActiveUserAtribute(idUser);
                     } else {
                         console.log("was not equal");
