@@ -1,7 +1,9 @@
 <?php
 //need, id, mail
 $content = file_get_contents('php://input');
-$data = json_decode($content);
+$data = json_decode($content, true);
+
+
 if(isset($data["id"]) && isset($data["mail"])){
     $to = $data["mail"];
     $token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
