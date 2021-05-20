@@ -11,6 +11,7 @@ if (isset($_GET)) {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
     if(isset($_GET['connection'])) {
+        echo "ok";
         unset($_GET['connection']);
         $setSession = true;
     }else{
