@@ -10,6 +10,12 @@ if (isset($_GET)) {
      } else {
          erro400NotConnectJsonMssg( "token api is not set");
      }*/
+    if(isset($_GET['connection'])) {
+        unset($_GET['connection']);
+        $setSession = true;
+    }else{
+        $setSession = false;
+    }
     checkStringsArray($_GET,1);
     if(isset($_GET['password']))
         $_GET['password'] = hash("sha256",  $_GET['password']);
@@ -23,8 +29,15 @@ if (isset($_GET)) {
         exit(1);
     }
     $json = json_encode($rows);
-    foreach ($rows as $key => $value) {
-        $_SESSION[$key."_session"] = $value;
+    if($setSession == true && $rows["active"] == 1) {
+        foreach ($rows as $key => $value) {
+            $_SESSION[$key."_session"] = $value;
+        }
+    }else if ($setSession == true && $rows["active"] == 0){
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json");
+        echo json_encode(["message"=> "le compte doit être activé ou à été bloqué"]);
+        exit(1);
     }
     header("Access-Control-Allow-Origin: *");
     header("Content-Type: application/json");
