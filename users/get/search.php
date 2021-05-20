@@ -33,7 +33,7 @@ if(isset($_GET)) {
     unset($_GET['offset']);
     unset($_GET['limit']);
     $sql = buildsSelectAndattributByParam($_GET, $tab);
-    echo $sql;
+    echo $sql.'\n';
     print_r($wAndp);
     exit(1);
     if (count($where) > 0) {
