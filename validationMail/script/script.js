@@ -27,7 +27,7 @@ let activeUrl= "https://quickbaluchonservice.site/api/QuickBaluchon/users/get/ge
 
 let updateActiveUserAtributeUrl = "https://quickbaluchonservice.site/api/QuickBaluchonusers/post/update.php";
 
-function  active() {
+function  active(){
     let request = new XMLHttpRequest();  
     request.open("GET",urlLink,true); 
     request.onreadystatechange = function() {
