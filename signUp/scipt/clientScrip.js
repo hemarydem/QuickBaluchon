@@ -7,48 +7,15 @@
  * check if input are correctly filled to be send to the api
  */
 
-/*
-*
-* display the good inputs for the user
-*
-*/
-
-function displayForm(elementApp,urlLink) {
-    let request = new XMLHttpRequest();  
-    request.open("GET",urlLink,true); 
-    request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-                if(request.status == 200) {
-                    console.log(request.responseText);
-                    typeof(request.responseText);
-                    app.innerHTML = request.responseText;
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send();
-}
-
 let app = document.getElementById("app");
 
-/*
-*
-* Set up functions
-*
-*/
-/*
-const formSelector = document.getElementById("frmSelector");
 
-formSelector.addEventListener('change', (event) => {
-    let selectValue = formSelector.value;
-    selectValue = parseInt(selectValue, 10);
-    selectValue == 1 ? displayForm(app,"./driverForm.php"): displayForm(app,"./clientForm.php")
-});*/
 
 let webSitePath ="https://quickbaluchonservice.site";
-let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath + "/QuickBaluchon/home/homeAdmin.php",webSitePath + "/QuickBaluchon/home/homeUser.php"];
+webSitePath = webSitePath + "/QuickBaluchon/home/homeUser.php";
+
+
+//let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath + "/QuickBaluchon/home/homeAdmin.php",];
 
 /*
  *  checkLen
@@ -58,7 +25,8 @@ let homePage =[webSitePath + "/QuickBaluchon/home/homeDriver.php", webSitePath +
  * check if the input don't have a to long string 
  * 
  * function is void
- * */
+ * principal purpose is to give a feed back to the user
+ */
 
 function checkLen(StrElementId,limit) {
     let charWarning = ""; 
@@ -76,55 +44,8 @@ function checkLen(StrElementId,limit) {
         warningElement.style.color = "red";
     }
 }
-/*
- *  validate
- *
- * check general of the inputs
- * if not to long
- * if there is appropriate chars
- * 
- * function is void
- * 
- * it call ajaxSendPost()
- * */
+//-------------------------------------------------------------//
 
-function validate() {
-    let canContainSpace = false;
-    let mustNotContainSpace = true;
-    let OnlyNumber = true;
-    let OnlyNumberNot = false;
-    let OnlyLetter = true;
-    let OnlyLetterNot = false;
-
-    let allowedSend = [true,true,true,true,true,true,true];
-    
-    allowedSend[0] = checkInput("name",50,OnlyNumberNot,OnlyLetter,canContainSpace);
-    
-    allowedSend [1]= checkInput("firstname",50,OnlyNumberNot,OnlyLetter,canContainSpace);
-    
-    allowedSend[2] = checkInput("pssword",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
-
-    allowedSend[3] = checkInput("address",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
-
-    allowedSend[4] = checkInput("tel",10,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
-
-    allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
-
-    allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
-
-    console.log(allowedSend);
-    let block = 0;
-    allowedSend.forEach(element => {            // check if each input was validate
-        if(element == false){
-            console.log("envoie pas");
-            block = 1;
-        }
-    });
-    if(block == 0) {
-        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
-    }
-    console.log(" FIN");
-}
 /* checkInput
 *
 * arg 
@@ -179,47 +100,6 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
 
 
 
-function ajaxSendPost(data,urlLink) {
-        //driver 1
-        //admin 2
-        //client3
-        let jsonToSend = {
-            nom:data[0],
-            prenom:data[1],
-            mail:data[2],
-            adresse:data[3],
-            numSiret:data[4],
-            password:data[5],
-            tel:data[6],
-            driverLicence:0,
-            statut:data[7],
-            busy:0,
-            zoneMaxDef:0
-        };
-        let request = new XMLHttpRequest();  
-        request.open("POST",urlLink,true); 
-        request.onreadystatechange = function() {
-            if(request.readyState == 4) {
-                    if(request.status == 200) {
-                        let ObjJson = JSON.parse(request.responseText);
-                        console.log(ObjJson);
-                        let num = String(ObjJson["statut"]);
-                        num = parseInt(num);
-                        num--;
-                        homePage[num];
-                        console.log(homePage[num]);
-                        window.location.href = homePage[ObjJson["statut"] - 1];
-                } else {
-                    alert("Error: returned status code " + request.status + " " + request.statusText);
-                }
-            }
-        }
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send(JSON.stringify(jsonToSend));
-}
-
-
-
 /*
 *get data
 *function do get data in the input
@@ -256,6 +136,160 @@ function  getData() {
     return array;
 }
 
+function ajaxSendPost(data,urlLink) {
+    //driver 1
+    //admin 2
+    //client3
+    let jsonToSend = {
+        nom:data[0],
+        prenom:data[1],
+        mail:data[2],
+        adresse:data[3],
+        numSiret:data[4],
+        password:data[5],
+        tel:data[6],
+        driverLicence:0,
+        statut:data[7],
+        busy:0,
+        zoneMaxDef:0
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",urlLink,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    let num = String(ObjJson["statut"]);
+                    num = parseInt(num);
+                    num--;
+                    homePage[num];
+                    console.log(homePage[num]);
+                    //window.location.href = homePage[ObjJson["statut"] - 1];
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
 
+/*
+ *  validate
+ *
+ * check general of the inputs
+ * if not to long
+ * if there is appropriate chars
+ * 
+ * function is void
+ * 
+ * it call ajaxSendPost()
+ * */
+
+function validate() {
+    let canContainSpace = false;
+    let mustNotContainSpace = true;
+    let OnlyNumber = true;
+    let OnlyNumberNot = false;
+    let OnlyLetter = true;
+    let OnlyLetterNot = false;
+
+    let allowedSend = [true,true,true,true,true,true,true];
+    
+    allowedSend[0] = checkInput("name",50,OnlyNumberNot,OnlyLetter,canContainSpace);
+    
+    allowedSend [1]= checkInput("firstname",50,OnlyNumberNot,OnlyLetter,canContainSpace);
+    
+    allowedSend[2] = checkInput("pssword",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+
+    allowedSend[3] = checkInput("address",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
+
+    allowedSend[4] = checkInput("tel",10,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+    allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+
+    allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+
+    console.log(allowedSend);
+    let block = 0;
+    allowedSend.forEach(element => {            // check if each input was validate
+        if(element == false){
+            console.log("envoie pas");
+            block = 1;
+        }
+    });
+    if(block == 0) {
+        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
+    }
+    console.log(" FIN");
+}
+
+
+function ajaxSendPost(data,urlLink) {
+        //driver 1
+        //admin 2
+        //client3
+        let jsonToSend = {
+            nom:data[0],
+            prenom:data[1],
+            mail:data[2],
+            adresse:data[3],
+            numSiret:data[4],
+            password:data[5],
+            tel:data[6],
+            driverLicence:0,
+            statut:data[7],
+            busy:0,
+            zoneMaxDef:0
+        };
+        let request = new XMLHttpRequest();  
+        request.open("POST",urlLink,true); 
+        request.onreadystatechange = function() {
+            if(request.readyState == 4) {
+                    if(request.status == 200) {
+                        let ObjJson = JSON.parse(request.responseText);
+                        let idRes = ObjJson["id"];
+                        let mailRes = ObjJson["mail"];
+                        sendMailConfirmation(idRes,mailRes);
+                        console.log(ObjJson);
+                        //window.location.href = webSitePath;
+                } else {
+                    alert("Error: returned status code " + request.status + " " + request.statusText);
+                }
+            }
+        }
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send(JSON.stringify(jsonToSend));
+}
+
+
+
+
+function sendMailConfirmation(resId,resMail) {
+    let jsonToSend = {
+        id:resId,
+        mail:resMail,
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST",'https://quickbaluchonservice.site/QuickBaluchon/utls/mail.php',true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson["message"] == true) {
+                        console.log("messag send");
+                    }else {
+                        console.log("error mail not send");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
 
 
