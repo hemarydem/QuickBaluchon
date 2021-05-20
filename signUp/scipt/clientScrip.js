@@ -268,8 +268,8 @@ function ajaxSendPost(data,urlLink) {
 
 function sendMailConfirmation(resId,resMail) {
     let jsonToSend = {
-        id:resId,
-        mail:resMail,
+        "id":resId,
+        "mail":resMail
     };
     let request = new XMLHttpRequest();  
     request.open("POST",'https://quickbaluchonservice.site/QuickBaluchon/utls/mail.php',true); 
