@@ -25,7 +25,7 @@ let mail = document.getElementById("mail").innerHTML;
 let idUser = document.getElementById("di").innerHTML;
 let activeUrl= "https://quickbaluchonservice.site/api/QuickBaluchon/users/get/getValue.php?tokenEmail=" + token + "&mail=" + mail;
 
-let updateActiveUserAtributeUrl = "https://quickbaluchonservice.site/api/QuickBaluchonusers/post/update.php";
+let updateActiveUserAtributeUrl = "https://quickbaluchonservice.site/api/QuickBaluchon/users/post/update.php";
 
 function  active(){
     let request = new XMLHttpRequest();  
