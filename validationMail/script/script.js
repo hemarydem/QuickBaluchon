@@ -29,7 +29,7 @@ let updateActiveUserAtributeUrl = "https://quickbaluchonservice.site/api/QuickBa
 
 function  active(){
     let request = new XMLHttpRequest();  
-    request.open("GET",urlLink,true); 
+    request.open("GET",activeUrl,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
