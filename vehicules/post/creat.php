@@ -29,5 +29,6 @@ insertVehicules(
     $data->{"nbColis"},
     $data->{"volumeMax"},
     $data->{"weightMax"},
-    0
+    $data->{"employ"},
+    $data->{"active"}
     );
