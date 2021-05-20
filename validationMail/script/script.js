@@ -35,7 +35,7 @@ function  active(){
                 if(request.status == 200) {
                     let result = JSON.stringify(request.responseText);
                     if(result['tokenEmail'] == token){
-                        updateActiveUserAtribute();
+                        updateActiveUserAtribute(idUser);
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -47,9 +47,9 @@ function  active(){
 }
 
 
-function updateActiveUserAtribute() {
+function updateActiveUserAtribute(idData) {
     let json = {
-        "id":idUser,
+        "id":idData,
         "active":1
     }
     let request = new XMLHttpRequest();  
@@ -59,6 +59,7 @@ function updateActiveUserAtribute() {
                 if(request.status == 200) {
                     console.log(request.responseText);
                     let result = JSON.stringify(request.responseText);
+                    console.log(result);
                     if(result.length <= 1) {
                         console.log(result["message"]);
                     }
