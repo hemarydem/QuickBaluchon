@@ -36,6 +36,8 @@ function  active(){
                     let result = JSON.stringify(request.responseText);
                     if(result['tokenEmail'] == token){
                         updateActiveUserAtribute(idUser);
+                    } else {
+                        console.log("was not equal");
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -49,7 +51,7 @@ function  active(){
 
 function updateActiveUserAtribute(idData) {
     let json = {
-        "id":idData,
+        "id":String(idData),
         "active":1
     }
     let request = new XMLHttpRequest();  
