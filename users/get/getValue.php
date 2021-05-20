@@ -30,7 +30,7 @@ if (isset($_GET)) {
         exit(1);
     }
     $json = json_encode($rows);
-    if($setSession == true && $rows["active"] == 1) {
+    if(($setSession == true) && $rows["active"] == 1) {
         foreach ($rows as $key => $value) {
             $_SESSION[$key."_session"] = $value;
         }
