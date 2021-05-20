@@ -236,7 +236,7 @@ function  getData() {
     let address = document.getElementById("address").value;
     let password= document.getElementById("pssword").value;//
     let tel = document.getElementById("tel").value;//
-    let statut = document.getElementById("statut").value;
+    let statut = 3;
     name = name.trim();
     firstname = firstname.trim();
     mail = mail.trim();
