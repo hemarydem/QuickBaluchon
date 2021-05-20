@@ -14,13 +14,13 @@
 <?php
     require "../utls/header/header.php";
 ?>
-<div class="col-md-2 col-md-offset-5">
-                    <label for="status">profil:</label>
-                    <select id="frmSelector">
-                        <option value="3">client</option>
-                        <option value="1">conducteur</option>
-                    </select>
-                </div>
+    <div class="col-md-2 col-md-offset-5">
+        <label for="status">profil:</label>
+        <select id="frmSelector">
+            <option value="3">client</option>
+            <option value="1">conducteur</option>
+        </select>
+    </div>
     <div class="container" id="app">
         <div class="row ">
             <div class="col-md-4" style="background-color: white" >
@@ -63,20 +63,19 @@
         <div class="row ">
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
-                        <label>mail</label>
-                        <input type="mail" oninput="checkLen(\'mail\',255)"  placeholder="mail" id="mail">
-                        <p id="limitmail">255/255</p><p id="erromail"></p>
-                    </div>
+                    <label>mail</label>
+                    <input type="mail" oninput="checkLen(\'mail\',255)"  placeholder="mail" id="mail">
+                    <p id="limitmail">255/255</p><p id="erromail"></p>
                 </div>
+            </div>
             <div class="col-md-4" style="background-color: white">
                 <button onclick="validate()">Sign Up</button>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">
-                        <label>téléphone</label>
-                        <input type="text" oninput="checkLen(\'tel\',10)" placeholder="telephon number" id="tel">
-                        <p id="limittel">10/10</p><p id="errotel"></p>
-                    </div>
+                    <label>téléphone</label>
+                    <input type="text" oninput="checkLen(\'tel\',10)" placeholder="telephon number" id="tel">
+                    <p id="limittel">10/10</p><p id="errotel"></p>
                 </div>
             </div>
         </div>
