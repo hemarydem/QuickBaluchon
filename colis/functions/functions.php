@@ -15,11 +15,14 @@ function insertColis(
     int $idUser,
     int $idDepot,
     int $idCost,
-    int $idExpressCost): ?string {
+    int $idExpressCost,
+    int $indexPriority,
+    int $isPayed,
+    float $price): ?string {
     $db = getDataBaseConnection();
-    $sql = "INSERT INTO ".$tab."(dDate ,adresse, codePostale, recipientMail, weight, volume, sendingStatut, mode, idRecipient, idDelivery,idUser,idDepot,idCost,idExpressCost) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO ".$tab."(dDate ,adresse, codePostale, recipientMail, weight, volume, sendingStatut, mode, idRecipient, idDelivery,idUser,idDepot,idCost,idExpressCost,indexPriority, isPayed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     //echo $sql;
-    $params =  [$date, $adresse, $codePostale, $recipientMail,$weight, $volume, $sendingStatut, $mode, $idRecipient, $idDelivery, $idUser,$idDepot,$idCost,$idExpressCost];
+    $params =  [$date, $adresse, $codePostale, $recipientMail,$weight, $volume, $sendingStatut, $mode, $idRecipient, $idDelivery, $idUser,$idDepot,$idCost,$idExpressCost,$indexPriority,$isPayed,$price];
     //print_r($params);
     return dataBaseInsert($db, $sql, $params, $tab);
 }

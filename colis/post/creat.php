@@ -38,5 +38,9 @@ insertColis(
     $data->{"idUser"},
     $data->{"idDepot"},
     $data->{"idCost"},
-    $data->{"idExpressCost"});
+    $data->{"idExpressCost"},
+    0,// index de priorité
+    0, // isPayed
+    0.0 //price
+);
 
