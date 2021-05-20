@@ -46,5 +46,6 @@ insertUser(
     $data->{"driverLicence"},
     $data->{"statut"},
     $data->{"busy"},
-    $data->{"zoneMaxDef"});
+    $data->{"zoneMaxDef"},
+    0);
 
