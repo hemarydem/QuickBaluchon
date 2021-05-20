@@ -1,24 +1,26 @@
 <?php
 //need, id, mail
-if(isset($_POST["id"]) && isset($_POST["mail"])){
-    $to = _POST["mail"];
+$content = file_get_contents('php://input');
+$data = json_decode($content);
+if(isset($data["id"]) && isset($data["mail"])){
+    $to = $data["mail"];
     $token = base_convert(hash('sha256', time() . mt_rand()), 16, 36);
     $from = 'quickBaluchon';
     $name = 'quickBaluchon';
     $subject = 'Confirmation inscription';
-    $link = 'https://quickbaluchonservice.site/validationMail/validationMail.php?mail=' . POST["mail"] . '&token=' . $token . "&id=" . $_POST["id"];
+    $link = 'https://quickbaluchonservice.site/validationMail/validationMail.php?mail=' . $data["mail"] . '&token=' . $token . "&id=" . $data["id"];
     $message = '<a href="' . $link . '"> Clickez sur ce lien pour valider votre inscription </a>';
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
     $headers .= 'From: ' . $from. ' <' . $name . '>';
     $result = mail( $to, $subject, $message, $headers );
-    $data = [
-        "id" => $_POST["id"],
+    $dataSending = [
+        "id" => $data["id"],
         "tokenEmail" => $token
     ];
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchonusers/post/update.php";
     $ch = curl_init($urlBase);
-    $payload = json_encode($data);
+    $payload = json_encode($dataSending);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
