@@ -293,7 +293,7 @@ function sendMailConfirmation(resId,resMail) {
 function setTokenOnUserprofile(resId,resToken) {
     let jsonToSend = {
         "id":resId,
-        "mail":resMail
+        "tokenEmail":resToken
     };
     let request = new XMLHttpRequest();  
     request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/users/post/update.php",true); 
