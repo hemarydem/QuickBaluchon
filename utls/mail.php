@@ -18,12 +18,17 @@ if(isset($data["id"]) && isset($data["mail"])){
         header("Content-Type: application/json");
         echo json_encode(["message"=> "error mail function"]);
         exit;
-    }
+    }else {
+        header("Content-Type: application/json");
+        echo json_encode(["token"=> $token]);
+        exit;
+
+    }/*
     $dataSending = [
         "id" => $data["id"],
         "tokenEmail" => $token
     ];
-    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchonusers/post/update.php";
+    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/users/post/update.php";
     $ch = curl_init($urlBase);
     $payload = json_encode($dataSending);
     echo $payload;
@@ -39,7 +44,7 @@ if(isset($data["id"]) && isset($data["mail"])){
     } else {
         header("Content-Type: application/json");
         echo json_encode(["message"=> false]);
-    }
+    }*/
 }else{
     header("Content-Type: application/json");
     echo json_encode(["message"=> "it miss data"]);
