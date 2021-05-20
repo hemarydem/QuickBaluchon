@@ -21,6 +21,7 @@ insertOwn(
      "OWN",
     $data->{"idVehicule"},
     $data->{"idUser"},
+     1,
     [
         "idVehicule" => $data->{"idVehicule"},
         "idUser" => $data->{"idUser"}
