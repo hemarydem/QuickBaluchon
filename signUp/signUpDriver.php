@@ -14,13 +14,6 @@
 <?php
     require "../utls/header/header.php";
 ?>
-    <div class="col-md-2 col-md-offset-5">
-        <label for="status">profil:</label>
-        <select id="frmSelector">
-            <option value="3">client</option>
-            <option value="1">conducteur</option>
-        </select>
-    </div>
     <div class="container" id="app">
         <div class="row ">
             <div class="col-md-4" style="background-color: white" >
@@ -113,5 +106,5 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
-<script src="./scipt/scrip.js"></script>
+<script src="./scipt/driverScript.js"></script>
 </html>
