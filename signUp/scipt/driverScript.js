@@ -330,10 +330,12 @@ function success() {
 
 function addVehicule(arrayDataVehicule) {
     let jsonToSend = {
-        "immatriculation":arrayDataVehicule[0],
+        "imatriculation":arrayDataVehicule[0],
         "nbColis":arrayDataVehicule[1],
         "volumeMax":arrayDataVehicule[2],
-        "weightMax":arrayDataVehicule[3]
+        "weightMax":arrayDataVehicule[3],
+        "employ":1,
+        "active":1
     };
     let request = new XMLHttpRequest();  
     request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/post/creat.php",true); 
