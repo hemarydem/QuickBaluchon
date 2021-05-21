@@ -170,7 +170,7 @@ function validate() {
 
     allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
-    allowedSend[6] = checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    allowedSend[6] = true;//checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
     //vehicule inputs
 
