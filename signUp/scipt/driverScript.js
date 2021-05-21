@@ -188,7 +188,8 @@ function validate() {
         }
     });
     if(block == 0) {
-        checkIfVehiculeIsallreadyUse()
+        checkIfVehiculeIsallreadyUse();
+        addOwn();
         //ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
         //success();
     }
