@@ -4,7 +4,7 @@ include("./../functions/functions.php");
 
 if(isset($_GET)) {
     $idCheck = intval($_GET['id']);
-    $sql = buildsDelete("vehicule", $idCheck);
+    $sql = buildsDelete("VEHICULE", $idCheck);
     $params = array($idCheck);
     if (execRequestDelete($sql, $params)) {
         header("Access-Control-Allow-Origin: *");
