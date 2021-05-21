@@ -63,6 +63,7 @@
             </div>
             <div class="col-md-4" style="background-color: white">
                 <button onclick="validate()">Sign Up</button>
+                <p id="errorDisplayer"></p>
             </div>
             <div class="col-md-4" style="background-color: white">
                 <div class="col-md-2 col-md-offset-5">

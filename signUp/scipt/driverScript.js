@@ -218,15 +218,21 @@ function ajaxSendPost(data,urlLink) {
             if(request.readyState == 4) {
                     if(request.status == 200) {
                         let ObjJson = JSON.parse(request.responseText);
-                        let idRes = ObjJson["id"];
-                        let mailRes = ObjJson["mail"];
-                        sendMailConfirmation(idRes,mailRes);
-                        console.log(ObjJson);
-                        let div = document.createElement("div");
-                        app.appendChild(div);
-                        div.innerHTML = ObjJson["id"];
-                        div.setAttribute("id","di");
-                        div.hidden=true;
+                        if(ObjJson.hasOwnProperty("message")) {
+                            console.log(ObjJson["message"]);
+                            document.getElementById("errorDisplayer").innerHTML = "";
+                            document.getElementById("errorDisplayer").innerHTML = "ObjJson['message']";
+                        } else {
+                            let idRes = ObjJson["id"];
+                            let mailRes = ObjJson["mail"];
+                            sendMailConfirmation(idRes,mailRes);
+                            console.log(ObjJson);
+                            let div = document.createElement("div");
+                            app.appendChild(div);
+                            div.innerHTML = ObjJson["id"];
+                            div.setAttribute("id","di");
+                            div.hidden=true;
+                        }
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }
