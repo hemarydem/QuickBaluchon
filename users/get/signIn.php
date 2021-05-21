@@ -24,7 +24,6 @@ if (isset($_GET)) {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
         print_r($json);
-        print_r($_SESSION);
     } else {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json");
