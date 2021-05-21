@@ -114,7 +114,7 @@ function  getData() {
     let address = document.getElementById("address").value;
     let password= document.getElementById("pssword").value;//
     let tel = document.getElementById("tel").value;//
-    let statut = 3;
+    let statut = 1;
     name = name.trim();
     firstname = firstname.trim();
     mail = mail.trim();
@@ -189,7 +189,7 @@ function validate() {
     });
     if(block == 0) {
         ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
-        success();
+        //success();
     }
     console.log(" FIN");
 }
