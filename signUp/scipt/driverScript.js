@@ -189,7 +189,6 @@ function validate() {
     });
     if(block == 0) {
         checkIfVehiculeIsallreadyUse();
-        addOwn();
         //ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
         //success();
     }
@@ -356,6 +355,7 @@ function addVehicule(arrayDataVehicule) {
                         div.innerHTML = ObjJson["id"];
                         div.setAttribute("id","diVehicule");
                         div.hidden=true;
+                        addOwn();
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
