@@ -214,7 +214,6 @@ function ajaxSendPost(data,urlLink) {
                         let mailRes = ObjJson["mail"];
                         sendMailConfirmation(idRes,mailRes);
                         console.log(ObjJson);
-                        success();
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }
@@ -265,6 +264,8 @@ function setTokenOnUserprofile(resId,resToken) {
                     console.log(ObjJson);
                     if(ObjJson.hasOwnProperty("message")) {
                         console.log("error maj profil user");
+                    } else {
+                        success();
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
