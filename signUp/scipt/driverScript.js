@@ -188,7 +188,8 @@ function validate() {
         }
     });
     if(block == 0) {
-        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
+        checkIfVehiculeIsallreadyUse()
+        //ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
         //success();
     }
     console.log(" FIN");
@@ -402,6 +403,29 @@ function addOwn() {
                         console.log("error add vehicule");
                         console.log(ObjJson["message"]);
                     } 
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+function checkIfVehiculeIsallreadyUse() {
+    let data =  document.getElementById("imatriculation").value;
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getValue.php?imatriculation=" + data,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
+                    } else {
+                        console.log("car allready use");
+                    }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
