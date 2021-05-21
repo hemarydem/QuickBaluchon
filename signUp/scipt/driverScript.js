@@ -190,7 +190,7 @@ function validate() {
     if(block == 0) {
         checkIfVehiculeIsallreadyUse();
         //ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
-        //success();
+        success();
     }
     console.log(" FIN");
 }
