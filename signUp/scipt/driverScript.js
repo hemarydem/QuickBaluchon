@@ -416,7 +416,7 @@ function addOwn() {
 function checkIfVehiculeIsallreadyUse() {
     let data =  document.getElementById("imatriculation").value;
     let request = new XMLHttpRequest();  
-    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getValue.php?imatriculation=" + data,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getValue.php?imatriculation=" + data,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -432,5 +432,5 @@ function checkIfVehiculeIsallreadyUse() {
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
+    request.send();
 }
