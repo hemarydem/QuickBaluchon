@@ -19,7 +19,6 @@ function signIn() {
                 console.log(num);
                 console.log(homePage);
                 console.log(homePage[num]);
-                
                 window.location.href = homePage[num];
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);

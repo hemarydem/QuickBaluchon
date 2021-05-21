@@ -1,25 +1,4 @@
 
-/*ss="container" >
-    <div class="col-md-4 text-center"> 
-    <p id="token"><?php
-    echo $_GET['token'];
-    ?></p>
-    </div>
-</div>>
-<div class="container" >
-    <div class="col-md-4 text-center"> 
-        <p id="mail"><?php echo $_GET['mail'];?></p>
-    </div>
-</div>>
-
-<div class="container" id="app">
-    <div class="col-md-4 text-center"> 
-        <button id="singlebutton" name="singlebutton" onclick="active()" class="btn btn-primary">CONFIRME SIGN UP</button> 
-    </div>
-
-*/
-
-
 let token = document.getElementById("token").innerHTML;
 let mail = document.getElementById("mail").innerHTML;
 let idUser = document.getElementById("di").innerHTML;
@@ -61,6 +40,8 @@ function updateActiveUserAtribute(idData) {
                     console.log(result);
                     if(result.length <= 1) {
                         console.log(result["message"]);
+                    } else {
+                        window.location.href = "https://quickbaluchonservice.site/QuickBaluchon/signIn/signIn.php";
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);

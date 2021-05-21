@@ -9,8 +9,6 @@
 
 let app = document.getElementById("app");
 
-
-
 let webSitePath ="https://quickbaluchonservice.site";
 webSitePath = webSitePath + "/QuickBaluchon/home/homeUser.php";
 
@@ -136,44 +134,7 @@ function  getData() {
     return array;
 }
 
-function ajaxSendPost(data,urlLink) {
-    //driver 1
-    //admin 2
-    //client3
-    let jsonToSend = {
-        nom:data[0],
-        prenom:data[1],
-        mail:data[2],
-        adresse:data[3],
-        numSiret:data[4],
-        password:data[5],
-        tel:data[6],
-        driverLicence:0,
-        statut:data[7],
-        busy:0,
-        zoneMaxDef:0
-    };
-    let request = new XMLHttpRequest();  
-    request.open("POST",urlLink,true); 
-    request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-                if(request.status == 200) {
-                    let ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjJson);
-                    let num = String(ObjJson["statut"]);
-                    num = parseInt(num);
-                    num--;
-                    homePage[num];
-                    console.log(homePage[num]);
-                    //window.location.href = homePage[ObjJson["statut"] - 1];
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
-}
+
 
 /*
  *  validate
@@ -253,7 +214,7 @@ function ajaxSendPost(data,urlLink) {
                         let mailRes = ObjJson["mail"];
                         sendMailConfirmation(idRes,mailRes);
                         console.log(ObjJson);
-                        //window.location.href = webSitePath;
+                        success();
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
                 }
@@ -315,3 +276,31 @@ function setTokenOnUserprofile(resId,resToken) {
 }
 
 
+function success() {
+    app.innerHTML= "";
+    let h1 = document.createElement("h1");
+    let h2 = document.createElement("h2");
+    let h3 = document.createElement("h3");
+    let div = document.createElement("div");
+    div.setAttribute("class", "row");
+   
+    h1.innerHTML = "FÉLICITATION VOUS AVEZ FINI DE COMPLETER LE FORMULAIRE";
+    h2.innerHTML = "Vous devez avoir reçu un mail pour activer votre compte";
+    h3.innerHTML = "Si vous ne le trouvez pas vérifier dans vos indésirable";
+    h1.setAttribute("class", "center-block");
+    h2.setAttribute("class", "center-block");
+    h3.setAttribute("class", "center-block");
+    
+    app.appendChild(div);
+    div.appendChild(h1);
+    div.appendChild(h2);
+    div.appendChild(h3);
+
+    h1.style = "float:none;"
+    h2.style = "float:none;"
+    h3.style = "float:none;"
+
+    h1.style.color = "green";
+    h2.style.color = "green";
+    h3.style.color = "green";
+}
