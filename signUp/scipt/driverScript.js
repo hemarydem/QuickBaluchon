@@ -110,7 +110,7 @@ function  getData() {
     let name = document.getElementById("name").value;
     let firstname = document.getElementById("firstname").value;
     let mail = document.getElementById("mail").value;//
-    let numSiret= document.getElementById("numSiret").value;
+    //let numSiret= document.getElementById("numSiret").value;
     let address = document.getElementById("address").value;
     let password= document.getElementById("pssword").value;//
     let tel = document.getElementById("tel").value;//
@@ -118,19 +118,15 @@ function  getData() {
     name = name.trim();
     firstname = firstname.trim();
     mail = mail.trim();
-    numSiret= numSiret.trim();
+    //numSiret= numSiret.trim();
     address = address.trim();
     password = password.trim();
     tel = tel.trim();
 
     mail = mail.replace(/\s/, ''); 
     tel = tel.replace(/\s/, '');
-    if(numSiret.length != 0){
-        numSiret = numSiret.replace(/\s/, '');
-    } else {
-        numSiret = 0;
-    }
-    let array = [name,firstname,mail,address,numSiret,password,tel,statut];
+
+    let array = [name,firstname,mail,address,0,password,tel,statut];//0 is numSiret
     return array;
 }
 
