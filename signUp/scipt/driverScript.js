@@ -389,8 +389,8 @@ function addOwn() {
     let idU = String(document.getElementById("di").innerHTML);
     let idVeh = String(document.getElementById("diVehicule").innerHTML);
     let jsonToSend = {
-        "idVehicule":idU,
-        "idUser":idVeh
+        "idVehicule":idVeh,
+        "idUser":idU
     };
     let request = new XMLHttpRequest();  
     request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php",true); 
