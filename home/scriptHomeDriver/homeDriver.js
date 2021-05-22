@@ -20,7 +20,7 @@ let deluverycar;
 getCarsListByDriverId();
 getEmployedCar();
 
-console.log(document.getElementById("wEmploy").innerHTML);
+console.log(document.getElementById("wEmploy"));
 
 delyveryMaxWEIGHT = document.getElementById("wEmploy").innerHTML;
 deluveryMaxvolume = document.getElementById("volEmploy").innerHTML;
