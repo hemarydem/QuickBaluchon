@@ -10,6 +10,9 @@ let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
+
+
+
 let containerLeft = document.getElementById("leftcont");
 let containerCenter = document.getElementById("centerCont");
 
@@ -22,7 +25,7 @@ let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
 
 let depotGlobal = null;
 //let containerLeft = document.getElementById("leftcont");
-document.getElementById("app").removeChild(divTOremov);
+document.getElementById("body").removeChild(divTOremov);
 
 getCarsListByDriverId();
 getDepot();
