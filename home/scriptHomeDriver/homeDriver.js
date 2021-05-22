@@ -25,7 +25,7 @@ let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
 
 let depotGlobal = null;
 //let carsList = document.getElementById("leftcont");
-document.getElementById("body").removeChild(divTOremov);
+//document.getElementById("body").removeChild(divTOremov);
 
 getCarsListByDriverId();
 getDepot();
