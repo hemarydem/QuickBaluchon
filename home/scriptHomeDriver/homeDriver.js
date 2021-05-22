@@ -154,6 +154,7 @@ function displayCarsDATA(uID) {
                         divCarHub.appendChild(volumeMaxElementHtml);
                         let buttonSelection = document.createElement("button");
                         buttonSelection.classList.add('btn btn-success');
+                        buttonSelection.innerHTML = "SELECTION VEHICULE PRINCIPALE";
                         divCarHub.appendChild(buttonSelection);
                     }
             } else {
