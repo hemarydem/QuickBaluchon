@@ -62,7 +62,7 @@ function getCarsListByDriverId() {
                             });   
                         } else {
                             let nwLine =  document.createElement("p");
-                            nwLine.innerHTML= String(ObjJson["imatriculation"]);
+                            nwLine.innerHTML= ObjJson[0]["imatriculation"];
                             carsList.appendChild(nwLine);
                             let buttOnElement = document.createElement("button");
                             buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson["id"])+ ');');
