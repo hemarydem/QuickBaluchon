@@ -11,23 +11,22 @@ let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon"
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
 divTOremov.remove();
-
-
-
 let carsList = document.getElementById("carList");
+getCarsListByDriverId();
 
 
-
-
+/*
 let elementDepotList = document.getElementById("depoliste");
 
 let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
 
 let depotGlobal = null;
+
+
 //let carsList = document.getElementById("leftcont");
 //document.getElementById("body").removeChild(divTOremov);
 
-getCarsListByDriverId();
+
 getDepot();
 /*
  *  getCarsListByDriverId
@@ -106,6 +105,8 @@ function getCarsListByDriverId() {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+
+/*
 
 function getCarBYID(idCar) {
     let ObjJson;
@@ -187,7 +188,7 @@ function getCarBYIDForDelivery(idCar) {
     request.send();
 }
 
-
+*/
 /*
  *  checkLen
  *
@@ -197,7 +198,7 @@ function getCarBYIDForDelivery(idCar) {
  * 
  * function is void
  * */
-
+/*
 function checkLen(StrElementId,limit) {
     let charWarning = ""; 
     let valuLen = parseInt(document.getElementById(StrElementId).value.length,10);
@@ -214,8 +215,8 @@ function checkLen(StrElementId,limit) {
         warningElement.style.color = "red";
     }
 }
-
-/*
+*/
+/*/
  *  validate
  *
  * check general of the inputs
@@ -226,7 +227,7 @@ function checkLen(StrElementId,limit) {
  * 
  * it call ajaxSendPost()
  * */
-
+/*/
 function validate() {
     console.log("ok");
     let canContainSpace = false;
@@ -260,9 +261,9 @@ function validate() {
     }
     console.log(" FIN");
 }
+/*/
 
-
-
+/*/
 function ajaxSendPost(data,urlLink) {
 
     let jsonToSend = {
@@ -362,7 +363,7 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
     document.getElementById("erro" + idInpuEl).innerHTML = strMessageError;
 }
 
-
+/*/
 
 /*
 *get data
@@ -371,7 +372,7 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
 * no argument
 *
 * return array
-*/
+*//*/
 function  getData() {
     let immatriculation = document.getElementById("imatriculation").value;
     let nbColis = document.getElementById("nbColis").value;
@@ -391,7 +392,7 @@ function  getData() {
     return array;
 }
 
-
+/*/
 function getDepot(arg) {
     let offset = document.getElementById("divCheckbox");
     let save = parseInt(offset.innerHTML,10);
@@ -437,12 +438,12 @@ function getDepot(arg) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
-
+/*/
 function setDepoTGlobal(idToset) {
     depotGlobal = idToset;
 }
-
-
+/*/
+/*/
 
 function getColist(idOfColisDepot) {
     let baliseToFilled = document.getElementById("COLISLIST");
@@ -462,7 +463,7 @@ function getColist(idOfColisDepot) {
     request.send();
 }
 
-
+/*//*/
 function getoffsetMax(url){
     let request = new XMLHttpRequest();  
     request.open("GET", url, true); 
@@ -659,4 +660,4 @@ function deliveryGenerator(){
     let car = getCarBYIDForDelivery(idActiveCar);
     console.log(" data");
     console.log(car);
-}
+}/*/
