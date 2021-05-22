@@ -152,8 +152,10 @@ function displayCarsDATA(uID) {
                         divCarHub.appendChild(weightElementHtml);
                         divCarHub.appendChild(vol_h4);
                         divCarHub.appendChild(volumeMaxElementHtml);
-                        let buttonSelection = document.createElement("button");
-                        buttonSelection.classList.add('btn btn-success');
+
+                        let buttonSelection = document.createElement("input");
+                        buttonSelection.setAttribute("type", "button");
+                        buttonSelection.classList.add("btn btn-primary"); 
                         buttonSelection.innerHTML = "SELECTION VEHICULE PRINCIPALE";
                         divCarHub.appendChild(buttonSelection);
                     }
