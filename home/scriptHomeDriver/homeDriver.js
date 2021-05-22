@@ -55,8 +55,8 @@ function getCarsListByDriverId() {
                             carsList.appendChild(nwLine);
                             let buttOnElement = document.createElement("button");
                             buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson[0]["id"])+ ');');
-                            buttOnElement.setAttribute("class", "btn btn-info");
-                            buttOnElement.setAttribute("type", "button");
+                            buttOnElement.className("btn btn-info");
+                            buttOnElement.type("button");
                             buttOnElement.innerHTML="fiche";
                             carsList.appendChild(buttOnElement);
                         }
