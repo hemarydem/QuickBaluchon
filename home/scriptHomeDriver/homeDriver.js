@@ -47,7 +47,7 @@ function getCarsListByDriverId() {
                                 nwLine.innerHTML= element["imatriculation"];
                                 carsList.appendChild(nwLine);
                                 let buttOnElement = document.createElement("button");
-                                buttOnElement.setAttribute('onclick','getCarBYID(' + String(element["id"])+ ');');
+                                buttOnElement.setAttribute('onclick','displayCarsDATA(' + String(element["id"])+ ');');
                                 buttOnElement.innerHTML="fiche";
                                 carsList.appendChild(buttOnElement);
                             });   
@@ -81,6 +81,54 @@ function getEmployedCar() {
                     if(ObjJson.hasOwnProperty("message")) {
                         carsList.innerHTML = ObjJson["message"];
                     } else {
+                        divCarHub.innerHTML = "";
+                        let immatriculatio_h4 = document.createElement("h4");
+                        let maxWei_h4 = document.createElement("h4");
+                        let vol_h4 = document.createElement("h4");
+
+                        let imatriculationElementHtml= document.createElement("p");
+                        imatriculationElementHtml.setAttribute("id", "immaEmploy");
+
+                        let weightElementHtml = document.createElement("p");
+                        weightElementHtml.setAttribute("id","wEmploy");
+
+                        let volumeMaxElementHtml = document.createElement("p");
+                        volumeMaxElementHtml.setAttribute("id","volEmploy");
+
+                        imatriculationElementHtml.innerHTML = ObjJson[0]['imatriculation'];
+                        weightElementHtml.innerHTML = ObjJson[0]['weightMax'];
+                        volumeMaxElementHtml.innerHTML = ObjJson[0]['volumeMax'];
+                        immatriculatio_h4.innerHTML = "immatriculation";
+                        maxWei_h4.innerHTML = "Poids supporter";
+                        vol_h4.innerHTML = "volume limite";
+                        divCarHub.appendChild(immatriculatio_h4);
+                        divCarHub.appendChild(imatriculationElementHtml);
+                        divCarHub.appendChild(maxWei_h4);
+                        divCarHub.appendChild(weightElementHtml);
+                        divCarHub.appendChild(vol_h4);
+                        divCarHub.appendChild(volumeMaxElementHtml);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+function displayCarsDATA(uID) {
+    let ObjJson;
+    let request = new XMLHttpRequest();  
+    request.open("GET", apiPath + "/vehicules/get/vehicule.php?id=" + uID,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        document.getElementById("errorCarDisplay").innerHTML = ObjJson["message"];
+                    } else {
+                        document.getElementById("errorCarDisplay").innerHTML ="";
                         divCarHub.innerHTML = "";
                         let immatriculatio_h4 = document.createElement("h4");
                         let maxWei_h4 = document.createElement("h4");

@@ -22,6 +22,7 @@
             </div>
             <div class="col">
                 <h1>voitures en services</h1>
+                <p style="display: none;" id="errorCarDisplay"></p>
             </div>
         </div>
         <div class="row">
