@@ -10,6 +10,7 @@ let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon"
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
+divTOremov.remove();
 
 
 
@@ -61,7 +62,25 @@ function getCarsListByDriverId() {
                         tabBase.appendChild(tr1);
                         tr1.appendChild(th1);
                         tr1.appendChild(th2);
-                        ObjJson.forEach(element => {
+                        if(ObjJson.length > 1){ 
+                            ObjJson.forEach(element => {
+                                let nwLine =  document.createElement("tr");
+                                tabBase.appendChild(nwLine);
+                                let td1 = document.createElement("td");
+                                let td2 = document.createElement("td");
+                                let buttOnElement = document.createElement("button");
+                                buttOnElement.setAttribute('onclick','getCarBYID(' +String(element["id"])+ ');');
+                                td1.innerHTML = String(element["imatriculation"]);
+                                td2.innerHTML = String(element["nbColis"]);
+                                nwLine.appendChild(td1);
+                                nwLine.appendChild(td2);
+                                nwLine.appendChild(buttOnElement);
+                                let select = parseInt(element["nbColis"], 10);
+                                if( select == 1) {
+                                    nwLine.style.backgroundColor = 'green';
+                                }
+                            });   
+                        } else {
                             let nwLine =  document.createElement("tr");
                             tabBase.appendChild(nwLine);
                             let td1 = document.createElement("td");
@@ -75,9 +94,9 @@ function getCarsListByDriverId() {
                             nwLine.appendChild(buttOnElement);
                             let select = parseInt(element["nbColis"], 10);
                             if( select == 1) {
-                            nwLine.style.backgroundColor = 'green';
+                                nwLine.style.backgroundColor = 'green';
                             }
-                        });
+                        }
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
