@@ -191,7 +191,7 @@ function switcheEmployeCar(idNwEmployCar) {
                         }
                     } else {
                         oldEmployedcar = {
-                            "id":ObjJson["id"],
+                            "id":String(ObjJson["id"]),
                             "employ":0
                         }
                         carUpdate(oldEmployedcar);
