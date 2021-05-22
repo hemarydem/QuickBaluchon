@@ -458,8 +458,8 @@ function sendLicence() {
     let request = new XMLHttpRequest(); // Set up the request
     request.open('POST', 'https://quickbaluchonservice.site/Quickbaluchonservice.site/licences/lincenceScript.php', true);  // Open the connection
     request.onload = function () { // Set up a handler for when the task for the request is complete
-        f(request.readyState == 4) {
-            if (request.status == 200) {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
                 let ObjJson = JSON.parse(request.responseText);
                 if(ObjJson.hasOwnProperty("message")) {
                     document.getElementById("errodriverLicence").innerHTML = 'Upload error ' + ObjJson["message"] ;
