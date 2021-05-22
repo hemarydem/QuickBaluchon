@@ -9,7 +9,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <title>homeDriver</title>
 </head>
 <body id="body">
@@ -35,7 +34,6 @@
         </div>
         </div>
         <div class="row ">
-           
         </div>
     <?php
         echo "<div id=\"di\">" . $_SESSION["id_session"] . "</div>";

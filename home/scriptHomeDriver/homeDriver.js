@@ -13,10 +13,9 @@ let id = parseInt(divTOremov.innerHTML);
 
 
 
-let containerLeft = document.getElementById("leftcont");
-let containerCenter = document.getElementById("centerCont");
+let carsList = document.getElementById("carList");
 
-let clListElement = document.getElementById("COLISLIST");
+
 
 
 let elementDepotList = document.getElementById("depoliste");
@@ -24,7 +23,7 @@ let elementDepotList = document.getElementById("depoliste");
 let maxOffset = getoffsetMax(apiPath + "/depots/get/count.php");
 
 let depotGlobal = null;
-//let containerLeft = document.getElementById("leftcont");
+//let carsList = document.getElementById("leftcont");
 document.getElementById("body").removeChild(divTOremov);
 
 getCarsListByDriverId();
@@ -48,17 +47,17 @@ function getCarsListByDriverId() {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
                     if(ObjJson.hasOwnProperty("message")) {
-                        containerLeft.innerHTML = ObjJson["message"];
+                        carsList.innerHTML = ObjJson["message"];
                     } else {
-                        containerLeft.innerHTML = "";
+                        carsList.innerHTML = "";
                         let tabBase = document.createElement("table");
-                        containerLeft.appendChild(tabBase);
+                        carsList.appendChild(tabBase);
                         let tr1 =  document.createElement("tr");
                         let th1 =  document.createElement("th");
                         let th2 = document.createElement("th");
                         th1.innerHTML = "immatriculation";
                         th2.innerHTML = "colis";
-                        containerLeft.appendChild(tabBase);
+                        carsList.appendChild(tabBase);
                         tabBase.appendChild(tr1);
                         tr1.appendChild(th1);
                         tr1.appendChild(th2);
@@ -98,7 +97,7 @@ function getCarBYID(idCar) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
                     if(ObjJson.hasOwnProperty("message")) {
-                        containerLeft.innerHTML = ObjJson["message"];
+                        carsList.innerHTML = ObjJson["message"];
                     } else {
                         let divBase = document.createElement("div");
                         containerCenter.innerHTML="";
@@ -156,7 +155,7 @@ function getCarBYIDForDelivery(idCar) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
                     if(ObjJson.hasOwnProperty("message")) {
-                        containerLeft.innerHTML = ObjJson["message"];
+                        carsList.innerHTML = ObjJson["message"];
                     } else {
                     return ObjJson;
                     }
