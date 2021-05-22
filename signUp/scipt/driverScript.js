@@ -447,6 +447,7 @@ function checkInputFile() {
 }
 
 function sendLicence() {
+    let myFile = document.getElementById('fileAjax'); 
     let files = myFile.files;// Get the files from the form input
     let formData = new FormData();// Create a FormData object
     let file = files[0];// Select only the first file from the input array
