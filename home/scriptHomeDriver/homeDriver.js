@@ -54,6 +54,7 @@ function getCarsListByDriverId() {
                         if(ObjJson.length > 1){ 
                             ObjJson.forEach(element => {
                                 let nwLine =  document.createElement("p");
+                                nwLine.innerHTML= element["imatriculation"];
                                 carsList.appendChild(nwLine);
                                 let buttOnElement = document.createElement("button");
                                 buttOnElement.setAttribute('onclick','getCarBYID(' + String(element["id"])+ ');');
@@ -65,7 +66,7 @@ function getCarsListByDriverId() {
                             nwLine.innerHTML= ObjJson[0]["imatriculation"];
                             carsList.appendChild(nwLine);
                             let buttOnElement = document.createElement("button");
-                            buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson["id"])+ ');');
+                            buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson[0]["id"])+ ');');
                             buttOnElement.innerHTML="fiche";
                             carsList.appendChild(buttOnElement);
                         }
