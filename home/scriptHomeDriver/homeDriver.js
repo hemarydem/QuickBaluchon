@@ -139,9 +139,9 @@ function displayCarsDATA(uID) {
 
                         let volumeMaxElementHtml = document.createElement("p");
 
-                        imatriculationElementHtml.innerHTML = String(ObjJson[0]['imatriculation']);
-                        weightElementHtml.innerHTML = ObjJson[0]['weightMax'];
-                        volumeMaxElementHtml.innerHTML = ObjJson[0]['volumeMax'];
+                        imatriculationElementHtml.innerHTML = String(ObjJson['imatriculation']);
+                        weightElementHtml.innerHTML = ObjJson['weightMax'];
+                        volumeMaxElementHtml.innerHTML = ObjJson['volumeMax'];
                         immatriculatio_h4.innerHTML = "immatriculation";
                         maxWei_h4.innerHTML = "Poids supporter";
                         vol_h4.innerHTML = "volume limite";
