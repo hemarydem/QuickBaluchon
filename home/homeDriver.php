@@ -28,8 +28,8 @@
             <div id="carList" class="col">
         
             </div>
-            <div class="col">
-            2 of 2
+            <div id="carHud" class="col">
+            
             </div>
         </div>
         </div>
