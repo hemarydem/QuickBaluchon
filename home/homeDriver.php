@@ -17,11 +17,19 @@
     require "../utls/header/header.php";
 ?>
     <div class="container" id="app">
+    <div class="row">
+            <div class="col">
+                <h1>Mes voitures</h1>
+            </div>
+            <div class="col">
+                <h1>voitures en services</h1>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
             1 of 2
             </div>
-            <div class="col-green">
+            <div class="col">
             2 of 2
             </div>
         </div>
