@@ -184,8 +184,8 @@ function switcheEmployeCar(idNwEmployCar) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjJson),
-                   /* if(ObjJson.hasOwnProperty("message")) {
+                    console.log(ObjJson);
+                   /*if(ObjJson.hasOwnProperty("message")) {
                         if( "result not found" === String(ObjJson["message"])){
                             //changer la nouvelle voiture en voiture courrente
                             console.log("lanciennne voiture n'a pas été trouvé");
