@@ -85,15 +85,19 @@ function getEmployedCar() {
                         let immatriculatio_h4 = document.createElement("h4");
                         let maxWei_h4 = document.createElement("h4");
                         let vol_h4 = document.createElement("h4");
+
                         let imatriculationElementHtml= document.createElement("p");
                         imatriculationElementHtml.setAttribute("id", "immaEmploy");
+
                         let weightElementHtml = document.createElement("p");
                         weightElementHtml.setAttribute("id","wEmploy");
+
                         let volumeMaxElementHtml = document.createElement("p");
                         volumeMaxElementHtml.setAttribute("id","volEmploy");
-                        imatriculationElementHtml = ObjJson[0]['imatriculation'];
-                        weightElementHtml = ObjJson[0]['weightMax'];
-                        volumeMaxElementHtml = ObjJson[0]['volumeMax'];
+
+                        imatriculationElementHtml.innerHTML = ObjJson[0]['imatriculation'];
+                        weightElementHtml.innerHTML = ObjJson[0]['weightMax'];
+                        volumeMaxElementHtml.innerHTML = ObjJson[0]['volumeMax'];
                         immatriculatio_h4.innerHTML = "immatriculation";
                         maxWei_h4.innerHTML = "Poids supporter";
                         vol_h4.innerHTML = "volume limite";
