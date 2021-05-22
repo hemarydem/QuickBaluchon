@@ -158,6 +158,8 @@ function displayCarsDATA(uID) {
                         buttonSelection.setAttribute("classe","btn btn-primary"); 
                         buttonSelection.setAttribute("value","SELECTION VEHICULE PRINCIPALE");
                         divCarHub.appendChild(buttonSelection);
+                        document.getElementById("titleCarInformation").innerHTML="";
+                        document.getElementById("titleCarInformation").innerHTML="Fiche voiture";
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);

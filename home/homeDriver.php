@@ -21,7 +21,7 @@
                 <h1>Mes voitures</h1>
             </div>
             <div class="col">
-                <h1>voitures en services</h1>
+                <h1 id="titleCarInformation" >voitures en service</h1>
                 <p style="display: none;" id="errorCarDisplay"></p>
             </div>
         </div>
