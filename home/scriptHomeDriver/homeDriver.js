@@ -179,7 +179,7 @@ function switcheEmployeCar(idNwEmployCar) {
         "employ":1
     }
     let request = new XMLHttpRequest();  
-    request.open("GET", apiPath + "/vehicules/get/getCarsByUsed.php?id=" + id,true); 
+    request.open("GET", apiPath + "/vehicules/get/getCarsByUsed.php?id=" + idNwEmployCar,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
