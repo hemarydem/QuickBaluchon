@@ -455,7 +455,7 @@ function sendLicence() {
     }
     formData.append('fileAjax', file, file.name);// Add the file to the AJAX request
     let request = new XMLHttpRequest(); // Set up the request
-    request.open('POST', 'https://quickbaluchonservice.site/Quickbaluchonservice/licences/lincenceScript.php', true);  // Open the connection
+    request.open('POST', 'https://quickbaluchonservice.site/Quickbaluchon/licences/lincenceScript.php', true);  // Open the connection
     request.onload = function () { // Set up a handler for when the task for the request is complete
         if(request.readyState == 4) {
             if(request.status == 200) {
