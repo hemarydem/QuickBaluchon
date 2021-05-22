@@ -14,12 +14,14 @@ divTOremov.remove();
 
 let carsList = document.getElementById("carList");
 let divCarHub = document.getElementById("carHud");
+let delyveryMaxWEIGHT ;
+let deluveryMaxvolume ;
+let deluverycar;
 getCarsListByDriverId();
 getEmployedCar();
-
-let delyveryMaxWEIGHT = document.getElementById("wEmploy").innerHTML;
-let deluveryMaxvolume = document.getElementById("volEmploy").innerHTML;
-let deluverycar = document.getElementById("immaEmploy").innerHTML;
+delyveryMaxWEIGHT = document.getElementById("wEmploy").innerHTML;
+deluveryMaxvolume = document.getElementById("volEmploy").innerHTML;
+deluverycar = document.getElementById("immaEmploy").innerHTML;
 
 /*
  *  getCarsListByDriverId
@@ -135,13 +137,10 @@ function displayCarsDATA(uID) {
                         let vol_h4 = document.createElement("h4");
 
                         let imatriculationElementHtml= document.createElement("p");
-                        imatriculationElementHtml.setAttribute("id", "immaEmploy");
 
                         let weightElementHtml = document.createElement("p");
-                        weightElementHtml.setAttribute("id","wEmploy");
 
                         let volumeMaxElementHtml = document.createElement("p");
-                        volumeMaxElementHtml.setAttribute("id","volEmploy");
 
                         imatriculationElementHtml.innerHTML = ObjJson[0]['imatriculation'];
                         weightElementHtml.innerHTML = ObjJson[0]['weightMax'];
