@@ -191,7 +191,6 @@ function validate() {
         checkIfVehiculeIsallreadyUse();
         sendLicence();
         //ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
-        success();
     }
     console.log(" FIN");
 }
@@ -305,7 +304,6 @@ function success() {
     let h3 = document.createElement("h3");
     let div = document.createElement("div");
     div.setAttribute("class", "row");
-   
     h1.innerHTML = "FÉLICITATION VOUS AVEZ FINI DE COMPLETER LE FORMULAIRE";
     h2.innerHTML = "Vous devez avoir reçu un mail pour activer votre compte";
     h3.innerHTML = "Si vous ne le trouvez pas vérifier dans vos indésirable";
@@ -495,6 +493,7 @@ function updateImagePath(imgPATH) {
                         ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
                     } else {
                         console.log(ObjJson);
+                        success();
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
