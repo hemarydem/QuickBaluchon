@@ -14,18 +14,10 @@ divTOremov.remove();
 
 let carsList = document.getElementById("carList");
 let divCarHub = document.getElementById("carHud");
-let delyveryMaxWEIGHT ;
-let deluveryMaxvolume ;
-let deluverycar;
 getCarsListByDriverId();
 getEmployedCar();
 
-console.log(document.getElementById("wEmploy"));
 
-
-console.log(delyveryMaxWEIGHT);
-console.log(deluveryMaxvolume );
-console.log(deluverycar );
 
 /*
  *  getCarsListByDriverId
@@ -113,10 +105,6 @@ function getEmployedCar() {
                         divCarHub.appendChild(weightElementHtml);
                         divCarHub.appendChild(vol_h4);
                         divCarHub.appendChild(volumeMaxElementHtml);
-                        
-                        delyveryMaxWEIGHT = ObjJson[0]['weightMax'];
-                        deluveryMaxvolume = ObjJson[0]['volumeMax'];
-                        deluverycar = ObjJson[0]['imatriculation'];
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
