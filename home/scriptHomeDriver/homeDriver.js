@@ -179,12 +179,13 @@ function switcheEmployeCar(idNwEmployCar) {
         "employ":1
     }
     let request = new XMLHttpRequest();  
-    request.open("GET", apiPath + "/vehicules/get/getCarsByUsed.php?id=" + idNwEmployCar,true); 
+    request.open("GET", apiPath + "/vehicules/get/getCarsByUsed.php?id=" + id,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
-                    if(ObjJson.hasOwnProperty("message")) {
+                    console.log(ObjJson),
+                   /* if(ObjJson.hasOwnProperty("message")) {
                         if( "result not found" === String(ObjJson["message"])){
                             //changer la nouvelle voiture en voiture courrente
                             console.log("lanciennne voiture n'a pas été trouvé");
@@ -197,7 +198,7 @@ function switcheEmployeCar(idNwEmployCar) {
                         carUpdate(oldEmployedcar);
                         carUpdate(newEmployedCar);
                         getEmployedCar();
-                    }
+                    }*/
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
