@@ -50,51 +50,23 @@ function getCarsListByDriverId() {
                         carsList.innerHTML = ObjJson["message"];
                     } else {
                         carsList.innerHTML = "";
-                        let tabBase = document.createElement("table");
-                        carsList.appendChild(tabBase);
-                        let tr1 =  document.createElement("tr");
-                        let th1 =  document.createElement("th");
-                        let th2 = document.createElement("th");
-                        th1.innerHTML = "immatriculation";
-                        th2.innerHTML = "colis";
-                        carsList.appendChild(tabBase);
-                        tabBase.appendChild(tr1);
-                        tr1.appendChild(th1);
-                        tr1.appendChild(th2);
+                        
                         if(ObjJson.length > 1){ 
                             ObjJson.forEach(element => {
-                                let nwLine =  document.createElement("tr");
-                                tabBase.appendChild(nwLine);
-                                let td1 = document.createElement("td");
-                                let td2 = document.createElement("td");
+                                let nwLine =  document.createElement("p");
+                                carsList.appendChild(nwLine);
                                 let buttOnElement = document.createElement("button");
-                                buttOnElement.setAttribute('onclick','getCarBYID(' +String(element["id"])+ ');');
-                                td1.innerHTML = String(element["imatriculation"]);
-                                td2.innerHTML = String(element["nbColis"]);
-                                nwLine.appendChild(td1);
-                                nwLine.appendChild(td2);
-                                nwLine.appendChild(buttOnElement);
-                                let select = parseInt(element["nbColis"], 10);
-                                if( select == 1) {
-                                    nwLine.style.backgroundColor = 'green';
-                                }
+                                buttOnElement.setAttribute('onclick','getCarBYID(' + String(element["id"])+ ');');
+                                buttOnElement.innerHTML="fiche";
+                                carsList.appendChild(buttOnElement);
                             });   
                         } else {
-                            let nwLine =  document.createElement("tr");
-                            tabBase.appendChild(nwLine);
-                            let td1 = document.createElement("td");
-                            let td2 = document.createElement("td");
+                            let nwLine =  document.createElement("p");
+                            carsList.appendChild(nwLine);
                             let buttOnElement = document.createElement("button");
-                            buttOnElement.setAttribute('onclick','getCarBYID(' +String(element["id"])+ ');');
-                            td1.innerHTML = String(element["imatriculation"]);
-                            td2.innerHTML = String(element["nbColis"]);
-                            nwLine.appendChild(td1);
-                            nwLine.appendChild(td2);
-                            nwLine.appendChild(buttOnElement);
-                            let select = parseInt(element["nbColis"], 10);
-                            if( select == 1) {
-                                nwLine.style.backgroundColor = 'green';
-                            }
+                            buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson["id"])+ ');');
+                            buttOnElement.innerHTML="fiche";
+                            carsList.appendChild(buttOnElement);
                         }
                     }
             } else {
@@ -393,6 +365,7 @@ function  getData() {
 }
 
 /*/
+/*/
 function getDepot(arg) {
     let offset = document.getElementById("divCheckbox");
     let save = parseInt(offset.innerHTML,10);
@@ -438,6 +411,7 @@ function getDepot(arg) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+/*/
 /*/
 function setDepoTGlobal(idToset) {
     depotGlobal = idToset;
