@@ -1,5 +1,5 @@
 let webSitePath ="https://quickbaluchonservice.site/QuickBaluchon";
-let homePage =[webSitePath + "/home/homeDriver.php", webSitePath + "/home/homeAdmin.php",webSitePath + "/home/homeUser.php"];
+let homePage =[,,];
 
 
 function signIn() {
@@ -13,13 +13,21 @@ function signIn() {
         if(request.readyState == 4) {
             if(request.status == 200) {
                 let ObjJson = JSON.parse(request.responseText);
-                let num = ObjJson["statut"].toString();
-                num = parseInt(num);
-                num--;
+                let num = String(ObjJson["statut"]);
+                num = parseInt(num,10);
+                console.log(ObjJson);
                 console.log(num);
-                console.log(homePage);
-                console.log(homePage[num]);
-                window.location.href = homePage[num];
+                switch (num) {
+                    case 1:
+                        window.location.href = webSitePath + "/home/homeDriver.php";
+                        break;
+                    case 2:
+                        window.location.href =  webSitePath + "/home/homeAdmin.php";
+                        break;
+                    case 3:
+                        window.location.href = webSitePath + "/home/homeUser.php"
+                        break;
+                }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
