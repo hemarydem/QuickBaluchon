@@ -123,6 +123,7 @@ function displayCarsDATA(uID) {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
                     if(ObjJson.hasOwnProperty("message")) {
                         document.getElementById("errorCarDisplay").innerHTML = ObjJson["message"];
                     } else {
