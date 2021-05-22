@@ -55,9 +55,8 @@ function getCarsListByDriverId() {
                             carsList.appendChild(nwLine);
                             let buttOnElement = document.createElement("button");
                             buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson[0]["id"])+ ');');
-                            buttOnElement.className("btn btn-info");
-                            buttOnElement.type("button");
                             buttOnElement.innerHTML="fiche";
+                            buttOnElement.add('btn btn-success');
                             carsList.appendChild(buttOnElement);
                         }
                     }
@@ -153,6 +152,8 @@ function displayCarsDATA(uID) {
                         divCarHub.appendChild(weightElementHtml);
                         divCarHub.appendChild(vol_h4);
                         divCarHub.appendChild(volumeMaxElementHtml);
+                        let buttonSelection = document.createElement("button");
+                        buttonSelection.add('btn btn-success');
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
