@@ -138,7 +138,7 @@ function displayCarsDATA(uID) {
 
                         let volumeMaxElementHtml = document.createElement("p");
 
-                        imatriculationElementHtml.innerHTML = ObjJson[0]['imatriculation'];
+                        imatriculationElementHtml.innerHTML = String(ObjJson[0]['imatriculation']);
                         weightElementHtml.innerHTML = ObjJson[0]['weightMax'];
                         volumeMaxElementHtml.innerHTML = ObjJson[0]['volumeMax'];
                         immatriculatio_h4.innerHTML = "immatriculation";
