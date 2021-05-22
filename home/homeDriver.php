@@ -21,7 +21,7 @@
             <div class="col">
             1 of 2
             </div>
-            <div class="col">
+            <div class="col-green">
             2 of 2
             </div>
         </div>
