@@ -166,7 +166,7 @@ function validate() {
 
     allowedSend[5] = checkInput("mail",255,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
-    allowedSend[6] = true;//checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    allowedSend[6] = checkInputFile();//checkInput("numSiret",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
 
     //vehicule inputs
 
@@ -434,4 +434,71 @@ function checkIfVehiculeIsallreadyUse() {
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
+}
+
+function checkInputFile() {
+    if(document.getElementById("fileAjax").value.length == 0) {
+        document.getElementById("errodriverLicence").innerHTML = "vous devez mettre une photocopie de votre permis";
+        return false;
+    }
+    document.getElementById("errodriverLicence").innerHTML = "";
+    return true;
+}
+
+function sendLicence() {
+    let files = myFile.files;// Get the files from the form input
+    let formData = new FormData();// Create a FormData object
+    let file = files[0];// Select only the first file from the input array
+    if (!file.type.match('image.*')) {
+        document.getElementById("errodriverLicence").innerHTML = 'The file selected is not an image.';
+        return;
+    }
+    formData.append('fileAjax', file, file.name);// Add the file to the AJAX request
+    let request = new XMLHttpRequest(); // Set up the request
+    request.open('POST', 'https://quickbaluchonservice.site/Quickbaluchonservice.site/licences/lincenceScript.php', true);  // Open the connection
+    request.onload = function () { // Set up a handler for when the task for the request is complete
+        f(request.readyState == 4) {
+            if (request.status == 200) {
+                let ObjJson = JSON.parse(request.responseText);
+                if(ObjJson.hasOwnProperty("message")) {
+                    document.getElementById("errodriverLicence").innerHTML = 'Upload error ' + ObjJson["message"] ;
+                    return;
+                }
+                if(ObjJson.hasOwnProperty("pathImage")) {
+                    document.getElementById("errodriverLicence").innerHTML = "" ;
+                    updateImagePath(String(ObjJson["pathImage"]));
+                    return;
+                }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    };
+    request.send(formData);// Send the data.
+}
+
+function updateImagePath(imgPATH) {
+    let idU = String(document.getElementById("di").innerHTML);
+    let jsonToSend = {
+        "id":idU,
+        "licencePath":imgPATH
+    }
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/users/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        ajaxSendPost(getData(),"https://quickbaluchonservice.site/api/QuickBaluchon/users/post/creat.php");
+                    } else {
+                        console.log(ObjJson);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
 }

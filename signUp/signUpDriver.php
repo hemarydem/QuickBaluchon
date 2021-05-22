@@ -1,14 +1,13 @@
 <?php
     require "../utls/utls.php";
     checIfsessionStarted();
-    checkRightToBeHere(3);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>homeDriver</title>
+    <title>signUpDriver</title>
 </head>
 <body id="body">
 <?php
@@ -48,7 +47,9 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>permis</label>
-                    <input type="file" accept="image/*,.pdf" id="driverLicence">
+                    <form id="formAjax" action="./phpscript/addimge.php" method="POST">
+                        <input type="file" accept="image/*,.pdf" id="fileAjax" name="fileAjax" />
+                    </form>
                     <p id="errodriverLicence"></p>
                 </div>
             </div>
