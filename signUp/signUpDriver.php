@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>permis</label>
-                    <form id="formAjax" action="./phpscript/addimge.php" method="POST">
+                    <form id="formAjax" action="../licences/lincenceScript.php" method="POST">
                         <input type="file" accept="image/*,.pdf" id="fileAjax" name="fileAjax" />
                     </form>
                     <p id="errodriverLicence"></p>
