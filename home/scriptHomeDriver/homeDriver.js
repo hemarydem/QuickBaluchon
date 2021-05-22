@@ -157,6 +157,7 @@ function displayCarsDATA(uID) {
                         buttonSelection.setAttribute("type", "button");
                         buttonSelection.setAttribute("classe","btn btn-primary"); 
                         buttonSelection.setAttribute("value","SELECTION VEHICULE PRINCIPALE");
+                        buttonSelection.setAttribute("onclick","switcheEmployeCar(" + String(ObjJson['id'])+")");
                         divCarHub.appendChild(buttonSelection);
                         document.getElementById("titleCarInformation").innerHTML="";
                         document.getElementById("titleCarInformation").innerHTML="Fiche voiture";
@@ -168,4 +169,59 @@ function displayCarsDATA(uID) {
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
+}
+
+function switcheEmployeCar(idNwEmployCar) {
+    let ObjJson;
+    let oldEmployedcar;
+    let newEmployedCar = {
+        "id":idNwEmployCar,
+        "employ":1
+    }
+    let request = new XMLHttpRequest();  
+    request.open("GET", apiPath + "/vehicules/get/getCarsByUsed.php?id=" + id,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        if( "result not found" === String(ObjJson["message"])){
+                            //changer la nouvelle voiture en voiture courrente
+                            console.log("lanciennne voiture n'a pas été trouvé");
+                        }
+                    } else {
+                        oldEmployedcar = {
+                            "id":ObjJson["id"],
+                            "employ":0
+                        }
+                        carUpdate(oldEmployedcar);
+                        carUpdate(newEmployedCar);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+function carUpdate(objData) {
+    let ObjJson;
+    let request = new XMLHttpRequest();  
+    request.open("POST", apiPath + "/vehicules/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log(ObjJson);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(objData));
 }
