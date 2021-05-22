@@ -17,7 +17,6 @@
     require "../utls/header/header.php";
 ?>
     <div class="container" id="app">
-        <div class="row ">
         <div class="row">
             <div class="col">
             1 of 2
