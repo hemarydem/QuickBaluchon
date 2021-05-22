@@ -1,7 +1,4 @@
 let webSitePath ="https://quickbaluchonservice.site/QuickBaluchon";
-let homePage =[,,];
-
-
 function signIn() {
     let login = document.getElementById("mail").value;
     let psswrd = document.getElementById("pssword").value;
