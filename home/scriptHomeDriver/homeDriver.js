@@ -196,6 +196,7 @@ function switcheEmployeCar(idNwEmployCar) {
                         }
                         carUpdate(oldEmployedcar);
                         carUpdate(newEmployedCar);
+                        getEmployedCar();
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
