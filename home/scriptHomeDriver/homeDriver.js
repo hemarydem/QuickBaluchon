@@ -619,7 +619,7 @@ function activeDesableCar(idVh){
     let data = parseInt(String(idVh),10);
     console.log(data);
     let request = new XMLHttpRequest();  
-    let url = apiPath + "/get/vehicule.php?id=" + String(data);
+    let url = apiPath + "/vehicules/get/vehicule.php?id=53" + String(data);
     console.log(url);
     request.open("GET", url,true); 
     console.log("1");
