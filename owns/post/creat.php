@@ -13,7 +13,7 @@ areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
 if(execRequestALLreadyExist("SELECT idVehicule, idUser, active FROM OWN WHERE idVehicule=? AND idUser=?", [intval($data->{"idVehicule"}),intval($data->{"idUser"})])){
     if(isset($data->{"active"})) {
-        countJsonObjElem($data, 2);
+        countJsonObjElem($data, 3);
         $value = intval($data->{"active"});
         if (execRequestUpdate("UPDATE OWN SET active = ? WHERE idVehicule=? AND idUser=?", [$value,intval($data->{"idVehicule"}),intval($data->{"idUser"})]) == 1) {
             header('Content-type: Application/json');
