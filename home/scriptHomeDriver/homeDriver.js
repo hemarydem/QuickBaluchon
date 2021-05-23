@@ -618,7 +618,9 @@ function activeDesableCar(idVh){
     let data = parseInt(String(idVh),10);
     console.log(data);
     let request = new XMLHttpRequest();  
-    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/vehicule.php?id=" + data,true); 
+    let url = apiPath + "vehicules/get/vehicule.php?id=" + String(data);
+    console.log(url);
+    request.open("GET", apiPath,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
