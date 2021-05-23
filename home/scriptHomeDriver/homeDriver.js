@@ -47,17 +47,28 @@ function getCarsListByDriverId() {
                                     buttOnElement.setAttribute('onclick','displayCarsDATA(' + String(element["id"])+ ');');
                                     buttOnElement.innerHTML="fiche";
                                     carsList.appendChild(buttOnElement);
+
+                                    let buttOnElementSupp = document.createElement("button");
+                                    buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
+                                    buttOnElementSupp.innerHTML="délier";
+                                    carsList.appendChild(buttOnElement);
                                 }
                             });   
                         } else {
-                            let nwLine =  document.createElement("p");
-                            nwLine.innerHTML= ObjJson[0]["imatriculation"];
-                            carsList.appendChild(nwLine);
-                            let buttOnElement = document.createElement("button");
-                            buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson[0]["id"])+ ');');
-                            buttOnElement.innerHTML="fiche";
-                            buttOnElement.classList.add('btn btn-success');
-                            carsList.appendChild(buttOnElement);
+                            if(parseInt(String(element["active"]),10) == 1) {
+                                let nwLine =  document.createElement("p");
+                                nwLine.innerHTML= ObjJson[0]["imatriculation"];
+                                carsList.appendChild(nwLine);
+                                let buttOnElement = document.createElement("button");
+                                buttOnElement.setAttribute('onclick','getCarBYID(' + String(ObjJson[0]["id"])+ ');');
+                                buttOnElement.innerHTML="fiche";
+                                carsList.appendChild(buttOnElement);
+
+                                let buttOnElementSupp = document.createElement("button");
+                                buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
+                                buttOnElementSupp.innerHTML="délier";
+                                carsList.appendChild(buttOnElement);
+                            }
                         }
                     }
             } else {
