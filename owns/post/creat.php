@@ -3,12 +3,6 @@ include("./../../chckFnctns/chckFnctns.php");
 include("./../functions/functions.php");
 $content = file_get_contents('php://input');
 $data = json_decode($content);
-/*if(isset($data['tokenApi'])) {
-    chekIfRequestFromShield($data['tokenApi']);
-    unset($data['tokenApi']);
-} else {
-    erro400NotConnectJsonMssg( "token api is not set");
-}*/
 $intKey = [
     "idVehicule",
     "idUser"
@@ -17,6 +11,20 @@ header("Access-Control-Allow-Origin: *");
 countJsonObjElem($data, 2);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
+if(execRequestALLreadyExist("SELECT idVehicule, idUser, active FROM OWN WHERE idVehicule=? AND idUser=?", [intval($data->{"idVehicule"}),intval($data->{"idUser"})])){
+    if(isset($data->{"active"})) {
+        $value = intval($data->{"active"});
+        if (execRequestUpdate("UPDATE OWN SET active = ? WHERE idVehicule=? AND idUser=?", [$value,intval($data->{"idVehicule"}),intval($data->{"idUser"})]) == 1) {
+            header('Content-type: Application/json');
+            echo json_encode(execRequest("SELECT * FROM OWN WHERE idVehicule=? AND idUser=?", [intval($data->{"idVehicule"}),intval($data->{"idUser"})]));
+            exit(1);
+        }
+    } else {
+        header("Content-Type: application/json");
+        echo json_encode(["message"=> "OWNERSHIP déjà enregistré"]);
+        exit(1);
+    }
+}
 insertOwn(
      "OWN",
     $data->{"idVehicule"},

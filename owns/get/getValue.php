@@ -4,12 +4,6 @@ include("./../../chckFnctns/chckFnctns.php");
 include("./../../listfnctns/listfnctns.php");
 header("Access-Control-Allow-Origin: *");
 if (isset($_GET)) {
-    /* if(isset($_GET['tokenApi'])) {
-         chekIfRequestFromShield($_GET['tokenApi']);
-         unset($_GET['tokenApi']);
-     } else {
-         erro400NotConnectJsonMssg( "token api is not set");
-     }*/
     $tab = "OWN";
     $sql = buildsSelectattributs($_GET, $tab);//listfnctns.php
     $params = buildParams($_GET);
