@@ -14,8 +14,8 @@ if(isset($_GET)) {
     } else {
         erroJsonMssg("error id is missing");
     }
-    $sql = "SELECT VEHICULE.id, VEHICULE.imatriculation, VEHICULE.nbColis, VEHICULE.volumeMax, VEHICULE.weightMax, VEHICULE.employ, VEHICULE.active FROM VEHICULE AND VEHICULE.active=? INNER JOIN OWN ON OWN.idVehicule=VEHICULE.id AND OWN.idUser=?";
-    $rows = execRequestGetALLResults( $sql, [$active,$id]);
+    $sql = "SELECT VEHICULE.id, VEHICULE.imatriculation, VEHICULE.nbColis, VEHICULE.volumeMax, VEHICULE.weightMax, VEHICULE.employ, VEHICULE.active FROM VEHICULE INNER JOIN OWN ON OWN.idVehicule=VEHICULE.id AND OWN.idUser=? AND VEHICULE.active=?";
+    $rows = execRequestGetALLResults( $sql, [$id, $active]);
     $json = json_encode($rows);
     header("Content-Type: application/json");
     print_r($json);
