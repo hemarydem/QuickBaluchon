@@ -478,8 +478,7 @@ function freeCarList(){
                         freeVHList.appendChild(nwLine);
                         let buttOnElement = document.createElement("button");
                         buttOnElement.setAttribute('onclick','getFreeCar(' + String(ObjJson[0]["id"])+ ');');
-                        buttOnElement.innerHTML="fiche";
-                        buttOnElement.classList.add('btn btn-success');
+                        buttOnElement.innerHTML="s'assigner";
                         freeVHList.appendChild(buttOnElement);
                     }
                 }
