@@ -9,7 +9,7 @@ if(isset($_GET)) {
     } else {
         erro400NotConnectJsonMssg( "token api is not set");
     }*/
-    $id = $_GET['id'];
+    $id = intval($_GET['id']);
     unset($_GET['id']);
     header("Access-Control-Allow-Origin: *");
     $sql = buildsSelectAndattributs($_GET, "VEHICULE");//listfnctns.php
