@@ -26,7 +26,7 @@ if(!realpath($path)){
                         </div>
                     </li>
                     <?php
-                        if(isset($_SESSION["status"]) && $_SESSION["status"] == 2) {
+                        if(isset($_SESSION["status_session"]) && $_SESSION["status_session"] == 2) {
                             echo'
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
