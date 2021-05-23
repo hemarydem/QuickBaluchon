@@ -57,7 +57,7 @@ function getCarsListByDriverId() {
                             });   
                         } else {
                             console.log(ObjJson);
-                            let act = parseInt(String(ObjJson["active"]),10);
+                            let act = parseInt(String(ObjJson[0]["active"]),10);
                             console.log(act);
                             if(act == 1) {
                                 let nwLine =  document.createElement("p");
