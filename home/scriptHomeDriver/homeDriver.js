@@ -50,7 +50,7 @@ function getCarsListByDriverId() {
                                     carsList.appendChild(buttOnElement);
 
                                     let buttOnElementSupp = document.createElement("button");
-                                    buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
+                                    buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(element["id"])+ ');');
                                     buttOnElementSupp.innerHTML="délier";
                                     carsList.appendChild(buttOnElementSupp);
                                 }
