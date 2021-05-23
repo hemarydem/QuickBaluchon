@@ -50,7 +50,7 @@ function getCarsListByDriverId() {
                                     carsList.appendChild(buttOnElement);
 
                                     let buttOnElementSupp = document.createElement("button");
-                                    buttOnElementSupp.setAttribute('onclick','lauchit(' + String(element["id"])+ ');');
+                                    buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(element["id"])+ ');');
                                     buttOnElementSupp.innerHTML="délier";
                                     carsList.appendChild(buttOnElementSupp);
                                 }
@@ -69,7 +69,7 @@ function getCarsListByDriverId() {
                                 carsList.appendChild(buttOnElement);
 
                                 let buttOnElementSupp = document.createElement("button");
-                                buttOnElementSupp.setAttribute('onclick','lauchit(' + String(ObjJson[0]["id"])+ ');');
+                                buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
                                 buttOnElementSupp.innerHTML="délier";
                                 carsList.appendChild(buttOnElementSupp);
                             }
@@ -613,9 +613,6 @@ function FreeCarSearch(immSch) {
  * 
 */
 
-function lauchit(param) {
-    activeDesableCar(param)
-}
 
 function activeDesableCar(idVh){
     console.log("activeDesableCar()");
@@ -652,6 +649,8 @@ function activeDesableCar(idVh){
             }
         }
     }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
 }
 
 function desabbleOwn(vehId) {
