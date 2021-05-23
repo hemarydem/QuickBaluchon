@@ -313,6 +313,8 @@ function innerMessagetoElement(idInpuEl,strMessageError) {
 
 
 function validate() {
+    console.log("getDataVehicule()");
+    getDataVehicule("----array----");
     let canContainSpace = false;
     let mustNotContainSpace = true;
     let OnlyNumber = true;
