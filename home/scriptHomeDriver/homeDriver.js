@@ -531,6 +531,12 @@ function getFreeCar(vecId) {
  */
 
 function vecSch() {
+    let canContainSpace = false;
+    let mustNotContainSpace = true;
+    let OnlyNumber = true;
+    let OnlyNumberNot = false;
+    let OnlyLetter = true;
+    let OnlyLetterNot = false;
     if(checkInput("imatriculation",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace)){
         let findImm = document.getElementById("").value;
         findImm = immatriculation.trim();
