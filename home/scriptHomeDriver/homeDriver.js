@@ -351,10 +351,6 @@ function validate() {
 
 
 
-
-
-
-
 function  getDataVehicule() {
     let immatriculation = document.getElementById("imatriculation").value;
     let nbColis = document.getElementById("nbColis").value;
@@ -435,6 +431,89 @@ function addOwn(vehId) {
                         console.log("error add vehicule");
                         console.log(ObjJson["message"]);
                     } else {
+                        getCarsListByDriverId();
+                        alert("votre liste de véhicule propriétaire est mise à jour");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+/*
+*list car no free
+*/
+
+function freeCarList(){
+    console.log("freeCarList()");
+    let freeVHList = document.getElementById("freeCarList");
+    let request = new XMLHttpRequest();  
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getValue.php?active=0",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        freeVHList.innerHTML = "";
+                        if(ObjJson.length > 1){ 
+                            ObjJson.forEach(element => {
+                                let nwLine =  document.createElement("p");
+                                nwLine.innerHTML= element["imatriculation"];
+                                freeVHList.appendChild(nwLine);
+                                let buttOnElement = document.createElement("button");
+                                buttOnElement.setAttribute('onclick','getFreeCar(' + String(element["id"])+ ');');
+                                buttOnElement.innerHTML="s'assigner";
+                                freeVHList.appendChild(buttOnElement);
+                            });   
+                        } else {
+                            let nwLine =  document.createElement("p");
+                            nwLine.innerHTML= ObjJson[0]["imatriculation"];
+                            freeVHList.appendChild(nwLine);
+                            let buttOnElement = document.createElement("button");
+                            buttOnElement.setAttribute('onclick','getFreeCar(' + String(ObjJson[0]["id"])+ ');');
+                            buttOnElement.innerHTML="fiche";
+                            buttOnElement.classList.add('btn btn-success');
+                            freeVHList.appendChild(buttOnElement);
+                        }
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+function getFreeCar(vecId) {
+    console.log("getFreeCar()");
+    console.log("vecId -> " + vecId);
+    let idVeh = vecId;
+    console.log("idVeh -> " + idVeh);
+    let jsonToSend = {
+        "id":idVeh,
+        "active":1
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error add vehicule");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        addOwn(idVeh);
                         getCarsListByDriverId();
                         alert("votre liste de véhicule propriétaire est mise à jour");
                     }

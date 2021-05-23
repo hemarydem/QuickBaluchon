@@ -35,7 +35,7 @@
         </div>
         <div class="row">
             <div class="col">
-            <h3>Ajouter un nouveau Véhicule</h3>
+                <h3>Ajouter un nouveau Véhicule</h3>
                 <form>
                     <div class="form-group">
                         <label for="formGroupExampleInput">immatriculation</label>
@@ -59,6 +59,11 @@
                     </div>
                     <button type="button" onclick="validate()" class="btn btn-primary">Ajouter</button>
                 </form>
+            </div>
+            <div class="col">
+                <h3>liste de voiture libre</h3>
+                <div id="freeCarList">
+                </div>
             </div>
         </div>
     </div>
