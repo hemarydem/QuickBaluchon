@@ -604,9 +604,32 @@ function FreeCarSearch(immSch) {
 }
 
 function activeDesableCar(idVh){
-    desabbleOwn(idVh);
-    desabbleCar(idVh);
-    getCarsListByDriverId();
+    let data = parseInt(String(idVh),10);
+    let request = new XMLHttpRequest();  
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/vehicule.php?id=" + data,true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                let ObjJson = JSON.parse(request.responseText);
+                console.log(ObjJson);
+                if(ObjJson.hasOwnProperty("message")) {
+                    console.log("error desabbleOwn ");
+                    console.log(ObjJson["message"]);
+                } else {
+                    if(ObjJson["employ"] == 1) {
+                        alert("vous ne pouvez pas détacher le véhicule que vous utliser");
+                    } else {
+                        desabbleOwn(data);
+                        desabbleCar(data);
+                        getCarsListByDriverId();
+                        freeCarList();
+                    }   
+                }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
 }
 
 function desabbleOwn(vehId) {
