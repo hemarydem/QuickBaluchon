@@ -540,8 +540,8 @@ function vecSch() {
     if(checkInput("imatriculationSch",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace)){
         console
         let findImm = document.getElementById("imatriculationSch").value;
-        findImm = immatriculation.trim();
-        findImm = immatriculation.replace(/\s/, '');
+        findImm = findImm.trim();
+        findImm = findImm.replace(/\s/, '');
         FreeCarSearch(findImm);
     }
 }
