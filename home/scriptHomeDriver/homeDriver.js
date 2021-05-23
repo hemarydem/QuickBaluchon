@@ -607,7 +607,15 @@ function FreeCarSearch(immSch) {
     request.send();
 }
 
+/**
+ * *
+ * *
+ * desapble car featur
+ * 
+*/
+
 function activeDesableCar(idVh){
+    console.log("activeDesableCar()");
     let data = parseInt(String(idVh),10);
     console.log(data);
     let request = new XMLHttpRequest();  
