@@ -34,8 +34,8 @@
             </div>
         </div>
         <div class="row">
-            <h2>Ajouter un nouveau Véhicule</h2>
             <div class="col">
+            <h3>Ajouter un nouveau Véhicule</h3>
                 <form>
                     <div class="form-group">
                         <label for="formGroupExampleInput">immatriculation</label>
