@@ -539,7 +539,7 @@ function vecSch() {
     let OnlyLetterNot = false;
     if(checkInput("imatriculationSch",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace)){
         console
-        let findImm = document.getElementById("").value;
+        let findImm = document.getElementById("imatriculationSch").value;
         findImm = immatriculation.trim();
         findImm = immatriculation.replace(/\s/, '');
         FreeCarSearch(findImm);
