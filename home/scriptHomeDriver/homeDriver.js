@@ -605,6 +605,7 @@ function FreeCarSearch(immSch) {
 
 function activeDesableCar(idVh){
     let data = parseInt(String(idVh),10);
+    console.log(data);
     let request = new XMLHttpRequest();  
     request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/vehicule.php?id=" + data,true); 
     request.onreadystatechange = function() {
