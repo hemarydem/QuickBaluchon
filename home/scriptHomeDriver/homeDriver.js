@@ -619,16 +619,12 @@ function activeDesableCar(idVh){
     let data = parseInt(String(idVh),10);
     console.log(data);
     let request = new XMLHttpRequest();  
-    let url = apiPath + "/vehicules/get/vehicule.php?id=53" + String(data);
+    let url = apiPath + "/vehicules/get/vehicule.php?id=" + String(data);
     console.log(url);
-    request.open("GET", url,true); 
-    console.log("1");
+    request.open("GET", url,true);
     request.onreadystatechange = function() {
-        console.log("2");
         if(request.readyState == 4) {
-            console.log("3");
             if(request.status == 200) {
-                console.log("4");
                 let ObjJson = JSON.parse(request.responseText);
                 console.log(ObjJson);
                 if(ObjJson.hasOwnProperty("message")) {
