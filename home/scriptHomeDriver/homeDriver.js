@@ -620,7 +620,7 @@ function activeDesableCar(idVh){
     let request = new XMLHttpRequest();  
     let url = apiPath + "vehicules/get/vehicule.php?id=" + String(data);
     console.log(url);
-    request.open("GET", apiPath,true); 
+    request.open("GET", url,true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
