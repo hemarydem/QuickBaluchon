@@ -8,11 +8,12 @@ $intKey = [
     "idUser"
 ];
 header("Access-Control-Allow-Origin: *");
-countJsonObjElem($data, 2);   // must have 11 elements
+  // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
 if(execRequestALLreadyExist("SELECT idVehicule, idUser, active FROM OWN WHERE idVehicule=? AND idUser=?", [intval($data->{"idVehicule"}),intval($data->{"idUser"})])){
     if(isset($data->{"active"})) {
+        countJsonObjElem($data, 2);
         $value = intval($data->{"active"});
         if (execRequestUpdate("UPDATE OWN SET active = ? WHERE idVehicule=? AND idUser=?", [$value,intval($data->{"idVehicule"}),intval($data->{"idUser"})]) == 1) {
             header('Content-type: Application/json');
@@ -25,6 +26,7 @@ if(execRequestALLreadyExist("SELECT idVehicule, idUser, active FROM OWN WHERE id
         exit(1);
     }
 }
+countJsonObjElem($data, 2);
 insertOwn(
      "OWN",
     $data->{"idVehicule"},
