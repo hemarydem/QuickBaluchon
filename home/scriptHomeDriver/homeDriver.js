@@ -16,6 +16,7 @@ let carsList = document.getElementById("carList");
 let divCarHub = document.getElementById("carHud");
 getCarsListByDriverId();
 getEmployedCar();
+freeCarList();
 
 /*
  *  getCarsListByDriverId
@@ -515,6 +516,7 @@ function getFreeCar(vecId) {
                     } else {
                         addOwn(idVeh);
                         getCarsListByDriverId();
+                        freeCarList();
                         alert("votre liste de véhicule propriétaire est mise à jour");
                     }
             } else {
