@@ -372,8 +372,8 @@ function  getDataVehicule() {
 
     let array = [immatriculation,nbColis,volumeMax,weightMax];
     console.log("getDataVehicule()");
-    getDataVehicule("----array----");
-    getDataVehicule(array);
+    console.log("----array----");
+    console.log(array);
     return array;
 }
 
