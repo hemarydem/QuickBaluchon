@@ -553,7 +553,6 @@ function vecSch() {
     let OnlyLetter = true;
     let OnlyLetterNot = false;
     if(checkInput("imatriculationSch",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace)){
-        console
         let findImm = document.getElementById("imatriculationSch").value;
         findImm = findImm.trim();
         findImm = findImm.replace(/\s/, '');
