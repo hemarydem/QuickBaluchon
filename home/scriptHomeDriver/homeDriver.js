@@ -37,6 +37,7 @@ function getCarsListByDriverId() {
                         carsList.innerHTML = ObjJson["message"];
                     } else {
                         carsList.innerHTML = "";
+                        console.log(ObjJson);
                         if(ObjJson.length > 1) { 
                             ObjJson.forEach(element => {
                                 if(parseInt(String(element["active"]),10) == 1) {
@@ -55,7 +56,10 @@ function getCarsListByDriverId() {
                                 }
                             });   
                         } else {
-                            if(parseInt(String(ObjJson["active"]),10) == 1) {
+                            console.log(ObjJson);
+                            let act = parseInt(String(ObjJson["active"]),10);
+                            console.log(act);
+                            if(act == 1) {
                                 let nwLine =  document.createElement("p");
                                 nwLine.innerHTML= ObjJson[0]["imatriculation"];
                                 carsList.appendChild(nwLine);
