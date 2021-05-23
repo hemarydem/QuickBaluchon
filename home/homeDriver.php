@@ -64,6 +64,10 @@
                 <h3>liste de voiture libre</h3>
                 <div id="freeCarList">
                 </div>
+                <label for="formGroupExampleInput">Recherche par immatriculation</label>
+                <input type="text" class="form-control" placeholder="imatriculation" oninput="checkLen('imatriculationSch',50)" id="imatriculationSch">
+                <p id="limitimatriculationSch">50/50</p><p id="erroimatriculationSch"></p>
+                <button type="button" onclick="vecSch()" class="btn btn-primary">Search</button>
             </div>
         </div>
     </div>
