@@ -51,7 +51,7 @@ function getCarsListByDriverId() {
                                     let buttOnElementSupp = document.createElement("button");
                                     buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
                                     buttOnElementSupp.innerHTML="délier";
-                                    carsList.appendChild(buttOnElement);
+                                    carsList.appendChild(buttOnElementSupp);
                                 }
                             });   
                         } else {
@@ -67,7 +67,7 @@ function getCarsListByDriverId() {
                                 let buttOnElementSupp = document.createElement("button");
                                 buttOnElementSupp.setAttribute('onclick','activeDesableCar(' + String(ObjJson[0]["id"])+ ');');
                                 buttOnElementSupp.innerHTML="délier";
-                                carsList.appendChild(buttOnElement);
+                                carsList.appendChild(buttOnElementSupp);
                             }
                         }
                     }
