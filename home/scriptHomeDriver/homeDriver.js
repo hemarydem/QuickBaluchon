@@ -401,7 +401,7 @@ function addVehicule(arrayDataVehicule) {
                         console.log(ObjJson["message"]);
                         alert(ObjJson["message"]);
                     } else {
-                        addOwn(vehId);
+                        addOwn(ObjJson["id"]);
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
