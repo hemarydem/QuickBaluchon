@@ -649,7 +649,7 @@ function desabbleCar(vehId) {
     console.log("idU -> " + idU);
     console.log("idVeh -> " + idVeh);
     let jsonToSend = {
-        "idVehicule":idVeh,
+        "id":idVeh,
         "active":0
     };
     let request = new XMLHttpRequest();  
