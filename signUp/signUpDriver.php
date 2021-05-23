@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>nombre de colis</label>
-                    <input type="text" placeholder="password" id="nbColis">
+                    <input type="text" placeholder="nb colis" id="nbColis">
                     <p id="erronbColis"></p>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="col-md-2 col-md-offset-5">
                     <label>poids Max</label>
-                    <input type="text" placeholder="Max" id="weightMax">
+                    <input type="text" placeholder="weightMax" id="weightMax">
                     <p id="erroweightMax"></p>
                 </div>
             </div>

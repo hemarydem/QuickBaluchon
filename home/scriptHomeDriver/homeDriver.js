@@ -228,4 +228,219 @@ function carUpdate(objData) {
 
 /*
 * vehicule Forme code
+*/
+
+/*
+ *  checkLen
+ *
+ *  arg id of an element and the max lenght of the string
+ *  
+ * check if the input don't have a to long string 
+ * 
+ * function is void
+ * principal purpose is to give a feed back to the user
  */
+
+function checkLen(StrElementId,limit) {
+    let charWarning = ""; 
+    let valuLen = parseInt(document.getElementById(StrElementId).value.length,10);
+    let diff = limit - valuLen;
+    let colorTrigger = false;
+    if(diff >= 0)
+        colorTrigger = true;
+    charWarning = String(diff) + "/" + String(limit);
+    let warningElement  = document.getElementById( "limit" + StrElementId);
+    warningElement.innerHTML = charWarning;
+    if(colorTrigger) {
+        warningElement.style.color = "green";
+    }else{
+        warningElement.style.color = "red";
+    }
+}
+
+
+/* checkInput
+*
+* arg 
+* idInput
+* len of the input
+* boolean to know wich characters are allowed
+*
+*return a boolean
+*/
+function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace) {
+    let trigger = true;
+    let element =  String(document.getElementById(idInput).value);
+    if(element.length == 0 || element == "") {                      // empty or not
+        trigger = false;
+        innerMessagetoElement(idInput,"ne peux être vide");
+        return trigger
+    }  
+    element = element.trim();
+    if(mustNotContainSpace) {                                       // supp space
+        element = element.replace(/\s/, ''); 
+    }   
+    if(OnlyLetter){
+        if(!/^[a-zA-Z]+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;
+        if(!trigger){
+            innerMessagetoElement(idInput,"pas de chiffre ni accent");       
+            return trigger;
+        }
+    }   
+    if(OnlyNumber){
+        if(!/^\d+$/.test(element))                                                 // check if there is onlyl etter
+            trigger = false;                         // check if there is only number
+        if(!trigger){
+            innerMessagetoElement(idInput,"pas de lettre");
+            return trigger;
+        }
+    }   
+    if(element.length >lenMax) {                                     // the lenght
+        trigger = false;
+        innerMessagetoElement(idInput,"trop grand");
+        return trigger;
+    }   
+    if(trigger)                                                     //void <p> element because no error to signal
+        innerMessagetoElement(idInput,"");
+    return trigger;
+}
+
+function innerMessagetoElement(idInpuEl,strMessageError) {                          
+    document.getElementById("erro" + idInpuEl).innerHTML = "";
+    document.getElementById("erro" + idInpuEl).innerHTML = strMessageError;
+}
+
+
+function validate() {
+    let canContainSpace = false;
+    let mustNotContainSpace = true;
+    let OnlyNumber = true;
+    let OnlyNumberNot = false;
+    let OnlyLetter = true;
+    let OnlyLetterNot = false;
+
+    let allowedSend = [true,true,true,true];
+
+    //vehicule inputs
+
+    allowedSend[0] = checkInput("imatriculation",50,OnlyNumberNot,OnlyLetterNot,mustNotContainSpace);
+    
+    allowedSend[1]= checkInput("nbColis",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+    
+    allowedSend[2] = checkInput("volumeMax",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+    allowedSend[3] = checkInput("weightMax",50,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+
+    console.log(allowedSend);
+    let block = 0;
+    allowedSend.forEach(element => {            // check if each input was validate
+        if(element == false){
+            console.log("envoie pas");
+            block = 1;
+        }
+    });
+    if(block == 0) {
+        addVehicule(getDataVehicule());
+    }
+    console.log(" FIN");
+}
+
+
+
+
+
+
+
+function  getDataVehicule() {
+    let immatriculation = document.getElementById("imatriculation").value;
+    let nbColis = document.getElementById("nbColis").value;
+    let volumeMax = document.getElementById("volumeMax").value;//
+    let weightMax= document.getElementById("weightMax").value;
+    immatriculation = immatriculation.trim();
+    nbColis = nbColis.trim();
+    volumeMax = volumeMax.trim();
+    weightMax= weightMax.trim();
+
+    immatriculation = immatriculation.replace(/\s/, ''); 
+    nbColis = nbColis.replace(/\s/, '');
+    volumeMax = volumeMax.replace(/\s/, ''); 
+    weightMax = weightMax.replace(/\s/, '');
+
+    let array = [immatriculation,nbColis,volumeMax,weightMax];
+    console.log("getDataVehicule()");
+    getDataVehicule("----array----");
+    getDataVehicule(array);
+    return array;
+}
+
+function addVehicule(arrayDataVehicule) {
+    console.log("addVehicule()");
+    console.log("----arrayDataVehicule-----");
+    console.log(arrayDataVehicule);
+    let jsonToSend = {
+        "imatriculation":arrayDataVehicule[0],
+        "nbColis":arrayDataVehicule[1],
+        "volumeMax":arrayDataVehicule[2],
+        "weightMax":arrayDataVehicule[3],
+        "employ":0,
+        "active":1
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/post/creat.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error add vehicule");
+                        console.log(ObjJson["message"]);
+                        alert(ObjJson["message"]);
+                    } else {
+                        addOwn(vehId);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+function addOwn(vehId) {
+    console.log("addOwn()");
+    console.log("vehId -> " + vehId);
+    let idU = id;
+    let idVeh = vehId;
+    console.log("idU -> " + idU);
+    console.log("idVeh -> " + idVeh);
+    let jsonToSend = {
+        "idVehicule":idVeh,
+        "idUser":idU
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error add vehicule");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        getCarsListByDriverId();
+                        alert("votre liste de véhicule propriétaire est mise à jour");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}

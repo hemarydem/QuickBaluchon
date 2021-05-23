@@ -57,7 +57,7 @@
                         <input type="text" class="form-control" id="weightMax" placeholder="weightMax">
                         <p id="erroweightMax"></p>
                     </div>
-                    <button type="input" class="btn btn-primary">Ajouter</button>
+                    <button type="input" onclick="validate()" class="btn btn-primary">Ajouter</button>
                 </form>
             </div>
         </div>
