@@ -37,16 +37,17 @@ function getCarsListByDriverId() {
                         carsList.innerHTML = ObjJson["message"];
                     } else {
                         carsList.innerHTML = "";
-                        
-                        if(ObjJson.length > 1){ 
+                        if(ObjJson.length > 1) { 
                             ObjJson.forEach(element => {
-                                let nwLine =  document.createElement("p");
-                                nwLine.innerHTML= element["imatriculation"];
-                                carsList.appendChild(nwLine);
-                                let buttOnElement = document.createElement("button");
-                                buttOnElement.setAttribute('onclick','displayCarsDATA(' + String(element["id"])+ ');');
-                                buttOnElement.innerHTML="fiche";
-                                carsList.appendChild(buttOnElement);
+                                if(parseInt(String(element["active"]),10) == 1) {
+                                    let nwLine =  document.createElement("p");
+                                    nwLine.innerHTML= element["imatriculation"];
+                                    carsList.appendChild(nwLine);
+                                    let buttOnElement = document.createElement("button");
+                                    buttOnElement.setAttribute('onclick','displayCarsDATA(' + String(element["id"])+ ');');
+                                    buttOnElement.innerHTML="fiche";
+                                    carsList.appendChild(buttOnElement);
+                                }
                             });   
                         } else {
                             let nwLine =  document.createElement("p");
@@ -589,4 +590,73 @@ function FreeCarSearch(immSch) {
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
+}
+
+function activeDesableCar(idVh){
+    desabbleOwn(idVh);
+    desabbleCar(idVh);
+    getCarsListByDriverId();
+}
+
+function desabbleOwn(vehId) {
+    console.log("desabbleOwn()");
+    console.log("vehId -> " + vehId);
+    let idU = id;
+    let idVeh = vehId;
+    console.log("idU -> " + idU);
+    console.log("idVeh -> " + idVeh);
+    let jsonToSend = {
+        "idVehicule":idVeh,
+        "idUser":idU,
+        "active":0
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error desabbleOwn ");
+                        console.log(ObjJson["message"]);
+                    } 
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+function desabbleCar(vehId) {
+    console.log("desabbleCar()");
+    console.log("vehId -> " + vehId);
+    let idU = id;
+    let idVeh = vehId;
+    console.log("idU -> " + idU);
+    console.log("idVeh -> " + idVeh);
+    let jsonToSend = {
+        "idVehicule":idVeh,
+        "active":0
+    };
+    let request = new XMLHttpRequest();  
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/post/update.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error add vehicule");
+                        console.log(ObjJson["message"]);
+                    } 
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
 }
