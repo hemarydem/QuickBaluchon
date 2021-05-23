@@ -28,7 +28,7 @@ freeCarList();
 function getCarsListByDriverId() {
     let ObjJson;
     let request = new XMLHttpRequest();  
-    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUserId.php?id="+ id,true); 
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUserId.php?id="+ id + "&active=1",true); 
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
