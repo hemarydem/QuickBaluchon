@@ -33,26 +33,33 @@
             
             </div>
         </div>
-        <div class="row justify-content-lg-center ">
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Example label</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Another label</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Another label</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Another label</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
-                </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
+        <div class="row">
+            <h2>Ajouter un nouveau Véhicule</h2>
+            <div class="col">
+                <form>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">immatriculation</label>
+                        <input type="text" class="form-control" placeholder="imatriculation" oninput="checkLen('imatriculation',50)" id="imatriculation">
+                        <p id="limitimatriculation">50/50</p><p id="erroimatriculation"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">nombre de colis</label>
+                        <input type="text" class="form-control" id="nbColis" placeholder="nombre de colis">
+                        <p id="erronbColis"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">volumeMax</label>
+                        <input type="text" class="form-control" id="volumeMax" placeholder="volumeMax">
+                        <p id="errovolumeMax"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">poids Max</label>
+                        <input type="text" class="form-control" id="weightMax" placeholder="weightMax">
+                        <p id="erroweightMax"></p>
+                    </div>
+                    <button type="input" class="btn btn-primary">Ajouter</button>
+                </form>
+            </div>
         </div>
     </div>
         
