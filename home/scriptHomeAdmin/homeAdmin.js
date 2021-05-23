@@ -21,7 +21,6 @@ function removeColis(id) {
                     }else if (String(ObjJson["success"]) == 0) {
                       alert("La suppression à échouer");
                     }
-
                   }
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);

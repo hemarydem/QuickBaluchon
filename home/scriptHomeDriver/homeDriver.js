@@ -17,8 +17,6 @@ let divCarHub = document.getElementById("carHud");
 getCarsListByDriverId();
 getEmployedCar();
 
-
-
 /*
  *  getCarsListByDriverId
  *
@@ -227,3 +225,7 @@ function carUpdate(objData) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(objData));
 }
+
+/*
+* vehicule Forme code
+ */
