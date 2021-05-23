@@ -579,7 +579,6 @@ function FreeCarSearch(immSch) {
                             let buttOnElement = document.createElement("button");
                             buttOnElement.setAttribute('onclick','getFreeCar(' + String(ObjJson[0]["id"])+ ');');
                             buttOnElement.innerHTML="fiche";
-                            buttOnElement.classList.add('btn btn-success');
                             freeVHList.appendChild(buttOnElement);
                         }
                     }
