@@ -85,11 +85,6 @@
             <div class="col" id="currentDepot">
             </div>
         </div>
-
-        <div class="row">
-  <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div>
-  <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div>
-</div>
         <div class="row">
             <div class="col  justify-content-center text-center" >
                 <div class="col px-md-5">
