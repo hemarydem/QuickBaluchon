@@ -6,7 +6,9 @@
  *  All fuction to help the driver to interact with his profile
  * 
  */
-let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon"
+let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon";
+
+let currentOffsetDepot = 0;
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -17,6 +19,7 @@ let divCarHub = document.getElementById("carHud");
 getCarsListByDriverId();
 getEmployedCar();
 freeCarList();
+function getlistDepot();
 
 /*
  *  getCarsListByDriverId
@@ -200,7 +203,7 @@ function switcheEmployeCar(idNwEmployCar) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
                     console.log(ObjJson);
-                   if(ObjJson.hasOwnProperty("message")) {
+                if(ObjJson.hasOwnProperty("message")) {
                         if( "result not found" === String(ObjJson["message"])){
                             //changer la nouvelle voiture en voiture courrente
                             console.log("lanciennne voiture n'a pas été trouvé");
@@ -717,3 +720,41 @@ function desabbleCar(vehId) {
 * display depot functions 
 */
 
+function getlistDepot() {
+    let depotList = document.getElementById("depotList");
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath + "/depots/get/list.php?limit=5&offset=" + currentOffsetDepot,true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                let ObjJson = JSON.parse(request.responseText);
+                console.log(ObjJson);
+                if(ObjJson.hasOwnProperty("message")) {
+                    console.log(ObjJson["message"]);
+                } else if(ObjJson.length > 0) {
+                    if(ObjJson.length == 1) {
+                        let nwLine = document.createElement("p");
+                        nwLine.innerHTML = ObjJson["ville"] +" "+ ObjJson[0]["adresse"];
+                        nwLine.setAttribute("onclick", "getDepotData(" + String(ObjJson[0]["id"]) + ")");
+                        depotList.appendChild(nwLine);
+                    } else {
+                        ObjJson.forEach(element => {
+                            let nwLine = document.createElement("p");
+                            nwLine.innerHTML = element["ville"] +" "+ element["adresse"];
+                            nwLine.setAttribute("onclick", "getDepotData(" + String(element["id"]) + ")");
+                            depotList.appendChild(nwLine);
+                        });
+                    }
+                } else {
+                    let nwLine = document.createElement("p");
+                    nwLine.innerHTML = "no data found";
+                    depotList.appendChild(nwLine);
+                }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
