@@ -20,6 +20,7 @@ let divCarHub = document.getElementById("carHud");
 getCarsListByDriverId();
 getEmployedCar();
 freeCarList();
+
 getlistDepot();
 getMaxOffset();
 
@@ -805,10 +806,14 @@ function next() {
 function last() {
     let offset = currentOffsetDepot - 5;
     if(offset < 0) {
-      currentOffsetDepot = 0;
-      return currentOffsetDepot;
+        currentOffsetDepot = 0;
+        return currentOffsetDepot;
     } else {
-      currentOffsetDepot = offset;
-      getlistDepot();
+        currentOffsetDepot = offset;
+        getlistDepot();
     }
-  }
+}
+
+function getDepotData() {
+    console.log("ok");
+}
