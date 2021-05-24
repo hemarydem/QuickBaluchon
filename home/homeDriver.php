@@ -70,6 +70,29 @@
                 <button type="button" onclick="vecSch()" class="btn btn-primary">Search</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <h1>Les Depots</h1>
+            </div>
+            <div class="col">
+                <h1 id="titleCarInformation" >Mon dépot actuelle</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="depotList">
+                
+            </div>
+            <div class="col" id="currentDepot">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col  justify-content-center text-center" >
+                <button type="button" class="btn btn-primary btn-lg">PRECEDENT</button><button type="button" class="btn btn-primary btn-lg">SUIVANT</button>
+            </div>
+            <div class="col justify-content-center text-center">
+                <button type="button" class="btn btn-primary btn-lg">SELECTIONNER</button>
+            </div>
+        </div>
     </div>
         
     <?php
