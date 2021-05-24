@@ -734,14 +734,14 @@ function getlistDepot() {
                 } else if(ObjJson.length > 0) {
                     if(ObjJson.length == 1) {
                         let nwLine = document.createElement("p");
-                        nwLine.className = "text-primary";
+                        nwLine.className = "btn-primary";
                         nwLine.innerHTML = ObjJson["ville"] +" "+ ObjJson[0]["adresse"];
                         nwLine.setAttribute("onclick", "getDepotData(" + String(ObjJson[0]["id"]) + ")");
                         depotList.appendChild(nwLine);
                     } else {
                         ObjJson.forEach(element => {
                             let nwLine = document.createElement("p");
-                            nwLine.className = "text-primary";
+                            nwLine.className = "btn-primary";
                             nwLine.innerHTML = element["ville"] +" "+ element["adresse"];
                             nwLine.setAttribute("onclick", "getDepotData(" + String(element["id"]) + ")");
                             depotList.appendChild(nwLine);
