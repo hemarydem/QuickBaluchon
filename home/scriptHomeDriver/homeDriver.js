@@ -9,6 +9,7 @@
 let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon";
 
 let currentOffsetDepot = 0;
+let maxDepotOffset = 10;
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -20,6 +21,7 @@ getCarsListByDriverId();
 getEmployedCar();
 freeCarList();
 getlistDepot();
+getMaxOffset();
 
 /*
  *  getCarsListByDriverId
@@ -733,6 +735,7 @@ function getlistDepot() {
                     console.log(ObjJson["message"]);
                 } else if(ObjJson.length > 0) {
                     if(ObjJson.length == 1) {
+                        depotList.innerHTML = "";
                         let nwLine = document.createElement("p");
                         nwLine.className = "btn-primary";
                         nwLine.innerHTML = ObjJson["ville"] +" "+ ObjJson[0]["adresse"];
@@ -740,6 +743,7 @@ function getlistDepot() {
                         depotList.appendChild(nwLine);
                     } else {
                         ObjJson.forEach(element => {
+                            depotList.innerHTML = "";
                             let nwLine = document.createElement("p");
                             nwLine.className = "btn-primary";
                             nwLine.innerHTML = element["ville"] +" "+ element["adresse"];
@@ -748,6 +752,7 @@ function getlistDepot() {
                         });
                     }
                 } else {
+                    depotList.innerHTML = "";
                     let nwLine = document.createElement("p");
                     nwLine.innerHTML = "no data found";
                     depotList.appendChild(nwLine);
@@ -760,3 +765,50 @@ function getlistDepot() {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+
+function getMaxOffset() {
+    let ObjJson;
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath + "/depots/get/count.php",true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log(ObjJson);
+                    } else {
+                        console.log("setting");
+                        maxDepotOffset = ObjJson["total"] - 5;
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+
+
+function next() {
+    let offset = currentOffsetDepot + 5;
+    if(offset > maxDepotOffset) {
+        return currentOffsetDepot;
+    } else {
+        currentOffsetDepot = offset;
+        getlistDepot();
+    }
+}
+
+function last() {
+    let offset = currentOffsetDepot - 5;
+    if(offset < 0) {
+      currentOffsetDepot = 0;
+      return currentOffsetDepot;
+    } else {
+      currentOffsetDepot = offset;
+      getlistDepot();
+    }
+  }
