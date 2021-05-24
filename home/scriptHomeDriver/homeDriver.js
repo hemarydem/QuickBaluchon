@@ -817,3 +817,29 @@ function last() {
 function getDepotData() {
     console.log("ok");
 }
+
+/*deposits/get/list.php?limit=100&offset=0&idUser=96 */
+
+function getCurrentDEPOT(){
+    let div = document.getElementById("currentDepot");
+    let ObjJson;
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath + "/deposits/get/list.php?limit=1&offset=0&idUser="+ String(id)+"&active=1" ,true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log(ObjJson);
+                        div.innerHTML = "no data found";
+                    } else {
+                        
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
