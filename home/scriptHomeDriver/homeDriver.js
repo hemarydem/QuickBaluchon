@@ -743,8 +743,8 @@ function getlistDepot() {
                         nwLine.setAttribute("onclick", "getDepotData(" + String(ObjJson[0]["id"]) + ")");
                         depotList.appendChild(nwLine);
                     } else {
+                        depotList.innerHTML = "";
                         ObjJson.forEach(element => {
-                            depotList.innerHTML = "";
                             let nwLine = document.createElement("p");
                             nwLine.className = "btn-primary";
                             nwLine.innerHTML = element["ville"] +" "+ element["adresse"];
