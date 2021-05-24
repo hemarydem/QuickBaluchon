@@ -39,6 +39,7 @@ if(isset($_GET)) {
             $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
             if(empty($rows)){
                 echo json_encode(["message"=>"no result"]);
+                exit(0);
             }
             $json = json_encode($rows);
             print_r($json);
