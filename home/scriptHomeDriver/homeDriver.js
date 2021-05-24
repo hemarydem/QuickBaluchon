@@ -19,6 +19,7 @@ let divCarHub = document.getElementById("carHud");
 getCarsListByDriverId();
 getEmployedCar();
 freeCarList();
+function getlistDepot();
 
 /*
  *  getCarsListByDriverId
