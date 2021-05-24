@@ -711,3 +711,9 @@ function desabbleCar(vehId) {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(JSON.stringify(jsonToSend));
 }
+
+/*
+*
+* display depot functions 
+*/
+
