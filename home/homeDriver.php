@@ -87,12 +87,8 @@
         </div>
         <div class="row">
             <div class="col  justify-content-center text-center" >
-                <div class="col px-md-5">
-                    <button type="button" class="btn btn-primary btn-lg">PRECEDENT</button>
-                </div>
-                <div class="col px-md-5">
-                    <button type="button" class="btn btn-primary btn-lg">SUIVANT</button>
-                </div>
+                <button type="button" class="btn btn-primary btn-lg">PRECEDENT</button>
+                <button type="button" class="btn btn-primary btn-lg">SUIVANT</button>
             </div>
             <div class="col justify-content-center text-center">
                 <button type="button" class="btn btn-primary btn-lg">SELECTIONNER</button>
