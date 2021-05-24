@@ -35,9 +35,12 @@ if(isset($_GET)) {
     if ($statement !== false) {
         $success = $statement->execute($params);
         if ($success) {
-            $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-            $json = json_encode($rows);
             header("Content-Type: application/json");
+            $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(empty($rows)){
+                echo json_encode(["message"=>"no result"]);
+            }
+            $json = json_encode($rows);
             print_r($json);
         } else {
             http_response_code(500);
