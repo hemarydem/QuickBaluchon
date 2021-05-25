@@ -24,6 +24,7 @@ freeCarList();
 getlistDepot();
 getMaxOffset();
 getCurrentDEPOT();
+getLicencePicture();
 
 /*
  *  getCarsListByDriverId
