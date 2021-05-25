@@ -1000,3 +1000,29 @@ function depotAssignement(depotId, userId, activeBoolean){
     console.log(jsonToSend);
     request.send(JSON.stringify(jsonToSend));
 }
+
+function getLicencePicture(){
+    let imgElement = document.getElementById("imgLicence");
+      let request = new XMLHttpRequest();
+      request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/user.php?id=" + id + "&licencePath=1",true);
+      request.onreadystatechange = function() {
+          if(request.readyState == 4) {
+                  if(request.status == 200) {
+                      let ObjJson = JSON.parse(request.responseText);
+                      if(ObjJson.hasOwnProperty("message")) {
+                          console.log("error");
+                          console.log(ObjJson["message"]);
+                      } else {
+                        let str = String(ObjJson["licencePath"])
+                        str = str.substring(1);
+                        console.log(str);
+                        imgElement.setAttribute("src", "https://quickbaluchonservice.site/QuickBaluchon/licences" + str);
+                      }
+              } else {
+                  alert("Error: returned status code " + request.status + " " + request.statusText);
+              }
+          }
+      }
+      request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      request.send();
+  }
