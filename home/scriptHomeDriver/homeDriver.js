@@ -817,30 +817,35 @@ function last() {
 /**
  * display data of a debot who's not assigned
  *  */ 
-function getDepotData() {
+ function getDepotData(paramId) {
+    console.log(" call getDepotData(paramId)");
     let div = document.getElementById("currentDepot");
     let ObjJson;
     let request = new XMLHttpRequest();
-    request.open("GET", apiPath + "/depots/get/depot.php?id="+ String(id) ,true);
+    request.open("GET", apiPath + "/depots/get/depot.php?id="+ String(paramId) ,true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     ObjJson = JSON.parse(request.responseText);
-                    if(ObjJson.hasOwnProperty("message")) {
+                    if( ObjJson == null ||ObjJson.hasOwnProperty("message")) {
+                        console.log("objson null ou message error");
                         console.log(ObjJson);
                         div.innerHTML = "no data found";
+                        console.log("getDepotData(paramId) FIN");
                     } else {
+                        console.log("reponse");
                         div.innerHTML = "";
                         let villeTitre = document.createElement("h4");
                         let addressTitre = document.createElement("h4");
                         let codePostalTitre = document.createElement("h4");
-                        
+
                         let ville = document.createElement("p");
                         let adresse = document.createElement("p");
                         let codePostale = document.createElement("p");
 
                         let buttton = document.createElement("button");
                         buttton.setAttribute("onclick","depotAssignementProcesse(" + String(ObjJson["id"]) + ", " + String(id) + ")");
+                        buttton.innerHTML="S'ASSIGNER au DEPOT";
 
                         villeTitre.innerHTML = "Ville";
                         addressTitre.innerHTML = "Adresse";
@@ -857,6 +862,7 @@ function getDepotData() {
                         div.appendChild(codePostalTitre);
                         div.appendChild(codePostale);
                         div.appendChild(buttton);
+                        console.log("getDepotData(paramId) FIN");
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -869,47 +875,33 @@ function getDepotData() {
 
 /*deposits/get/list.php?limit=100&offset=0&idUser=96 */
 
-/**
- * 
+/*
+ *
  * display the current depot
  */
 function getCurrentDEPOT(){
+    console.log(" call getCurrentDEPOT()");
     let div = document.getElementById("currentDepot");
     let ObjJson;
     let request = new XMLHttpRequest();
-    request.open("GET", apiPath + "/deposits/get/list.php?limit=1&offset=0&idUser="+ String(id)+"&active=1" ,true);
+    request.open("GET", apiPath + "/deposits/get/list.php?limit=1&offset=0&idUser="+ String(id)+"&active=1&idDepot" ,true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
-                    ObjJson = JSON.parse(request.responseText);
-                    if(ObjJson.hasOwnProperty("message")) {
-                        console.log(ObjJson);
-                        div.innerHTML = "no data found";
-                    } else {
-                        div.innerHTML = "";
-                        let villeTitre = document.createElement("h4");
-                        let addressTitre = document.createElement("h4");
-                        let codePostalTitre = document.createElement("h4");
-                        
-                        let ville = document.createElement("p");
-                        let adresse = document.createElement("p");
-                        let codePostale = document.createElement("p");
-
-                        villeTitre.innerHTML = "Ville";
-                        addressTitre.innerHTML = "Adresse";
-                        codePostalTitre.innerHTML = "CodePostale";
-
-                        ville.innerHTML = ObjJson["ville"];
-                        adresse.innerHTML = ObjJson["adresse"];
-                        codePostale.innerHTML = ObjJson["codePostale"];
-
-                        div.appendChild(villeTitre);
-                        div.appendChild(ville);
-                        div.appendChild(addressTitre);
-                        div.appendChild(adresse);
-                        div.appendChild(codePostalTitre);
-                        div.appendChild(codePostale);
-                    }
+                  console.log(request.responseText);
+                  ObjJson = JSON.parse(request.responseText);
+                  console.log("------"+ObjJson);
+                  if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                    console.log(ObjJson);
+                    div.innerHTML = "no data found";
+                    console.log("objson null ou message error");
+                    console.log("getCurrentDEPOT() fin");
+                  } else {
+                    console.log("reponse OK");
+                    console.log(ObjJson[0]["idDepot"]);
+                    getDepotData(ObjJson[0]["idDepot"]);
+                    console.log("getCurrentDEPOT() fin");
+                  }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -922,20 +914,30 @@ function getCurrentDEPOT(){
 
 
 function depotAssignementProcesse(depotIdA, userIdA) {
-    let request = new XMLHttpRequest();  
-    request.open("GET",apiPath + "/deposits/get/deposit.php?idDepot=" +String(depotIdA) + "&idUser=" + String(userIdA) + "&active=1",true); 
+      console.log(" call depotAssignementProcesse(depotIdA, userIdA)");
+    let request = new XMLHttpRequest();
+    request.open("GET",apiPath + "/deposits/get/list.php?limit=2&offset=0&idUser="+ String(id)+"&active=1&idDepot",true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let ObjJson = JSON.parse(request.responseText);
                     console.log(ObjJson);
-                    if(ObjJson.hasOwnProperty("message")) {
+                   if(ObjJson == null || ObjJson.hasOwnProperty("message")) {   // the assignation doesn't exist
                         console.log("error");
                         console.log(ObjJson["message"]);
-                    } else {
-                        depotAssignement(ObjJson["idDepot"], userIdA, false);
                         depotAssignement(String(depotIdA), String(userIdA), true);
-                        getCurrentDEPOT();
+                        //getCurrentDEPOT();
+                        console.log(" depotAssignementProcesse(depotIdA, userIdA) FIN");
+                    } else {
+                      if(ObjJson[0]["idDepot"] == depotIdA){
+                        alert("vous êtes déjà assigner à ce depot");
+                        return;
+                      } else {
+                        depotAssignement(ObjJson[0]["idDepot"], userIdA, false);         // pass the old depot to active 0
+                        depotAssignement(String(depotIdA), String(userIdA), true);    // pass the new depot to active 1
+                        //getCurrentDEPOT();
+                        console.log(" call depotAssignementProcesse(depotIdA, userIdA)");                                            // displaycurrent depot
+                      }
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -943,34 +945,38 @@ function depotAssignementProcesse(depotIdA, userIdA) {
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
+    request.send();
 }
 
 
 
 
 function depotAssignement(depotId, userId, activeBoolean){
-    console.log("depotAssignement()");
+    console.log(" call depotAssignement()");
     console.log("depotId -> " + depotId);
     console.log("userId -> " + userId);
     console.log("activeBoolean -> " + activeBoolean);
     let jsonToSend;
 
     if(activeBoolean) {
+        console.log("activeBoolean -> true");
+        console.log(activeBoolean);
         jsonToSend = {
             "idDepot":depotId,
             "idUser":userId,
             "active":1
         };
     } else {
+      console.log("activeBoolean -> false");
+      console.log(activeBoolean);
         jsonToSend = {
             "idDepot":depotId,
             "idUser":userId,
             "active":0
         };
     }
-    let request = new XMLHttpRequest();  
-    request.open("POST",apiPath + "/deposits/post/creat.php",true); 
+    let request = new XMLHttpRequest();
+    request.open("POST",apiPath + "/deposits/post/creat.php",true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
@@ -986,5 +992,7 @@ function depotAssignement(depotId, userId, activeBoolean){
         }
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    console.log("---jsonToSend---");
+    console.log(jsonToSend);
     request.send(JSON.stringify(jsonToSend));
 }
