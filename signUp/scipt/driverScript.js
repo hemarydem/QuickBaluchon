@@ -243,58 +243,6 @@ function ajaxSendPost(data,urlLink) {
         request.send(JSON.stringify(jsonToSend));
 }
 
-function sendMailConfirmation(resId,resMail) {
-    let jsonToSend = {
-        "id":resId,
-        "mail":resMail
-    };
-    let request = new XMLHttpRequest();  
-    request.open("POST",'https://quickbaluchonservice.site/QuickBaluchon/utls/mail.php',true); 
-    request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-                if(request.status == 200) {
-                    let ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjJson);
-                    if(ObjJson.hasOwnProperty("message")) {
-                        console.log("error mail not send");
-                    } else {
-                        setTokenOnUserprofile(resId,ObjJson["token"]);
-                    }
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
-}
-
-
-function setTokenOnUserprofile(resId,resToken) {
-    let jsonToSend = {
-        "id":resId,
-        "tokenEmail":resToken
-    };
-    let request = new XMLHttpRequest();  
-    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/users/post/update.php",true); 
-    request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-                if(request.status == 200) {
-                    let ObjJson = JSON.parse(request.responseText);
-                    console.log(ObjJson);
-                    if(ObjJson.hasOwnProperty("message")) {
-                        console.log("error maj profil user");
-                    } else {
-                        addVehicule(getDataVehicule())
-                    }
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send(JSON.stringify(jsonToSend));
-}
 
 
 function success() {
