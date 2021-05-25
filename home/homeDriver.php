@@ -95,6 +95,9 @@
                 <button type="button" class="btn btn-primary btn-lg">SELECTIONNER</button>
             </div>
         </div>
+        <div class="row">
+            <img src="<?php echo "../". ltrim($_SESSION["licencePath"],".");?>">
+        </div>
     </div>
         
     <?php
