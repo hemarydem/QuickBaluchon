@@ -97,7 +97,7 @@
         </div>
         <div class="row">
             <?php 
-                $link= ltrim($_SESSION["licencePath"],".");
+                $link= ltrim($_SESSION["licencePath_session"],".");
                 echo "<img src=\"https://quickbaluchonservice.site/QuickBaluchon/licences" . $link . '\">' ;
             ?>
         </div>
