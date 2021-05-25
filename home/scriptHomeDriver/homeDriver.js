@@ -798,6 +798,11 @@ function getMaxOffset() {
 function next() {
     let offset = currentOffsetDepot + 5;
     if(offset > maxDepotOffset) {
+        offset --;
+        while (offset % 5 != 0) {
+            offset --;
+        }
+        currentOffsetDepot = offset;
         return currentOffsetDepot;
     } else {
         currentOffsetDepot = offset;
