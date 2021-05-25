@@ -97,7 +97,7 @@
         </div>
         <div class="row">
             <?php 
-                $link= ltrim($_SESSION["licencePath"]);
+                $link= ltrim($_SESSION["licencePath"],".");
                 echo "<img src=\"../licences" . $link . '\">' ;
             ?>
         </div>
