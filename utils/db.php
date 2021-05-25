@@ -534,7 +534,12 @@ function dataBaseFindOneForMixePrimaryKey(string $sql, array $arrIds) :?array {
     if($statement !== false) {
         $success = $statement->execute($arrIds);
         if($success) {
-            return $statement->fetch(PDO::FETCH_ASSOC);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if (gettype($result) == "array") {
+                return $statement->fetch(PDO::FETCH_ASSOC); //marqueur
+            } else {
+                return null;
+            }
         } else {
             http_response_code(500);
         }
