@@ -11,7 +11,7 @@ if(isset($_GET)) {
     if($rows == null){
         header("Content-Type: application/json");
         echo json_encode(["message"=> "DEPOSIT not found"]);
-        exit(1)
+        exit(1);
     }
     $json = json_encode($rows);
     header("Content-Type: application/json");
