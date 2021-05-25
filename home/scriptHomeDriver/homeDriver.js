@@ -814,12 +814,65 @@ function last() {
     }
 }
 
+/**
+ * display data of a debot who's not assigned
+ *  */ 
 function getDepotData() {
-    console.log("ok");
+    let div = document.getElementById("currentDepot");
+    let ObjJson;
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath + "/depots/get/depot.php?id="+ String(id) ,true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log(ObjJson);
+                        div.innerHTML = "no data found";
+                    } else {
+                        div.innerHTML = "";
+                        let villeTitre = document.createElement("h4");
+                        let addressTitre = document.createElement("h4");
+                        let codePostalTitre = document.createElement("h4");
+                        
+                        let ville = document.createElement("p");
+                        let adresse = document.createElement("p");
+                        let codePostale = document.createElement("p");
+
+                        let buttton = document.createElement("button");
+                        buttton.setAttribute("onclick","depotAssignementProcesse(" + String(ObjJson["id"]) + ", " + String(id) + ")");
+
+                        villeTitre.innerHTML = "Ville";
+                        addressTitre.innerHTML = "Adresse";
+                        codePostalTitre.innerHTML = "CodePostale";
+
+                        ville.innerHTML = ObjJson["ville"];
+                        adresse.innerHTML = ObjJson["adresse"];
+                        codePostale.innerHTML = ObjJson["codePostale"];
+
+                        div.appendChild(villeTitre);
+                        div.appendChild(ville);
+                        div.appendChild(addressTitre);
+                        div.appendChild(adresse);
+                        div.appendChild(codePostalTitre);
+                        div.appendChild(codePostale);
+                        div.appendChild(buttton);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
 }
 
 /*deposits/get/list.php?limit=100&offset=0&idUser=96 */
 
+/**
+ * 
+ * display the current depot
+ */
 function getCurrentDEPOT(){
     let div = document.getElementById("currentDepot");
     let ObjJson;
@@ -833,7 +886,29 @@ function getCurrentDEPOT(){
                         console.log(ObjJson);
                         div.innerHTML = "no data found";
                     } else {
+                        div.innerHTML = "";
+                        let villeTitre = document.createElement("h4");
+                        let addressTitre = document.createElement("h4");
+                        let codePostalTitre = document.createElement("h4");
                         
+                        let ville = document.createElement("p");
+                        let adresse = document.createElement("p");
+                        let codePostale = document.createElement("p");
+
+                        villeTitre.innerHTML = "Ville";
+                        addressTitre.innerHTML = "Adresse";
+                        codePostalTitre.innerHTML = "CodePostale";
+
+                        ville.innerHTML = ObjJson["ville"];
+                        adresse.innerHTML = ObjJson["adresse"];
+                        codePostale.innerHTML = ObjJson["codePostale"];
+
+                        div.appendChild(villeTitre);
+                        div.appendChild(ville);
+                        div.appendChild(addressTitre);
+                        div.appendChild(adresse);
+                        div.appendChild(codePostalTitre);
+                        div.appendChild(codePostale);
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -842,4 +917,74 @@ function getCurrentDEPOT(){
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
+}
+
+
+
+function depotAssignementProcesse(depotIdA, userIdA) {
+    let request = new XMLHttpRequest();  
+    request.open("GET",apiPath + "/deposits/get/deposit.php?idDepot=" +String(depotIdA) + "&idUser=" + String(userIdA) + "&active=1",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        depotAssignement(ObjJson["idDepot"], userIdA, false);
+                        depotAssignement(String(depotIdA), String(userIdA), true);
+                        getCurrentDEPOT();
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+
+
+
+function depotAssignement(depotId, userId, activeBoolean){
+    console.log("depotAssignement()");
+    console.log("depotId -> " + depotId);
+    console.log("userId -> " + userId);
+    console.log("activeBoolean -> " + activeBoolean);
+    let jsonToSend;
+
+    if(activeBoolean) {
+        jsonToSend = {
+            "idDepot":depotId,
+            "idUser":userId,
+            "active":1
+        };
+    } else {
+        jsonToSend = {
+            "idDepot":depotId,
+            "idUser":userId,
+            "active":0
+        };
+    }
+    let request = new XMLHttpRequest();  
+    request.open("POST",apiPath + "/deposits/post/creat.php",true); 
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
 }
