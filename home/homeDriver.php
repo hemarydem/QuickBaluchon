@@ -91,7 +91,7 @@
                 <button type="button" onclick="last()" class="btn btn-primary btn-lg">PRECEDENT</button>
                 <button type="button" onclick="next()" class="btn btn-primary btn-lg">SUIVANT</button>
             </div>
-            <div class="col justify-content-center text-center">
+            <div id="spot" class="col justify-content-center text-center">
                 <button type="button" class="btn btn-primary btn-lg">SELECTIONNER</button>
             </div>
         </div>

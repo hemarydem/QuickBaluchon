@@ -23,6 +23,7 @@ freeCarList();
 
 getlistDepot();
 getMaxOffset();
+getCurrentDEPOT();
 
 /*
  *  getCarsListByDriverId
@@ -845,7 +846,10 @@ function last() {
 
                         let buttton = document.createElement("button");
                         buttton.setAttribute("onclick","depotAssignementProcesse(" + String(ObjJson["id"]) + ", " + String(id) + ")");
-                        buttton.innerHTML="S'ASSIGNER au DEPOT";
+                        buttton.innerHTML="SELECTIONNER"; 
+                        buttton.className="btn btn-primary btn-lg";
+                        let buttonSpot = document.getElementById("spot");
+                        buttonSpot.innerHTML = "";
 
                         villeTitre.innerHTML = "Ville";
                         addressTitre.innerHTML = "Adresse";
@@ -861,7 +865,7 @@ function last() {
                         div.appendChild(adresse);
                         div.appendChild(codePostalTitre);
                         div.appendChild(codePostale);
-                        div.appendChild(buttton);
+                        buttonSpot.appendChild(buttton);
                         console.log("getDepotData(paramId) FIN");
                     }
             } else {
