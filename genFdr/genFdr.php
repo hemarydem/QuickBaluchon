@@ -180,7 +180,7 @@ if(isset($_GET)){
 
         $firstColus = [
             "idDelivery"=> $dataDelyvery["id"],
-            "idUser"=> $idColisTOset
+            "id"=> $idColisTOset
         ];
         $firstColus = json_encode($firstColus);
         $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/post/update.php";
@@ -195,7 +195,7 @@ if(isset($_GET)){
 
         $firstColus = [
             "idDelivery"=> $dataDelyvery["id"],
-            "idUser"=> $idColisTOset
+            "id"=> $idColisTOset
         ];
         $firstColus = json_encode($firstColus);
         $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/post/update.php";
