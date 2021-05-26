@@ -94,7 +94,7 @@ if(isset($_GET)){
         "idDelivery"=> $dataDelyvery["id"],
         "idUser"=> $_GET["id"]
     ];
-
+    $strTocreatDelyveryCheck = json_encode($strTocreatDelyveryCheck);
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/checkDeliverys/post/creat.php";
     $ch = curl_init($urlBase);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $strTocreatDelyveryCheck);
