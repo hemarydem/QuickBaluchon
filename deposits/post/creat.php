@@ -29,14 +29,14 @@ if(execRequestALLreadyExist("SELECT idDepot, idUser, active FROM DEPOSIT WHERE i
         exit(1);
     }
 }
-countArrElem($data, 2);   // must have 11 elements
+countArrElem($data, 3);   // must have 11 elements
 //areSetJsonObjElem($data);                   //TODO function check elements are init
 $data = strToIntJsonArray($data, $intKey);  // cast elements
 insertDeposit(
     "DEPOSIT",
     $data["idDepot"],
     $data["idUser"],
-    1,
+    $data["active"],
     [
         "idDepot" =>  $data["idDepot"],
         "idUser" => $data["idUser"]
