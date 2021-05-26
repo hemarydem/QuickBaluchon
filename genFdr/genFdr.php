@@ -70,6 +70,7 @@ if(isset($_GET)){
        }
     }
     print_r($data);
+*/
 }
 
-*/
+
