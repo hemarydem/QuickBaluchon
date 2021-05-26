@@ -442,7 +442,8 @@ function addOwn(vehId) {
     console.log("idVeh -> " + idVeh);
     let jsonToSend = {
         "idVehicule":idVeh,
-        "idUser":idU
+        "idUser":idU,
+        "active":1
     };
     let request = new XMLHttpRequest();  
     request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php",true); 
