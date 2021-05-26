@@ -23,7 +23,7 @@ if(isset($_GET)){
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $currentDepotArray = json_decode(curl_exec($cURLConnection), true);
     curl_close($cURLConnection);
-    echo "LE Depot \n"
+    echo "LE Depot \n";
     print_r($data);
 
 
