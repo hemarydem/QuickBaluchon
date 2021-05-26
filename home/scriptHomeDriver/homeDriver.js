@@ -13,6 +13,15 @@ let maxDepotOffset = 10;
 let currentDepotid; // pour génération feuille de route
 let toDay  = genDate();// pour génération feuille de route
 
+let currentDepotAddress = null;// pour génération feuille de route
+let currentDepotPostalC = null;// pour génération feuille de route
+let currentDepotCity = null;// pour génération feuille de route
+let currentDepotlatitude= null;
+let currentDepotlongitude= null;
+
+let colisLIst;
+
+
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
 divTOremov.remove();
@@ -916,6 +925,7 @@ function getCurrentDEPOT(){
                         getDepotData(ObjJson[0]["idDepot"]);
                         console.log("getCurrentDEPOT() fin");
                         currentDepotid = parseInt(String(ObjJson[0]["idDepot"]),10); //ajout pour génération feuile de route
+                        setDepotVar(currentDepotid);
                         console.log("currentDepotid = " + currentDepotid);//
                     }
             } else {
@@ -1094,7 +1104,7 @@ function genDate() {
     }
     return String(year + "-" + month + "-" + day);
 }
-
+/*
 function getColisOfToDay(){
     let request = new XMLHttpRequest();
     request.open("GET", apiPath +"/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" + toDay + "&idDepot=" ,true);
@@ -1117,3 +1127,37 @@ function getColisOfToDay(){
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+function setDepotVar(paramId) {
+    console.log(" call setDepotVar(paramId)");
+    let ObjJson;
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath + "/depots/get/depot.php?id="+ String(paramId) ,true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    ObjJson = JSON.parse(request.responseText);
+                    console.log("mon petit depot");
+                    console.log(ObjJson);
+                    if( ObjJson == null ||ObjJson.hasOwnProperty("message")) {
+                        console.log("objson null ou message error");
+                        console.log(ObjJson);
+                        console.log("getDepotData(paramId) FIN");
+                    } else {
+                        currentDepotAddress =  String(ObjJson["adresse"]);
+                        currentDepotPostalC = String(ObjJson["codePostale"]);
+                        currentDepotCity = String(ObjJson["ville"]);
+                        currentDepotlatitude= ObjJson["latitude"];
+                        currentDepotlongitude= ObjJson["longitude"];
+                        console.log("latitude = " + currentDepotlatitude);
+                        console.log("longitude = " + currentDepotlongitude);
+                        console.log("currentDepotAddress " + currentDepotAddress + " currentDepotPostalC " + currentDepotPostalC + "   currentDepotCity      " + currentDepotCity);
+                        console.log("setDepotVar(paramId) FIN");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}*/
