@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET)){
-    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
+  /*  $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -42,25 +42,34 @@ if(isset($_GET)){
         $endPoint ="&destinations=" .$data[$key]["latitude"]  . "," . $data[$key]["longitude"];
         $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
         $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
-        echo "////////////////////////////////////////////////////////////////////////";
-        echo $urlBase;
-        echo "////////////////////////////////////////////////////////////////////////";
         $cURLConnection = curl_init();
         curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
         curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
         $result2 = json_decode(curl_exec($cURLConnection), true);
         curl_close($cURLConnection);
-        print_r($result2);
-        echo "////////////////////////////////////////////////////////////////////////";
-        echo  $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
-        echo "////////////////////////////////////////////////////////////////////////";
         $data[$key]["gap"] = $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
-        echo "////////////////////////////////////////////////////////////////////////";
     }
-    echo "////////////////////////////////////////////////////////////////////////";
-    echo "////////////////////////////////////////////////////////////////////////";
-    echo "////////////////////////////////////////////////////////////////////////";
+
+*/
+
+    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUsed.php?id=".$_GET["id"];
+    $cURLConnection = curl_init();
+    curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
+    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+    $vehicule = json_decode(curl_exec($cURLConnection), true);
+    curl_close($cURLConnection);
+
+    print_r($vehicule);
+
+/*
+    $min = 0;
+
+   foreach ($data as $key => $value) {
+       if($data[$key]["gap"] > $min) {
+           $min = $data[$key]["gap"];
+       }
+    }
     print_r($data);
 }
 
-
+*/
