@@ -804,9 +804,12 @@ function next() {
             offset --;
         }
         currentOffsetDepot = offset;
+        console.log("currentOffsetDepot -> " +currentOffsetDepot);
+        getlistDepot();
         return currentOffsetDepot;
     } else {
         currentOffsetDepot = offset;
+        console.log("currentOffsetDepot -> " +currentOffsetDepot);
         getlistDepot();
     }
 }
@@ -825,7 +828,7 @@ function last() {
 /**
  * display data of a debot who's not assigned
  *  */ 
- function getDepotData(paramId) {
+function getDepotData(paramId) {
     console.log(" call getDepotData(paramId)");
     let div = document.getElementById("currentDepot");
     let ObjJson;
@@ -899,20 +902,20 @@ function getCurrentDEPOT(){
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
-                  console.log(request.responseText);
-                  ObjJson = JSON.parse(request.responseText);
-                  console.log("------"+ObjJson);
-                  if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
-                    console.log(ObjJson);
-                    div.innerHTML = "no data found";
-                    console.log("objson null ou message error");
-                    console.log("getCurrentDEPOT() fin");
-                  } else {
-                    console.log("reponse OK");
-                    console.log(ObjJson[0]["idDepot"]);
-                    getDepotData(ObjJson[0]["idDepot"]);
-                    console.log("getCurrentDEPOT() fin");
-                  }
+                    console.log(request.responseText);
+                    ObjJson = JSON.parse(request.responseText);
+                    console.log("------"+ObjJson);
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                        console.log(ObjJson);
+                        div.innerHTML = "no data found";
+                        console.log("objson null ou message error");
+                        console.log("getCurrentDEPOT() fin");
+                    } else {
+                        console.log("reponse OK");
+                        console.log(ObjJson[0]["idDepot"]);
+                        getDepotData(ObjJson[0]["idDepot"]);
+                        console.log("getCurrentDEPOT() fin");
+                    }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -925,7 +928,7 @@ function getCurrentDEPOT(){
 
 
 function depotAssignementProcesse(depotIdA, userIdA) {
-      console.log(" call depotAssignementProcesse(depotIdA, userIdA)");
+    console.log(" call depotAssignementProcesse(depotIdA, userIdA)");
     let request = new XMLHttpRequest();
     request.open("GET",apiPath + "/deposits/get/list.php?limit=2&offset=0&idUser="+ String(id)+"&active=1&idDepot",true);
     request.onreadystatechange = function() {
@@ -940,15 +943,15 @@ function depotAssignementProcesse(depotIdA, userIdA) {
                         //getCurrentDEPOT();
                         console.log(" depotAssignementProcesse(depotIdA, userIdA) FIN");
                     } else {
-                      if(ObjJson[0]["idDepot"] == depotIdA){
-                        alert("vous êtes déjà assigner à ce depot");
-                        return;
-                      } else {
-                        depotAssignement(ObjJson[0]["idDepot"], userIdA, false);         // pass the old depot to active 0
-                        depotAssignement(String(depotIdA), String(userIdA), true);    // pass the new depot to active 1
-                        //getCurrentDEPOT();
-                        console.log(" call depotAssignementProcesse(depotIdA, userIdA)");                                            // displaycurrent depot
-                      }
+                        if(ObjJson[0]["idDepot"] == depotIdA){
+                            alert("vous êtes déjà assigner à ce depot");
+                            return;
+                        } else {
+                            depotAssignement(ObjJson[0]["idDepot"], userIdA, false);         // pass the old depot to active 0
+                            depotAssignement(String(depotIdA), String(userIdA), true);    // pass the new depot to active 1
+                            //getCurrentDEPOT();
+                            console.log(" call depotAssignementProcesse(depotIdA, userIdA)");                                            // displaycurrent depot
+                        }
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -978,8 +981,8 @@ function depotAssignement(depotId, userId, activeBoolean){
             "active":1
         };
     } else {
-      console.log("activeBoolean -> false");
-      console.log(activeBoolean);
+        console.log("activeBoolean -> false");
+        console.log(activeBoolean);
         jsonToSend = {
             "idDepot":depotId,
             "idUser":userId,
@@ -1010,26 +1013,26 @@ function depotAssignement(depotId, userId, activeBoolean){
 
 function getLicencePicture(){
     let imgElement = document.getElementById("imgLicence");
-      let request = new XMLHttpRequest();
-      request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/user.php?id=" + id + "&licencePath=1",true);
-      request.onreadystatechange = function() {
-          if(request.readyState == 4) {
-                  if(request.status == 200) {
-                      let ObjJson = JSON.parse(request.responseText);
-                      if(ObjJson.hasOwnProperty("message")) {
-                          console.log("error");
-                          console.log(ObjJson["message"]);
-                      } else {
+    let request = new XMLHttpRequest();
+    request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/users/get/user.php?id=" + id + "&licencePath=1",true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
                         let str = String(ObjJson["licencePath"])
                         str = str.substring(1);
                         console.log(str);
                         imgElement.setAttribute("src", "https://quickbaluchonservice.site/QuickBaluchon/licences" + str);
-                      }
-              } else {
-                  alert("Error: returned status code " + request.status + " " + request.statusText);
-              }
-          }
-      }
-      request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      request.send();
-  }
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
