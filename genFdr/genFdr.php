@@ -13,9 +13,9 @@ if(isset($_GET)){
         $data[$key]["gap"] = 0;
     }
     unset($data[4]);
-    print_r($data);
+    //print_r($data);
 
-/*
+
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/depot.php?id=" . $_GET["idDepot"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
@@ -76,7 +76,7 @@ if(isset($_GET)){
      * */
     //print_r($vehicule);
     //$strTocreatDelyvery = "{\"volume\":\"" . $vehicule[0]["volumeMax"] . "\",\"weight\":\"" . $vehicule[0]["weightMax"] . "\",\"distance\":\"0\"}";
-    /*---$strTocreatDelyvery = [
+    $strTocreatDelyvery = [
         "volume"=> $vehicule[0]["volumeMax"],
         "weight"=> $vehicule[0]["weightMax"],
         "distance"=>0
@@ -105,7 +105,7 @@ if(isset($_GET)){
     $result = json_decode(curl_exec($ch),true);
     curl_close($ch);
 
-    ------*/
+
     //print_r($result);
 /*
  * Array
@@ -115,13 +115,14 @@ if(isset($_GET)){
 )
  */
 
-    /*-----------
-
     $idColisTOset = 0;
     $min = 1000000;
     $heavy = 0;
-    $lastLong;
-    $lastLati;
+    $lastLong = 0.0;
+    $lastLati = 0.0;
+    $dotelet = 0;
+    $nextHeavy =0;
+
    foreach ($data as $key => $value) {
        if($data[$key]["gap"] < $min) {
            $min = $data[$key]["gap"];
@@ -129,6 +130,7 @@ if(isset($_GET)){
            $heavy = $data[$key]["volume"];
            $lastLong =  $data[$key]["longitude"];
            $lastLati = $data[$key]["latitude"];
+           $dotelet = $key;
        }
     }
     $firstColus = [
@@ -144,26 +146,65 @@ if(isset($_GET)){
     $result = json_decode(curl_exec($ch),true);
     curl_close($ch);
     print_r($data);
+    unset($data[$dotelet]);
 
+    while($heavy <  $vehicule[0]["weightMax"] ) {
 
-    foreach ($data as $key => $value ) {
-        $urlp1 = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?";
-        $stratPoint = "origins=" . $currentDepotArray["latitude"] . ",". $currentDepotArray["longitude"];
-        $endPoint ="&destinations=" .$data[$key]["latitude"]  . "," . $data[$key]["longitude"];
-        $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
-        $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
-        $cURLConnection = curl_init();
-        curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
-        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-        $result2 = json_decode(curl_exec($cURLConnection), true);
-        curl_close($cURLConnection);
-        $data[$key]["gap"] = $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+        foreach ($data as $key => $value ) {
+            $urlp1 = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?";
+            $stratPoint = "origins=" . $lastLati . ",". $lastLong;
+            $endPoint ="&destinations=" .$data[$key]["latitude"]  . "," . $data[$key]["longitude"];
+            $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
+            $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
+            $cURLConnection = curl_init();
+            curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
+            curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+            $result2 = json_decode(curl_exec($cURLConnection), true);
+            curl_close($cURLConnection);
+            $data[$key]["gap"] = $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+        }
+
+        $min = 1000000;
+        foreach ($data as $key => $value) {
+            if($data[$key]["gap"] < $min) {
+                $min = $data[$key]["gap"];
+                $idColisTOset = $data[$key]["id"];
+                $nextHeavy = $data[$key]["volume"];
+                $lastLong =  $data[$key]["longitude"];
+                $lastLati = $data[$key]["latitude"];
+                $dotelet = $key;
+            }
+        }
+
+        $firstColus = [
+            "idDelivery"=> $dataDelyvery["id"],
+            "idUser"=> $idColisTOset
+        ];
+        $firstColus = json_encode($firstColus);
+        $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/post/update.php";
+        $ch = curl_init($urlBase);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $firstColus);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch),true);
+        curl_close($ch);
+
+        $firstColus = [
+            "idDelivery"=> $dataDelyvery["id"],
+            "idUser"=> $idColisTOset
+        ];
+        $firstColus = json_encode($firstColus);
+        $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/post/update.php";
+        $ch = curl_init($urlBase);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $firstColus);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch),true);
+        curl_close($ch);
+        print_r($data);
+        unset($data[$dotelet]);
+        $heavy += $nextHeavy;
     }
-
-
-
-    */
-
 
 }
 
