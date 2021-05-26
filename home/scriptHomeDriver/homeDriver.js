@@ -733,7 +733,7 @@ function desabbleCar(vehId) {
 function getlistDepot() {
     let depotList = document.getElementById("depotList");
     let request = new XMLHttpRequest();
-    request.open("GET", apiPath + "/depots/get/list.php?limit=5&offset=" + currentOffsetDepot,true);
+    request.open("GET", apiPath + "/depots/get/list.php?limit=10&offset=" + currentOffsetDepot,true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
             if(request.status == 200) {
