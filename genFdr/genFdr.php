@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET)){
-  /*  $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
+   /* $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -51,16 +51,31 @@ if(isset($_GET)){
     }
 
 */
-
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUsed.php?id=".$_GET["id"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $vehicule = json_decode(curl_exec($cURLConnection), true);
     curl_close($cURLConnection);
+    /*    $vehicule
+     *
+     *Array(
+            [0] => Array
+                (
+                [id] => 59
+                [imatriculation] => az-ert-y
+                [nbColis] => 100
+                [volumeMax] => 10
+                [weightMax] => 500
+                [employ] => 1
+     )
+    )
+     *
+     * */
 
-    print_r($vehicule);
-
+    $strTocreatDelyvery = "{volume:" . $vehicule[Ø]["volumeMax"] . ",weight:" . $vehicule[Ø]["weightMax"] . ",distance:0}";
+    $strTocreatDelyvery = json_encode($strTocreatDelyvery);
+    echo $strTocreatDelyvery;
 /*
     $min = 0;
 
