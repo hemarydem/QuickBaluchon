@@ -57,7 +57,7 @@ if(isset($_GET)){
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($cURLConnection), true);
     curl_close($cURLConnection);
-    echo $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"]);
+    echo $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
    // print_r($result);
 }
 
