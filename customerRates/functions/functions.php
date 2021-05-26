@@ -1,6 +1,6 @@
 <?php
 include ("./../../utils/db.php");
-function insertCustomerrate(string $tab, int $weight, int $cost, int $expressCost, int $mode,array $keyValues) {
+function insertCustomerrate(string $tab, float $weight, float $cost, float $expressCost, int $mode,array $keyValues) {
     $db = getDataBaseConnection();
     $sql = "INSERT INTO CUSTOMERRATE(weight, cost, expressCost, mode) VALUES (?,?,?,?)";
     $params = [ $weight,  $cost, $expressCost, $mode];
