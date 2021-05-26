@@ -7,9 +7,8 @@ foreach ($data as $key => $value ){
 }
 
 foreach ($data as $key => $value ){
-
-    $address = str_replace(' ', '+',  $data[$key]["adresse"]);
     $address = str_replace('\'', '',  $data[$key]["adresse"]);
+    $address = str_replace(' ', '+',  $data[$key]["adresse"]);
     $urlBase = "https://api-adresse.data.gouv.fr/search/?q=".$address."+".$data[$key]["codePostale"];
     echo $urlBase;
     echo "\n";/*
