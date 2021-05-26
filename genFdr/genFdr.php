@@ -10,7 +10,8 @@ foreach ($data as $key => $value ){
 
     $address = str_replace(' ', '+',  $data[$key]["adresse"]);
     $urlBase = "https://api-adresse.data.gouv.fr/search/?q=".$address."+".$data[$key]["codePostale"];
-    echo $urlBase;/*
+    echo $urlBase;
+    echo "\n";/*
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
