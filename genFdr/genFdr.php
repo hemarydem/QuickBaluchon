@@ -4,8 +4,8 @@ $data = json_decode($content, true);
 
 
 foreach ($data as $item ){
-    $item["longitude"] = 0;
-    $item["latitude"] = 0;
+    $data["longitude"] = 0;
+    $data["latitude"] = 0;
 }
 print_r($data);
 /*
