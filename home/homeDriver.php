@@ -105,7 +105,7 @@
             </div>
             <div class="col" id="currentDepot">
             </div>
-            <button onclick="getDeliveryId()">Génération Feuille de route</button>
+            <button onclick="getColisOfToDay()">Génération Feuille de route</button>
         </div>
 
         
