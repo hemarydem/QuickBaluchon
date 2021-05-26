@@ -3,9 +3,9 @@ $content = file_get_contents('php://input');
 $data = json_decode($content, true);
 
 
-foreach ($data as $item ){
-    $data["longitude"] = 0;
-    $data["latitude"] = 0;
+foreach ($data as $key =>$value ){
+    $key["longitude"] = 0;
+    $key["latitude"] = 0;
 }
 print_r($data);
 /*
