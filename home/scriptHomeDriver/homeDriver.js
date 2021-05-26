@@ -10,6 +10,8 @@ let apiPath = "https://quickbaluchonservice.site/api/QuickBaluchon";
 
 let currentOffsetDepot = 0;
 let maxDepotOffset = 10;
+let currentDepotid; // pour génération feuille de route
+let toDay  = genDate();// pour génération feuille de route
 
 let divTOremov= document.getElementById("di");
 let id = parseInt(divTOremov.innerHTML);
@@ -907,11 +909,14 @@ function getCurrentDEPOT(){
                         div.innerHTML = "no data found";
                         console.log("objson null ou message error");
                         console.log("getCurrentDEPOT() fin");
+                        currentDepotid = null;
                     } else {
                         console.log("reponse OK");
                         console.log(ObjJson[0]["idDepot"]);
                         getDepotData(ObjJson[0]["idDepot"]);
                         console.log("getCurrentDEPOT() fin");
+                        currentDepotid = parseInt(String(ObjJson[0]["idDepot"]),10); //ajout pour génération feuile de route
+                        console.log("currentDepotid = " + currentDepotid);//
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -1024,6 +1029,85 @@ function getLicencePicture(){
                         str = str.substring(1);
                         console.log(str);
                         imgElement.setAttribute("src", "https://quickbaluchonservice.site/QuickBaluchon/licences" + str);
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+function deliveryProcess() {
+    checkDriverLicence();
+}
+
+function checkDriverLicence() {
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath +"/users/get/user.php?id=" + String(id) + "&driverLicence=1",true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                let ObjJson = JSON.parse(request.responseText);
+                if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                    console.log("error");
+                    console.log(ObjJson["message"]);
+                } else {
+                    let str = String(ObjJson["driverLicence"])
+                    licenceInt = parseInt(str,10);
+                    if(licenceInt == 1) {
+                        console.log("licence valide");
+                    } else {
+                        alert("VOUS DEVEZ AVOIR UNE VALIDATION DE L'ADMINISTRATEUR POUR FAIRE UNE LIVRAISON");
+                    }
+                }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+/*
+ * 
+ * check if we are during the day time
+ * driver can deliver only during the day not at night
+ */
+/*
+function toLateOrToUrly() {
+    let hour  = now.getHours();
+    //TODO RETUNR A BOOLEAN
+}*/
+
+function genDate() {
+    let now = new Date(); //ajoutXxXxXxXxxxxxxxxxx
+    let day = now.getDate();//ajoutXxXxXxXxxxxxxxxxx
+    let month = now.getMonth();
+    let year = now.getFullYear();
+    let hours = now.getHours();
+    month ++;
+    if(month < 10) {
+        month = "0" + String(month);
+    }
+    return String(year + "-" + month + "-" + day);
+}
+
+function getColisOfToDay(){
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath +"/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" + toDay + "&idDepot=" ,true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        console.log("mes petits colis");
+                        console.log(ObjJson);
                     }
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);

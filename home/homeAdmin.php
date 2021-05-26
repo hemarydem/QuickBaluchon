@@ -28,13 +28,14 @@
               <li><a href="#section3" onclick="gestionMenu(3)">Gestion des particuliers</a></li>
               <li><a href="#section4" onclick="gestionMenu(4)">Gestion des colis</a></li>
               <li><a href="#section5" onclick="gestionMenu(5)">Gestion des administrateurs</a></li>
+              <li><a href="#section6" onclick="gestionMenu(6)">Gestion des dépots</a></li>
             </ul>
           </nav>
 
           <div id="div" class="col-sm-9">
-          
+
           </div>
-          
+
         </div>
       </div>
     </main>
