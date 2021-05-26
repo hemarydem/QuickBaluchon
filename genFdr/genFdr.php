@@ -73,10 +73,20 @@ if(isset($_GET)){
      *
      * */
     //print_r($vehicule);
-    echo $vehicule[0]["volumeMax"];
     $strTocreatDelyvery = "{volume:" . $vehicule[0]["volumeMax"] . ",weight:" . $vehicule[0]["weightMax"] . ",distance:0}";
     $strTocreatDelyvery = json_encode($strTocreatDelyvery);
-    echo $strTocreatDelyvery;
+    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/deliverys/post/creat.php"
+    $ch = curl_init($urlBase);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $strTocreatDelyvery);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    print_r($result);
+
+
+
+
 /*
     $min = 0;
 
