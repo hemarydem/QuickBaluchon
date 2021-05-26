@@ -32,3 +32,4 @@ curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec($cURLConnection);
 curl_close($cURLConnection);
 print_r($result);
+echo $result["features"];
