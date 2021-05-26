@@ -23,7 +23,7 @@ foreach ($data as $key => $value ){
    // $data[$key]["latitude"] = 0;
 }
 */
-
+header('Content-type: Application/json');
 $urlBase = "https://api-adresse.data.gouv.fr/search/?q=43+chemin+de+la+source+78590";
 //echo $urlBase;
 $cURLConnection = curl_init();
