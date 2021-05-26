@@ -17,8 +17,8 @@ foreach ($data as $key => $value ){
     $result = curl_exec($cURLConnection);
     curl_close($cURLConnection);
     //header('Content-type: Application/json');
-    print_r($result);
-
+    $result["features"][0]["geometry"]["coordinates"][0];
+    $result["features"][0]["geometry"]["coordinates"][1];
     //$data[$key]["longitude"] = 0;
    // $data[$key]["latitude"] = 0;
 }
