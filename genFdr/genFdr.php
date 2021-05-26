@@ -31,6 +31,6 @@ curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
 curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
 $result = json_decode(curl_exec($cURLConnection), true);
 curl_close($cURLConnection);
-print_r($result["features"]);
+print_r($result["features"][0]);
 
 
