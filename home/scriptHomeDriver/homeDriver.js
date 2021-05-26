@@ -26,6 +26,10 @@ getMaxOffset();
 getCurrentDEPOT();
 getLicencePicture();
 
+while (maxDepotOffset % 5 != 0) {
+    maxDepotOffset --;
+}
+
 /*
  *  getCarsListByDriverId
  *
@@ -798,15 +802,7 @@ function getMaxOffset() {
 
 function next() {
     let offset = currentOffsetDepot + 5;
-    if(offset >= maxDepotOffset) {
-        offset --;
-        while (offset % 5 != 0) {
-            offset --;
-        }
-        offset + 5 ;
-        currentOffsetDepot = offset;
-        console.log("currentOffsetDepot -> " +currentOffsetDepot);
-        getlistDepot();
+    if(offset > maxDepotOffset) {
         return currentOffsetDepot;
     } else {
         currentOffsetDepot = offset;
