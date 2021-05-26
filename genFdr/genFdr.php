@@ -46,10 +46,10 @@ if(isset($_GET)){
         $cURLConnection = curl_init();
         curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
         curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-        $result = json_decode(curl_exec($cURLConnection), true);
+        $result2 = json_decode(curl_exec($cURLConnection), true);
         curl_close($cURLConnection);
-        print_r($result);
-        echo  $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+        print_r($result2);
+        echo  $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
 
         //$data[$key]["gap"] = $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
     }
