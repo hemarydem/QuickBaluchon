@@ -51,7 +51,7 @@ if(isset($_GET)){
         curl_close($cURLConnection);
         $data[$key]["gap"] =  $result["features"][0]["geometry"]["coordinates"][1];
     }*/
-    $url ="https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=48.892880582429321,2.1062883883451931&destinations=48.8480178,2.0556039&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
+    $urlBase ="https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins=48.892880582429321,2.1062883883451931&destinations=48.8480178,2.0556039&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
