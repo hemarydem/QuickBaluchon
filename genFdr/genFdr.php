@@ -73,7 +73,7 @@ if(isset($_GET)){
      *
      * */
 
-    $strTocreatDelyvery = "{volume:" . $vehicule[Ø]["volumeMax"] . ",weight:" . $vehicule[Ø]["weightMax"] . ",distance:0}";
+    $strTocreatDelyvery = "{volume:" . $vehicule["Ø"]["volumeMax"] . ",weight:" . $vehicule["Ø"]["weightMax"] . ",distance:0}";
     $strTocreatDelyvery = json_encode($strTocreatDelyvery);
     echo $strTocreatDelyvery;
 /*
