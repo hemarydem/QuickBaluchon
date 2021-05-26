@@ -452,7 +452,7 @@ function addOwn(vehId) {
                 if(request.status == 200) {
                     let ObjJson = JSON.parse(request.responseText);
                     console.log(ObjJson);
-                    if(ObjJson.hasOwnProperty("message")) {
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
                         console.log("error add vehicule");
                         console.log(ObjJson["message"]);
                     } else {
