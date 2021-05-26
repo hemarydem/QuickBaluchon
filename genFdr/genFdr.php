@@ -38,8 +38,8 @@ if(isset($_GET)){
 
     foreach ($data as $key => $value ) {
         $urlp1 = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?";
-        $stratPoint = "origins=" . $currentDepotArray["longitude"] . ",". $currentDepotArray["latitude"];
-        $endPoint ="&destinations=" . $data[$key]["longitude"] . "," . $data[$key]["latitude"];
+        $stratPoint = "origins=" . $currentDepotArray["latitude"] . ",". $currentDepotArray["longitude"];
+        $endPoint ="&destinations=" .$data[$key]["latitude"]  . "," . $data[$key]["longitude"];
         $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
         $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
         echo "////////////////////////////////////////////////////////////////////////";
