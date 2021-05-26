@@ -12,6 +12,7 @@ if(isset($_GET)){
         $data[$key]["latitude"] = 0;
         $data[$key]["gap"] = 0;
     }
+    unset($data[4]);
     print_r($data);
 
 /*
