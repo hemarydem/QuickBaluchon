@@ -87,7 +87,7 @@ if(isset($_GET)){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $dataDelyvery = json_decode(curl_exec($ch),true);
     curl_close($ch);
-
+    echo
     print_r($dataDelyvery);
 
     $strTocreatDelyveryCheck = [
