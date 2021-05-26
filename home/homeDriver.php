@@ -99,6 +99,15 @@
             <img src="" id="imgLicence">
         </div>
     </div>
+    <div class="row">
+            <div class="col" id="deliveryDiv">
+                
+            </div>
+            <div class="col" id="currentDepot">
+            </div>
+            <button onclick="getDeliveryId()">Génération Feuille de route</button>
+        </div>
+
         
     <?php
         echo "<div id=\"di\">" . $_SESSION["id_session"] . "</div>";

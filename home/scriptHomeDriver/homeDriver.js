@@ -1104,21 +1104,15 @@ function genDate() {
     }
     return String(year + "-" + month + "-" + day);
 }
-/*
+
 function getColisOfToDay(){
     let request = new XMLHttpRequest();
-    request.open("GET", apiPath +"/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" + toDay + "&idDepot=" ,true);
+    request.open("GET", apiPath +"/genFdr/genFdr.php?date=" + String(toDay) + "&idDepot=" + String(currentDepotid) + "&id=" + String(id),true);
     request.onreadystatechange = function() {
         if(request.readyState == 4) {
                 if(request.status == 200) {
-                    let ObjJson = JSON.parse(request.responseText);
-                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
-                        console.log("error");
-                        console.log(ObjJson["message"]);
-                    } else {
-                        console.log("mes petits colis");
-                        console.log(ObjJson);
-                    }
+                    console.log("ok");
+                    getDeliveryId();
             } else {
                 alert("Error: returned status code " + request.status + " " + request.statusText);
             }
@@ -1127,6 +1121,100 @@ function getColisOfToDay(){
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
 }
+
+function getDeliveryId(){
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath +"/checkDeliverys/get/list.php?limit=100&offset=0&idDelivery&idUser="+ String(id),true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        if(ObjJson.length > 1) {
+                            ObjJson.forEach(element=>{
+                                ObjJson["idDelivery"]
+                            });
+                        }
+                    }
+                    console.log("ok");
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+function diplayDelyvery(idDELIV){
+    let div = document.getElementById("deliveryDiv");
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath +"/deliverys/get/delivery.php?id="+ String(idDELIV),true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        if(ObjJson.length > 1) {
+                            ObjJson.forEach(element=>{
+                                let str =  String(ObjJson["id"] )+ String(ObjJson["volume"])+String(ObjJson["distance"]);
+                                let ele =  document.createElement("p");
+                                ele.innerHTML = str;
+                                div.appendChild(ele);
+                                diplayDelyveryColis(String(ObjJson["id"] ), ele);
+                            });
+                        }
+                    }
+                    console.log("ok");
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+function diplayDelyveryColis(idDELIV, elementPArent){
+    let div = document.getElementById("deliveryDiv");
+    let request = new XMLHttpRequest();
+    request.open("GET", apiPath +"/colis/get/list.php?limit=100&offset=0&idDelivery="+String(idDELIV)+"&id&adresse",true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
+                        console.log("error");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        if(ObjJson.length > 1) {
+                            ObjJson.forEach(element=>{
+                                let str =  String(ObjJson["adresse"] )+ String(ObjJson["id"]);
+                                let ele =  document.createElement("p");
+                                ele.innerHTML = str;
+                                div.appendChild(elementPArent);
+                            });
+                        }
+                    }
+                    console.log("ok");
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send();
+}
+
+
+
+
 function setDepotVar(paramId) {
     console.log(" call setDepotVar(paramId)");
     let ObjJson;
@@ -1160,4 +1248,4 @@ function setDepotVar(paramId) {
     }
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send();
-}*/
+}
