@@ -26,7 +26,7 @@ if(execRequestALLreadyExist("SELECT idVehicule, idUser, active FROM OWN WHERE id
         exit(1);
     }
 }
-countJsonObjElem($data, 2);
+countJsonObjElem($data, 3);
 insertOwn(
      "OWN",
     $data->{"idVehicule"},
