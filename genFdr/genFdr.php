@@ -1,10 +1,13 @@
 <?php
 $content = file_get_contents('php://input');
 $data = json_decode($content, true);
+
+
+foreach ($data as $item ){
+    $item["longitude"] = 0;
+    $item["latitude"] = 0;
+}
 print_r($data);
-
-
-
 /*
 $urlBase = "https://api-adresse.data.gouv.fr/search/?q=43+chemin+de+la+source+78590";
 $cURLConnection = curl_init();
