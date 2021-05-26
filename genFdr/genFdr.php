@@ -32,6 +32,6 @@ curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
 $result = json_decode(curl_exec($cURLConnection), true);
 curl_close($cURLConnection);
 print_r($result);
-echo $result["features"];
+echo $result["features"]["geometry"]["coordinates"][0];
 
 
