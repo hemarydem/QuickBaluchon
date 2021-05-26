@@ -2,6 +2,7 @@
 include("./../functions/functions.php");
 include ("./../../chckFnctns/chckFnctns.php");
 include ("./../../listfnctns/listfnctns.php");
+header("Access-Control-Allow-Origin: *");
 if(isset($_GET)) {
    /* if(isset($_GET['tokenApi'])) {
         chekIfRequestFromShield($_GET['tokenApi']);
@@ -24,7 +25,7 @@ if(isset($_GET)) {
     $rows = dataBaseFindOne($sql,(int)$id); //db.php
     $json = json_encode($rows);
     header("Content-Type: application/json");
-    header("Access-Control-Allow-Origin: *");
+
     print_r($json);
 
 } else {
