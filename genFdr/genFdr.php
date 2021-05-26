@@ -25,7 +25,7 @@ foreach ($data as $key => $value ){
 */
 
 $urlBase = "https://api-adresse.data.gouv.fr/search/?q=43+chemin+de+la+source+78590";
-echo $urlBase;
+//echo $urlBase;
 $cURLConnection = curl_init();
 curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
 curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
