@@ -41,19 +41,26 @@ if(isset($_GET)){
         $stratPoint = "origins=" . $currentDepotArray["longitude"] . ",". $currentDepotArray["latitude"];
         $endPoint ="&destinations=" . $data[$key]["longitude"] . "," . $data[$key]["latitude"];
         $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
-        $urlBase = "https://api-adresse.data.gouv.fr/search/?q=".$address."+".$data[$key]["codePostale"];
-        //echo $urlBase;
+        $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
+        echo "////////////////////////////////////////////////////////////////////////";
+        echo $urlBase;
+        echo "////////////////////////////////////////////////////////////////////////";
         $cURLConnection = curl_init();
         curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
         curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
         $result2 = json_decode(curl_exec($cURLConnection), true);
         curl_close($cURLConnection);
         print_r($result2);
+        echo "////////////////////////////////////////////////////////////////////////";
         echo  $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
-
-        //$data[$key]["gap"] = $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+        echo "////////////////////////////////////////////////////////////////////////";
+        $data[$key]["gap"] = $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+        echo "////////////////////////////////////////////////////////////////////////";
     }
-    //print_r($data);
+    echo "////////////////////////////////////////////////////////////////////////";
+    echo "////////////////////////////////////////////////////////////////////////";
+    echo "////////////////////////////////////////////////////////////////////////";
+    print_r($data);
 }
 
 
