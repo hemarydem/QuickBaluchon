@@ -16,7 +16,7 @@ foreach ($data as $key => $value ){
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $result = curl_exec($cURLConnection);
     curl_close($cURLConnection);
-    header('Content-type: Application/json');
+    //header('Content-type: Application/json');
     print_r($result);
 
     //$data[$key]["longitude"] = 0;
