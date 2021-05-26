@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET)){
-   /* $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
+    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/list.php?limit=1000&offset=0&isPayed=1&sendingStatut=1&id&adresse&weight&volume&codePostale&dDate=" . $_GET["date"] . "&idDepot=". $_GET["idDepot"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -12,8 +12,9 @@ if(isset($_GET)){
         $data[$key]["latitude"] = 0;
         $data[$key]["gap"] = 0;
     }
+    print_r($data);
 
-
+/*
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/depot.php?id=" . $_GET["idDepot"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
@@ -50,7 +51,7 @@ if(isset($_GET)){
         $data[$key]["gap"] = $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
     }
 
-*/
+
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/get/getCarsByUsed.php?id=".$_GET["id"];
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
@@ -74,7 +75,7 @@ if(isset($_GET)){
      * */
     //print_r($vehicule);
     //$strTocreatDelyvery = "{\"volume\":\"" . $vehicule[0]["volumeMax"] . "\",\"weight\":\"" . $vehicule[0]["weightMax"] . "\",\"distance\":\"0\"}";
-    $strTocreatDelyvery = [
+    /*---$strTocreatDelyvery = [
         "volume"=> $vehicule[0]["volumeMax"],
         "weight"=> $vehicule[0]["weightMax"],
         "distance"=>0
@@ -88,7 +89,7 @@ if(isset($_GET)){
     $dataDelyvery = json_decode(curl_exec($ch),true);
     curl_close($ch);
 
-    print_r($dataDelyvery);
+    //print_r($dataDelyvery);
 
     $strTocreatDelyveryCheck = [
         "idDelivery"=> $dataDelyvery["id"],
@@ -102,19 +103,67 @@ if(isset($_GET)){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($ch),true);
     curl_close($ch);
-    print_r($result);
 
-
+    ------*/
+    //print_r($result);
 /*
-    $min = 0;
+ * Array
+(
+[idDelivery] => 10
+[idUser] => 119
+)
+ */
 
+    /*-----------
+
+    $idColisTOset = 0;
+    $min = 1000000;
+    $heavy = 0;
+    $lastLong;
+    $lastLati;
    foreach ($data as $key => $value) {
-       if($data[$key]["gap"] > $min) {
+       if($data[$key]["gap"] < $min) {
            $min = $data[$key]["gap"];
+           $idColisTOset = $data[$key]["id"];
+           $heavy = $data[$key]["volume"];
+           $lastLong =  $data[$key]["longitude"];
+           $lastLati = $data[$key]["latitude"];
        }
     }
+    $firstColus = [
+        "idDelivery"=> $dataDelyvery["id"],
+        "idUser"=> $idColisTOset
+    ];
+    $firstColus = json_encode($firstColus);
+    $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/colis/post/update.php";
+    $ch = curl_init($urlBase);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $firstColus);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = json_decode(curl_exec($ch),true);
+    curl_close($ch);
     print_r($data);
-*/
+
+
+    foreach ($data as $key => $value ) {
+        $urlp1 = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?";
+        $stratPoint = "origins=" . $currentDepotArray["latitude"] . ",". $currentDepotArray["longitude"];
+        $endPoint ="&destinations=" .$data[$key]["latitude"]  . "," . $data[$key]["longitude"];
+        $urlp2End = "&travelMode=driving&key=AvodcS2fiYqi1KDA7R1XZ-FQV2qEJKihfcFKfcpQrZwdWRCMLXDJ67WrQwRthFe8";
+        $urlBase = $urlp1 . $stratPoint . $endPoint . $urlp2End ;
+        $cURLConnection = curl_init();
+        curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
+        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+        $result2 = json_decode(curl_exec($cURLConnection), true);
+        curl_close($cURLConnection);
+        $data[$key]["gap"] = $result2["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
+    }
+
+
+
+    */
+
+
 }
 
 
