@@ -48,6 +48,7 @@ if(isset($_GET)){
         curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
         $result = json_decode(curl_exec($cURLConnection), true);
         curl_close($cURLConnection);
+        print_r($result);
         echo  $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
 
         //$data[$key]["gap"] = $result["resourceSets"][0]["resources"][0]["results"][0]["travelDistance"];
