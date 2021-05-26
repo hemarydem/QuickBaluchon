@@ -15,8 +15,8 @@ $intKey = [
     "weight",
     "distance"
 ];
-//print_r($data);
-//countJsonObjElem($data, 3);   // must have 11 elements
+print_r($data);
+countJsonObjElem($data, 3);   // must have 11 elements
 areSetJsonObjElem($data);                   // elements are init
 strToIntJsonObjElem($data, $intKey);         // cast elements
 insertDelivery(
