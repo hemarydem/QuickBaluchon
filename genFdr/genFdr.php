@@ -74,9 +74,9 @@ if(isset($_GET)){
      * */
     //print_r($vehicule);
     echo $vehicule[0]["volumeMax"];
-    /*$strTocreatDelyvery = "{volume:" . $vehicule["volumeMax"] . ",weight:" . $vehicule["weightMax"] . ",distance:0}";
+    $strTocreatDelyvery = "{volume:" . $vehicule[0]["volumeMax"] . ",weight:" . $vehicule[0]["weightMax"] . ",distance:0}";
     $strTocreatDelyvery = json_encode($strTocreatDelyvery);
-    echo $strTocreatDelyvery;*/
+    echo $strTocreatDelyvery;
 /*
     $min = 0;
 
