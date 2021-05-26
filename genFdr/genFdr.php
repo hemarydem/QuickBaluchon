@@ -11,7 +11,6 @@ foreach ($data as $key => $value ){
     $address = str_replace(' ', '+',  $address);
     $urlBase = "https://api-adresse.data.gouv.fr/search/?q=".$address."+".$data[$key]["codePostale"];
     echo $urlBase;
-    echo "\n";/*
     $cURLConnection = curl_init();
     curl_setopt($cURLConnection, CURLOPT_URL, $urlBase);
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -20,7 +19,7 @@ foreach ($data as $key => $value ){
     header('Content-type: Application/json');
     print_r($result);
 
-    $data[$key]["longitude"] = 0;
-    $data[$key]["latitude"] = 0;*/
+    //$data[$key]["longitude"] = 0;
+   // $data[$key]["latitude"] = 0;
 }
 
