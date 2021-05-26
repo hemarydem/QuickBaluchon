@@ -1,5 +1,126 @@
-
 let div = document.getElementById("div");
+
+function updateOwnActive(idUser, idVehicule, active) {
+    console.log("addOwn()");
+    console.log("idVehicule -> " + idVehicule);
+    console.log("idUser -> " + idUser);
+    let jsonToSend = {
+        "idVehicule":idVehicule,
+        "idUser":idUser,
+        "active":active
+    };
+    let request = new XMLHttpRequest();
+    request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/owns/post/creat.php",true);
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+                if(request.status == 200) {
+                    let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
+                    if(ObjJson.hasOwnProperty("message")) {
+                        console.log("error add vehicule");
+                        console.log(ObjJson["message"]);
+                    } else {
+                        gestionMenu(2);
+                        alert("votre liste de véhicule propriétaire est mise à jour");
+                    }
+            } else {
+                alert("Error: returned status code " + request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(JSON.stringify(jsonToSend));
+}
+
+function executeCreateDepot(ville, address, codePostale, longitude, latitude) {
+  let ObjJson;
+  let jsonToSend = {
+      ville:ville,
+      address:address,
+      codePostale:codePostale,
+      longitude:longitude,
+      latitude:latitude
+  };
+  let request = new XMLHttpRequest();
+  request.open("POST","https://quickbaluchonservice.site/api/QuickBaluchon/depots/post/creat.php",true);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                ObjJson = JSON.parse(request.responseText);
+                if(ObjJson.hasOwnProperty("message")) {
+                        alert(ObjJson["message"]);
+                    } else {
+                        alert("Création du nouveau dépot réussie");
+                        gestionMenu(6);
+                    }
+
+          } else {
+              alert("Error: returned status code " + request.status + " " + request.statusText);
+          }
+      }
+  }
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  request.send(JSON.stringify(jsonToSend));
+}
+
+function createDepotForm() {
+  let newDiv = document.getElementById("section6");
+  let divCreate = document.createElement('div');
+  divCreate.setAttribute("class", "col");
+  divCreate.setAttribute("id", "divCreate");
+  newDiv.appendChild(divCreate);
+  let h1 = document.createElement('h1');
+  h1.innerHTML = "Créer un nouveau dépot";
+  divCreate.appendChild(h1);
+
+  let input1 = document.createElement('input');
+  divCreate.appendChild(input1);
+  input1.setAttribute("id", "ville");
+  input1.setAttribute("type", "text");
+  input1.setAttribute("placeholder", "Ville");
+  input1.setAttribute("oninput", "checkLen('ville',255)");
+  let p1 = document.createElement('p');
+  divCreate.appendChild(p1);
+  p1.setAttribute("id", "limitville");
+  p1.innerHTML = "255/255";
+  let p2 = document.createElement('p');
+  divCreate.appendChild(p2);
+  p2.setAttribute("id", "erroville");
+
+  let input2 = document.createElement('input');
+  divCreate.appendChild(input2);
+  input2.setAttribute("id", "address");
+  input2.setAttribute("type", "text");
+  input2.setAttribute("placeholder", "Adresse");
+  input2.setAttribute("oninput", "checkLen('address',255)");
+  let p3 = document.createElement('p');
+  divCreate.appendChild(p3);
+  p3.setAttribute("id", "limitaddress");
+  p3.innerHTML = "255/255";
+  let p4 = document.createElement('p');
+  divCreate.appendChild(p4);
+  p4.setAttribute("id", "erroaddress");
+
+  let input3 = document.createElement('input');
+  divCreate.appendChild(input3);
+  input3.setAttribute("id", "codePostale");
+  input3.setAttribute("type", "text");
+  input3.setAttribute("placeholder", "Code postal");
+  input3.setAttribute("oninput", "checkLen('codePostale',50)");
+  let p5 = document.createElement('p');
+  divCreate.appendChild(p5);
+  p5.setAttribute("id", "limitcodePostale");
+  p5.innerHTML = "50/50";
+  let p6 = document.createElement('p');
+  divCreate.appendChild(p6);
+  p6.setAttribute("id", "errocodePostale");
+
+  let button = document.createElement('button');
+  button.setAttribute("onclick", "validateDepot()");
+  button.innerHTML = "Créer";
+  divCreate.appendChild(button);
+
+}
 
 function updateUserActive(id, active) {
   let jsonToSend
@@ -104,6 +225,75 @@ function checkLen(StrElementId,limit) {
     }
 }
 
+function validateDepot() {
+    let canContainSpace = false;
+    let mustNotContainSpace = true;
+    let OnlyNumber = true;
+    let OnlyNumberNot = false;
+    let OnlyLetter = true;
+    let OnlyLetterNot = false;
+
+    let allowedSend = [true,true,true];
+
+    allowedSend[0] = checkInput("ville",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
+
+    allowedSend [1]= checkInput("address",255,OnlyNumberNot,OnlyLetterNot,canContainSpace);
+
+    allowedSend[2] = checkInput("codePostale",255,OnlyNumber,OnlyLetterNot,mustNotContainSpace);
+
+    console.log(allowedSend);
+    let block = 0;
+    allowedSend.forEach(element => {            // check if each input was validate
+        if(element == false){
+            console.log("envoie pas");
+            alert("Erreur dans les informations entrées")
+            block = 1;
+        }
+    });
+    if(block == 0) {
+        createDepot();
+    }
+    console.log(" FIN");
+}
+
+function createDepot() {
+  let ville = document.getElementById("ville").value;
+  let address = document.getElementById("address").value;
+  let codePostale = document.getElementById("codePostale").value;
+
+  let longitude;
+  let latitude;
+
+  address2 = address.replace(/\s/g, '+');
+  ville2 = ville.replace(/\s/g, '+');
+
+  ville = ville.trim();
+  address = address.trim();
+  codePostale = codePostale.trim();
+
+  let url = address2 + "+" + codePostale + "+" + ville2;
+  console.log("https://api-adresse.data.gouv.fr/search/?q=" + url);
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request.open("GET","https://api-adresse.data.gouv.fr/search/?q=" + url,true);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  longitude = ObjJson["features"][0]["geometry"]["coordinates"][0];
+                  latitude = ObjJson["features"][0]["geometry"]["coordinates"][1];
+                  console.log("coordo :" + longitude + "," + latitude);
+                  let array = [ville,address,codePostale,longitude,latitude];
+                  executeCreateDepot(ville, address, codePostale, longitude, latitude);
+          } else {
+              alert("Error: returned status code " + request.status + " " + request.statusText);
+          }
+      }
+  }
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  request.send();
+}
+
 function validate() {
     let canContainSpace = false;
     let mustNotContainSpace = true;
@@ -151,7 +341,7 @@ function checkInput(idInput,lenMax,  OnlyNumber, OnlyLetter,mustNotContainSpace)
     }
     element = element.trim();
     if(mustNotContainSpace) {                                       // supp space
-        element = element.replace(/\s/, '');
+        element = element.replace(/\s/g, '');
     }
     if(OnlyLetter){
         if(!/^[a-zA-Z]+$/.test(element))                                                 // check if there is onlyl etter
@@ -625,6 +815,67 @@ function searchColisId() {
   request.send();
 }
 
+function searchDepotVille() {
+  let containerLeft = document.getElementById("result");
+  containerLeft.innerHTML = "";
+
+  let findVille = document.getElementById("search").value;
+  findVille = String(findVille);
+
+  console.log("search()");
+  let request = new XMLHttpRequest();
+  request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/list.php?offset=0&ville=" + findVille + "&id=&limit=100000&adresse",true);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                    let tabBase = document.createElement("table");
+                    containerLeft.appendChild(tabBase);
+                    let tr1 =  document.createElement("tr");
+                    let th1 =  document.createElement("th");
+                    let th2 =  document.createElement("th");
+                    let th3 =  document.createElement("th");
+                    th1.innerHTML = "ID";
+                    th2.innerHTML = "Ville";
+                    th2.innerHTML = "Adresse";
+                    containerLeft.appendChild(tabBase);
+                    tabBase.appendChild(tr1);
+                    tr1.appendChild(th1);
+                    tr1.appendChild(th2);
+                    tr1.appendChild(th3);
+
+
+                    ObjJson.forEach(
+                      element => {
+                        let nwLine =  document.createElement("tr");
+                        tabBase.appendChild(nwLine);
+                        let td1 = document.createElement("td");
+                        nwLine.appendChild(td1);
+                        let a1 = document.createElement("a");
+                        td1.appendChild(a1);
+                        a1.innerHTML = String(element["id"]);
+                        a1.setAttribute("onclick", 'listInfosDepot("' + String(element["id"]) + '")');
+                        a1.setAttribute("href", "#section" + String(element["id"]));
+                        let td2 = document.createElement("td");
+                        nwLine.appendChild(td2);
+                        let td3 = document.createElement("td");
+                        nwLine.appendChild(td3);
+                        td2.innerHTML = String(element["ville"]);
+                        td2.innerHTML = String(element["adresse"]);
+                    });
+                  }
+          } else {
+              alert("Error: returned status code " + request.status + " " + request.statusText);
+          }
+      }
+  }
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  request.send();
+}
+
 function searchRecipientMail() {
   let containerLeft = document.getElementById("result");
   containerLeft.innerHTML = "";
@@ -821,6 +1072,29 @@ function searchRecipient() {
   newDiv.setAttribute("id", "result");
 }
 
+function searchDepot() {
+  div.innerHTML = "";
+  let h1 = document.createElement('h1');
+  div.appendChild(h1);
+  h1.innerHTML = "Faire une recherche par la vile d'un dépot";
+
+  let input = document.createElement('input');
+  div.appendChild(input);
+  input.setAttribute("id", "search");
+  input.setAttribute("type", "text");
+  input.setAttribute("placeholder", "ville");
+
+  let button = document.createElement('button');
+  div.appendChild(button);
+  button.setAttribute("type", "button");
+  button.setAttribute("onclick", "searchDepotVille()");
+  button.innerHTML = "Rechercher";
+
+  let newDiv = document.createElement('div');
+  div.appendChild(newDiv);
+  newDiv.setAttribute("id", "result");
+}
+
 function searchVehicule() {
   div.innerHTML = "";
   let h1 = document.createElement('h1');
@@ -912,6 +1186,99 @@ function removeColis(id) {
         request.send();
 }
 
+function removeDepot(id) {
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request2 = "https://quickbaluchonservice.site/api/QuickBaluchon/depots/delete/delete.php?id=" + id;
+  request.open("GET",request2,true);
+  console.log(request2);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                    if (String(ObjJson["success"]) == 1) {
+                      div.innerHTML = "";
+                      alert("La suppression du colis est réussie");
+                      gestionMenu(6);
+                    }else if (String(ObjJson["success"]) == 0) {
+                      alert("La suppression à échouer");
+                    }
+
+                  }
+                } else {
+                    alert("Error: returned status code " + request.status + " " + request.statusText);
+                }
+            }
+        }
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+}
+
+function removeVehicule(id) {
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request2 = "https://quickbaluchonservice.site/api/QuickBaluchon/vehicules/delete/delete.php?id=" + id;
+  request.open("GET",request2,true);
+  console.log(request2);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                    if (String(ObjJson["success"]) == 1) {
+                      div.innerHTML = "";
+                      alert("La suppression du véhicule est réussie");
+                      gestionMenu(2);
+                    }else if (String(ObjJson["success"]) == 0) {
+                      alert("La suppression à échouer");
+                    }
+
+                  }
+                } else {
+                    alert("Error: returned status code " + request.status + " " + request.statusText);
+                }
+            }
+        }
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+}
+
+function removeRecipient(id) {
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request2 = "https://quickbaluchonservice.site/api/QuickBaluchon//recipients/delete/delete.php?id=" + id;
+  request.open("GET",request2,true);
+  console.log(request2);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                    if (String(ObjJson["success"]) == 1) {
+                      div.innerHTML = "";
+                      alert("La suppression du particulier est réussie");
+                      gestionMenu(3);
+                    }else if (String(ObjJson["success"]) == 0) {
+                      alert("La suppression à échouer");
+                    }
+
+                  }
+                } else {
+                    alert("Error: returned status code " + request.status + " " + request.statusText);
+                }
+            }
+        }
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+}
+
 function getListUserDriverLicence() {
   let containerLeft = document.getElementById("containerLeft");
   containerLeft.innerHTML = "";
@@ -978,6 +1345,7 @@ function getListUserDriverLicence() {
 
 function getListColisByIdRecipient(idRecipient) {
   let containerLeft = document.getElementById("section" + idRecipient);
+  let msg;
   let ObjJson;
   let request = new XMLHttpRequest();
   request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/colis/get/getValue.php?idRecipient=" + idRecipient,true);
@@ -986,7 +1354,9 @@ function getListColisByIdRecipient(idRecipient) {
               if(request.status == 200) {
                   ObjJson = JSON.parse(request.responseText);
                   if(ObjJson.hasOwnProperty("message")) {
-                      containerLeft.innerHTML = ObjJson["message"];
+                      msg = document.createElement("p");
+                      msg.innerHTML = ObjJson["message"] + "<br>Erreur le particulier n'a pas de colis attribué";
+                      containerLeft.appendChild(msg);
                   } else {
                       let tabBase = document.createElement("table");
                       containerLeft.appendChild(tabBase);
@@ -1324,6 +1694,7 @@ function listInfosUser (id) {
                         p2.innerHTML = "Numéro de SIRET : " + String(ObjJson["numSiret"]);
                         getListColisByIdUser(id);
                       }else if (String(ObjJson["statut"]) == "1") {
+                        let active;
                         if (String(ObjJson["driverLicence"]) == "1") {
                           containerLeft.appendChild(p2);
                           p2.innerHTML = "Le permis a été validé<br>La zone maximum défini par le livreur est de " + String(ObjJson["zoneMaxDef"]) + " km";
@@ -1339,6 +1710,16 @@ function listInfosUser (id) {
                         containerLeft.appendChild(p2);
                         p2.innerHTML = "Le permis n'est pas validé";
                         let p3 = document.createElement("p");
+                        let img = document.createElement("img");
+                        let path = String(ObjJson["licencePath"]);
+                        path = path.slice(1);
+                        console.log(path);
+                        img.setAttribute("src", "https://quickbaluchonservice.site/QuickBaluchon/licences" + path);
+                        containerLeft.appendChild(img);
+                        let button1 = document.createElement("button");
+                        button1.setAttribute("onclick", "updateUserDriverLicence(" + id + ")");
+                        button1.innerHTML = "Valider le permis";
+                        containerLeft.appendChild(button1);
                       }
                     }
                     let button = document.createElement("button");
@@ -1435,7 +1816,53 @@ function listInfosRecipient (id) {
                       let h2 = document.createElement("h2");
                       containerLeft.appendChild(h2);
                       h2.innerHTML = "Liste des colis de " + String(ObjJson["nom"]);
-                      getListColisByIdRecipient(String(ObjJson["id"]));
+                      getListColisByIdRecipient(id);
+                      let button1 = document.createElement("button");
+                      button1.setAttribute("onclick", "removeRecipient(" + id + ")");
+                      button1.innerHTML = "Supprimer le particulier";
+                      containerLeft.appendChild(button1);
+                  }
+                } else {
+                    alert("Error: returned status code " + request.status + " " + request.statusText);
+                }
+            }
+        }
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.send();
+}
+
+function listInfosDepot(id) {
+  div.innerHTML = "";
+  let containerLeft = document.createElement('div');
+  containerLeft.setAttribute("id", "section" + id);
+  div.appendChild(containerLeft);
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request2 = "https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/list.php?offset=0&ville=&id=" + id + "&adresse&codePostale&longitude&latitude&limit=1000000";
+  request.open("GET",request2,true);
+  console.log(request2);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                    console.log(ObjJson);
+                    let h1 = document.createElement("h1");
+                    containerLeft.appendChild(h1);
+                    h1.innerHTML = "Fiche du dépot n°" + id;
+                    let p1 = document.createElement("p");
+                    containerLeft.appendChild(p1);
+                    p1.innerHTML = "Ville du dépot : " + String(ObjJson[0]["ville"])
+                                  + "<br>Adresse du dépot : " + String(ObjJson[0]["adresse"])
+                                  + "<br>Code postal du dépot : " + String(ObjJson[0]["codePostale"])
+                                  + "<br>Longitude du dépot : " + String(ObjJson[0]["longitude"])
+                                  + "<br>Latitude du dépot : " + String(ObjJson[0]["latitude"]);
+                    let button1 = document.createElement("button");
+                    button1.setAttribute("onclick", "removeDepot(" + id + ")");
+                    button1.innerHTML = "Supprimer le dépot";
+                    containerLeft.appendChild(button1);
                   }
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -1472,6 +1899,10 @@ function listInfosVehicule(id) {
                                     + "<br>Volume maximum du véhicule : " + String(ObjJson["volumeMax"])
                                     + "<br>Poids maximum du véhicule : " + String(ObjJson["weightMax"])
                                     + "<br>Nombre de colis maximum du véhicule : " + String(ObjJson["nbColis"]);
+                      let button1 = document.createElement("button");
+                      button1.setAttribute("onclick", "removeVehicule(" + id + ")");
+                      button1.innerHTML = "Supprimer le véhicule";
+                      containerLeft.appendChild(button1);
                   }
                 } else {
                     alert("Error: returned status code " + request.status + " " + request.statusText);
@@ -1815,6 +2246,73 @@ function getListVehicule() {
   request.send();
 }
 
+function getListDepot() {
+  let newDiv = document.getElementById("section6");
+  let containerLeft = document.createElement('div');
+  containerLeft.setAttribute("class", "col");
+  newDiv.appendChild(containerLeft);
+  let h2 = document.createElement('h2');
+  h2.innerHTML = "Liste de tous les dépots";
+  containerLeft.appendChild(h2);
+  let buttonSearch = document.createElement('button');
+  buttonSearch.setAttribute("onclick", "searchDepot()");
+  buttonSearch.innerHTML = "Faire une recherche par la ville";
+  containerLeft.appendChild(buttonSearch);
+
+  let ObjJson;
+  let request = new XMLHttpRequest();
+  request.open("GET","https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/list.php?limit=100000&offset=0",true);
+  request.onreadystatechange = function() {
+      if(request.readyState == 4) {
+              if(request.status == 200) {
+                  ObjJson = JSON.parse(request.responseText);
+                  if(ObjJson.hasOwnProperty("message")) {
+                      containerLeft.innerHTML = ObjJson["message"];
+                  } else {
+                      let tabBase = document.createElement("table");
+                      containerLeft.appendChild(tabBase);
+                      let tr1 =  document.createElement("tr");
+                      let th1 =  document.createElement("th");
+                      let th2 =  document.createElement("th");
+                      let th3 =  document.createElement("th");
+                      th1.innerHTML = "ID";
+                      th2.innerHTML = "Ville";
+                      th2.innerHTML = "Adresse";
+                      containerLeft.appendChild(tabBase);
+                      tabBase.appendChild(tr1);
+                      tr1.appendChild(th1);
+                      tr1.appendChild(th2);
+                      tr1.appendChild(th3);
+
+
+                      ObjJson.forEach(
+                        element => {
+                          let nwLine =  document.createElement("tr");
+                          tabBase.appendChild(nwLine);
+                          let td1 = document.createElement("td");
+                          nwLine.appendChild(td1);
+                          let a1 = document.createElement("a");
+                          td1.appendChild(a1);
+                          a1.innerHTML = String(element["id"]);
+                          a1.setAttribute("onclick", 'listInfosDepot("' + String(element["id"]) + '")');
+                          a1.setAttribute("href", "#section" + String(element["id"]));
+                          let td2 = document.createElement("td");
+                          nwLine.appendChild(td2);
+                          let td3 = document.createElement("td");
+                          nwLine.appendChild(td3);
+                          td2.innerHTML = String(element["ville"]);
+                          td2.innerHTML = String(element["adresse"]);
+                      });
+                  }
+          } else {
+              alert("Error: returned status code " + request.status + " " + request.statusText);
+          }
+      }
+  }
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  request.send();
+}
+
 function gestionMenu(id) {
   if (id == 1) {
     div.innerHTML = "";
@@ -1860,27 +2358,17 @@ function gestionMenu(id) {
     h1.innerHTML = "Gestion des administrateurs";
     divSection.appendChild(h1);
     getListUser(2);
+  }else if (id == 6) {
+    div.innerHTML = "";
+    let divSection = document.createElement('div');
+    divSection.setAttribute("id", "section6");
+    div.appendChild(divSection);
+    createDepotForm();
+    let h1 = document.createElement('h1');
+    h1.innerHTML = "Gestion des dépots";
+    divSection.appendChild(h1);
+    getListDepot();
   }
 
 
 }
-
-/*
-function getUser() {
-    let login = document.getElementById("mail").value;
-    let psswrd = document.getElementById("pssword").value;
-    let request = new XMLHttpRequest();
-     request.open("GET","http://localhost:8888/users/get/getValue.php?password=" + psswrd + "&mail=" + login ,true);
-     request.onreadystatechange = function() {
-        if(request.readyState == 4) {
-            if(request.status == 200) {
-                let ObjJson = JSON.parse(request.responseText);
-                console.log(ObjJson);
-            } else {
-                alert("Error: returned status code " + request.status + " " + request.statusText);
-            }
-        }
-    }
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send();
-}*/
