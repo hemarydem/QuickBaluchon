@@ -13,7 +13,7 @@ if(isset($_GET)){
         $data[$key]["gap"] = 0;
     }
     unset($data[4]);
-    echo "LES COLIS \n"
+    echo "LES COLIS \n";
     print_r($data);
 
 
