@@ -13,7 +13,8 @@ if(isset($_GET)){
         $data[$key]["gap"] = 0;
     }
     unset($data[4]);
-    //print_r($data);
+    echo "LES COLIS \n"
+    print_r($data);
 
 
     $urlBase = "https://quickbaluchonservice.site/api/QuickBaluchon/depots/get/depot.php?id=" . $_GET["idDepot"];
@@ -22,7 +23,8 @@ if(isset($_GET)){
     curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
     $currentDepotArray = json_decode(curl_exec($cURLConnection), true);
     curl_close($cURLConnection);
-
+    echo "LE Depot \n"
+    print_r($data);
 
 
     foreach ($data as $key => $value ){
@@ -105,8 +107,8 @@ if(isset($_GET)){
     $result = json_decode(curl_exec($ch),true);
     curl_close($ch);
 
-
-    //print_r($result);
+    echo "Création de la liveraison";
+    print_r($result);
 /*
  * Array
 (
@@ -188,6 +190,8 @@ if(isset($_GET)){
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = json_decode(curl_exec($ch),true);
         curl_close($ch);
+        echo"COLIS ajouter";
+        print_r($result);
 
         $firstColus = [
             "idDelivery"=> $dataDelyvery["id"],
