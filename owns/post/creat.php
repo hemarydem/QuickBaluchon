@@ -31,7 +31,7 @@ insertOwn(
      "OWN",
     $data->{"idVehicule"},
     $data->{"idUser"},
-     1,
+    $data->{"active"},
     [
         "idVehicule" => $data->{"idVehicule"},
         "idUser" => $data->{"idUser"}

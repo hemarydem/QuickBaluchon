@@ -16,6 +16,7 @@ $intKey = [
 header("Access-Control-Allow-Origin: *");
 if(execRequestALLreadyExist("SELECT idDepot, idUser, active FROM DEPOSIT WHERE idDepot=? AND idUser=?", [intval($data["idDepot"]),intval($data["idUser"])])){
     if(isset($data["active"])) {
+        countArrElem($data, 3);
         $value = intval($data["active"]);
         if (execRequestUpdate("UPDATE DEPOSIT SET active = ? WHERE idDepot=? AND idUser=?", [$value,intval($data["idDepot"]),intval($data["idUser"])]) == 1) {
             header('Content-type: Application/json');
@@ -28,13 +29,14 @@ if(execRequestALLreadyExist("SELECT idDepot, idUser, active FROM DEPOSIT WHERE i
         exit(1);
     }
 }
+countArrElem($data, 2);   // must have 11 elements
 //areSetJsonObjElem($data);                   //TODO function check elements are init
 $data = strToIntJsonArray($data, $intKey);  // cast elements
 insertDeposit(
     "DEPOSIT",
     $data["idDepot"],
     $data["idUser"],
-    $data["active"],
+    1,
     [
         "idDepot" =>  $data["idDepot"],
         "idUser" => $data["idUser"]
