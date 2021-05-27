@@ -1135,10 +1135,10 @@ function getDeliveryId(){
                     } else {
                         if(ObjJson.length > 1) {
                             ObjJson.forEach(element=>{
-                                diplayDelyvery(String(ObjJson["idDelivery"]));
+                                diplayDelyvery(String(element["idDelivery"]));
                             });
                         } else {
-
+                            diplayDelyvery(String(ObjJson["idDelivery"]));
                         }
                     }
                     console.log("ok");
