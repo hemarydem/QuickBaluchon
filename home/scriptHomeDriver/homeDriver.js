@@ -1135,8 +1135,10 @@ function getDeliveryId(){
                     } else {
                         if(ObjJson.length > 1) {
                             ObjJson.forEach(element=>{
-                                ObjJson["idDelivery"]
+                                diplayDelyvery(String(ObjJson["idDelivery"]));
                             });
+                        } else {
+
                         }
                     }
                     console.log("ok");
