@@ -1165,7 +1165,7 @@ function diplayDelyvery(idDELIV){
                     } else {
                         if(ObjJson.length > 1) {
                             ObjJson.forEach(element=>{
-                                let str =  String(ObjJson["id"] )+ String(ObjJson["volume"])+String(ObjJson["distance"]);
+                                let str =  String(element["id"] )+ String(element["volume"])+String(element["distance"]);
                                 let ele =  document.createElement("p");
                                 ele.innerHTML = str;
                                 div.appendChild(ele);
@@ -1191,17 +1191,24 @@ function diplayDelyveryColis(idDELIV, elementPArent){
         if(request.readyState == 4) {
                 if(request.status == 200) {
                     let ObjJson = JSON.parse(request.responseText);
+                    console.log(ObjJson);
                     if(ObjJson == null || ObjJson.hasOwnProperty("message")) {
                         console.log("error");
                         console.log(ObjJson["message"]);
                     } else {
+                        console.log(ObjJson);
                         if(ObjJson.length > 1) {
                             ObjJson.forEach(element=>{
-                                let str =  String(ObjJson["adresse"] )+ String(ObjJson["id"]);
+                                let str =  String(element["adresse"] )+ String(element["id"]);
                                 let ele =  document.createElement("p");
                                 ele.innerHTML = str;
                                 div.appendChild(elementPArent);
                             });
+                        } else{
+                            let str =  String(ObjJson["adresse"] )+ String(ObjJson["id"]);
+                                let ele =  document.createElement("p");
+                                ele.innerHTML = str;
+                                div.appendChild(elementPArent);
                         }
                     }
                     console.log("ok");
